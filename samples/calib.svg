@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="843px" height="650px" viewBox="0 -27 843 650" enable-background="new 0 -27 843 650" xml:space="preserve">
+<line fill="none" stroke="#00AEEF" stroke-width="0.2835" stroke-miterlimit="2.613" x1="0" y1="623" x2="0.5" y2="623"/>
+<rect x="798.375" y="508.652" fill="none" stroke="#000000" stroke-width="0.2835" stroke-miterlimit="10" width="30" height="30"/>
+<line fill="none" stroke="#ED1C24" stroke-width="0.2835" stroke-miterlimit="10" x1="803.375" y1="513.652" x2="803.375" y2="538.652"/>
+<line fill="none" stroke="#ED1C24" stroke-width="0.2835" stroke-miterlimit="10" x1="803.375" y1="513.652" x2="828.375" y2="513.652"/>
+<g>
+	<polygon fill="none" stroke="#00AEEF" stroke-width="0.2835" stroke-miterlimit="10" points="809.27,522.651 808.695,524.728 
+		806.812,524.728 809.27,516.644 811.668,516.644 814.188,524.728 812.208,524.728 811.584,522.651 	"/>
+	<path fill="none" stroke="#00AEEF" stroke-width="0.2835" stroke-miterlimit="10" d="M811.322,521.284l-0.504-1.715
+		c-0.144-0.479-0.288-1.08-0.407-1.56h-0.022c-0.12,0.479-0.24,1.092-0.372,1.56l-0.479,1.715H811.322z"/>
+</g>
+<line fill="none" stroke="#ED1C24" stroke-width="0.2835" stroke-miterlimit="10" x1="826.357" y1="516.271" x2="805.316" y2="536.652"/>
+<text transform="matrix(1 0 0 1 330.0002 288.4541)" font-family="'ArialMT'" font-size="6.35">{”passes”:3, “power”:50, “speed”:50, “z”:[103,104,105], “order”:2}</text>
+<text transform="matrix(1 0 0 1 330.0002 300.96)" fill="#ED1C24" font-family="'ArialMT'" font-size="6.35">{”passes”:1, “power”:30, ”speed”:50, ”z”:103, “order”:1}</text>
+<text transform="matrix(1 0 0 1 330.0002 312.6592)" fill="#00AEEF" font-family="'ArialMT'" font-size="6.35">{”passes”:1, “power”:16,”speed”:50, “z”:103, “order”:0}</text>
+<g>
+	<path fill="none" stroke="#00AEEF" stroke-width="0.2835" stroke-miterlimit="10" d="M819.38,527.292
+		c0.479-0.084,1.438-0.168,2.36-0.168c1.115,0,1.801,0.106,2.397,0.457c0.562,0.3,0.959,0.853,0.959,1.595
+		c0,0.709-0.419,1.366-1.331,1.717v0.022c0.924,0.238,1.606,0.945,1.606,1.979c0,0.744-0.335,1.317-0.841,1.728
+		c-0.588,0.47-1.569,0.731-3.178,0.731c-0.897,0-1.569-0.062-1.979-0.121v-7.938L819.38,527.292L819.38,527.292z"/>
+	<path fill="none" stroke="#00AEEF" stroke-width="0.2835" stroke-miterlimit="10" d="M821.192,530.388h0.602
+		c0.973,0,1.476-0.396,1.476-0.996c0-0.61-0.468-0.937-1.295-0.937c-0.407,0-0.637,0.022-0.779,0.047L821.192,530.388
+		L821.192,530.388z"/>
+	<path fill="none" stroke="#00AEEF" stroke-width="0.2835" stroke-miterlimit="10" d="M821.192,533.974
+		c0.181,0.022,0.396,0.022,0.708,0.022c0.827,0,1.561-0.323,1.561-1.176c0-0.804-0.729-1.127-1.646-1.127h-0.623V533.974z"/>
+</g>
+<line fill="none" stroke="#000000" stroke-width="0.2835" stroke-miterlimit="10" x1="822.231" y1="515.87" x2="815.71" y2="522.39"/>
+<line fill="none" stroke="#000000" stroke-width="0.2835" stroke-miterlimit="10" x1="812.185" y1="535.94" x2="805.665" y2="529.421"/>
+</svg>
