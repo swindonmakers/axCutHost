@@ -16,3 +16,20 @@ A client/server host control and GCode generation tool originally developed for 
 * Power Map - dynamically vary the power levels across the laser bed to compensate for beam divergence, etc (useful for large format machines)
 * Live status update and time-remaining feedback from the laser cutter
 * Pause/resume and Abort functions
+
+
+# System Architecture
+
+* UI - Fat web client (javascript, etc), with AJAX driven comms to/from web server
+* Web server / serial control - Python-based server-side, using embedded bottle.py web server and serial communication to laser cutter
+* Marlin-based firmware - communicates G/M-codes in plain text over serial link, protected by enhanced CRC16 error detection
+
+
+# Launching the Host
+
+The Python-based host includes a lightweight web-server (bottle.py) and has no external library dependencies, launching it is as simple as:
+
+1) clone the repo
+2) terminal to the root directory
+3) execute run.sh
+4) navigate to http://localhost:4444 (Chrome browser recommended)
