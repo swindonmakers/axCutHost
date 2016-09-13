@@ -1,0 +1,36 @@
+{
+	"description": "High quality kite fabric",
+	"origin": [
+		19,
+		0
+	],
+	"travelSpeed": 200,
+	"lineTypes": [
+		{
+			"type": "cut",
+			"color": "#000000",
+			"order": 1,
+			"useContainment": true,
+			"passes": [
+				{
+					"speed": 100,
+					"z": 103,
+					"power": 50
+				}
+			]
+		},
+		{
+			"type": "finalCut",
+			"color": "#00FF00",
+			"order": 100,
+			"useContainment": false,
+			"passes": [
+				{
+					"speed": 100,
+					"z": 103,
+					"power": 50
+				}
+			]
+		}
+	]
+}

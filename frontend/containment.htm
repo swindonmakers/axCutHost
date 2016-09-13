@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Offset</title>
+	<script src="js/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="js/paperjs/dist/paper.js"></script>
+	<script type="text/javascript" src="js/QuadTree.js"></script>
+	<script type="text/javascript" src="js/offsetPath2.js"></script>
+	<script type="text/javascript" src="js/TreeModel.js"></script>
+	<script type="text/javascript" src="js/genetic-0.1.14.min.js"></script>
+	<script type="text/javascript" src="js/containment.js"></script>
+
+	<style>
+		BODY, P, FORM {
+			font-family:Verdana,sans-serif;
+			font-size:12px;
+		}
+		INPUT.numeric {
+			width:60px;
+		}
+
+		#gcode {
+			clear:both;
+			width:300px;
+			height:200px;
+			position:absolute;
+			right: 5px;
+			top:30px;
+		}
+
+		#download {
+			width:300px;
+			height:25px;
+			position:absolute;
+			top: 240px;
+			right: 5px;
+			display:none;
+		}
+
+		#cuttingInfo {
+			width:300px;
+			position:absolute;
+			right: 5px;
+			top:270px;
+		}
+
+		#cuttingInfo table {
+			border:1px solid #CCC;
+			font-size:11px;
+		}
+		#cuttingInfo th {
+			background-color: #f0f0f0;
+			padding: 2px 4px;
+			text-align:left;
+		}
+		#cuttingInfo td {
+			padding: 2px 4px;
+		}
+	</style>
+
+	<script type="text/javascript">
+
+	var debugGroup;
+	var loadedItem;
+	var cutParams = [];
+	var notes = [];
+
+	var powerMapSize = 5;  // row/col size
+	// old laser var powerMap = [
+	//	[1,   1,   1,    0.7,  0.7],
+	//	[1,   1,   1,    0.9,  0.7],
+	//	[1,   1,   1,    0.9,  0.7],
+	//	[1,   0.9,   0.85, 0.8,  0.6],
+	//	[0.9,   0.8,   0.75, 0.70, 0.4]
+		//];
+	var powerMap = [
+		[1.1,	1,		0.8,	0.7,	0.6],
+		[1.1,	1,		0.8,	0.7,	0.7],
+		[1.1,	1,		0.9,	0.8,	0.7],
+		[1,		0.8,	0.8,	0.7,	0.7],
+		[1,		0.8,	0.8,	0.7,	0.7]
+	];
+	var maxLineLength = 100; // mm
+
+	var calcTime = 0;
+
+	var machine = {
+		bedW: 890,
+		bedD: 650,
+		bedH: 120
+	};
+
+	var lastF = 0;
+	var lastZ = 0;
+
+	var selPath;
+	var movePath = false;
+
+	var hitOptions = {
+		segments: false,
+		stroke: true,
+		fill: false,
+		tolerance: 5
+	};
+
+	var loadedFilename = '';
+
+	paper.install(window);
+
+
+	function clamp(val, min, max){
+		return Math.max(min, Math.min(max, val));
+	}
+
+	$( document ).ready(function() {
+  		var canvas = document.getElementById('canvas');
+		paper.setup(canvas);
+
+		var file = document.getElementById('file');
+		file.addEventListener('change', function (event) {
+			var fileUploader = this;
+			var files = event.target.files;
+			for (var i = 0; i < files.length; i++) {
+				var file = files[i];
+				if (file.type.match('svg')) {
+					loadedFilename = file.name;
+
+					project.activeLayer.position = new Point(0,0);
+
+					project.activeLayer.removeChildren();
+
+					// bed reference
+					var b = new Path.Rectangle(0,0,machine.bedW, machine.bedD);
+					b.strokeColor = new Color(0,0,0,0.2);
+
+					// bed grid
+					for (x = 0; x <= Math.floor(machine.bedW/100); x++) {
+						var l = new Path.Line(x*100,0,x*100, machine.bedD);
+						l.strokeColor = new Color(0,0,0,0.1);
+						l.strokeWidth = 0.5;
+					}
+					for (y = 0; y <= Math.floor(machine.bedD/100); y++) {
+						var l = new Path.Line(0,machine.bedD-y*100,machine.bedW,machine.bedD-y*100);
+						l.strokeColor = new Color(0,0,0,0.1);
+						l.strokeWidth = 0.5;
+					}
+
+					project.importSVG(file, {expandShapes:true, onLoad:function(item) {
+
+						loadedItem = item;
+
+						// get a list of cutting parameters in the drawing
+						cutParams = [];
+						notes = [];
+						doThisToObjects(loadedItem, 'PointText', function(p) {
+							var passes = 1;
+							var power = 100;
+							var speed = 30;  // mm/sec
+							var z = 111;  // default z height
+							var cutType = 'cut';
+							var order = 0;
+							//var c = p.fillColor.toCSS(true);
+							var c = '';
+							if (p.strokeColor != undefined) {
+								c = p.strokeColor.toCSS(true);
+							} else {
+								c = p.fillColor.toCSS(true);
+							}
+
+							var obj;
+							try {
+								obj = JSON.parse(p.content.replace(/[\u201C\u201D]/g, '"'));
+							} catch(err) {
+								console.log(p.content, err);
+							}
+
+							if (obj && obj.note) {
+								notes.push(obj.note);
+
+							} else if (obj) {
+								if (obj.passes) passes = clamp(obj.passes,0,10);
+								if (obj.power) {
+									if (Array.isArray(obj.power)) {
+										power = obj.power;  // TODO: clamping
+									} else {
+										power = clamp(obj.power,0,120);
+									}
+								}
+								if (obj.speed) {
+									if (Array.isArray(obj.speed)) {
+										speed = obj.speed;  // TODO: clamping
+									} else {
+										speed = clamp(obj.speed,0,120);
+									}
+								}
+								if (obj.type) cutType = obj.type;
+								if (obj.order) order = obj.order;
+								if (obj.z) {
+									if (Array.isArray(obj.z)) {
+										z = obj.z;  // TODO: clamping
+									} else {
+										z = clamp(obj.z,0,120);
+									}
+								}
+
+								var g = new Group();
+
+								cutParams.push({'passes':passes, 'power':power, 'speed':speed, 'z':z, 'c':c, 'g':g, 'ct':null, 'order':order, 'type':cutType});
+
+							}
+
+							//p.remove();
+							// hide text path - TODO: remove it
+							p.visible = false;
+						});
+
+						// sort
+						cutParams.sort(function(a,b) {
+							return a.order - b.order;
+						})
+
+						// table
+						ci = '<table cellpadding=0 cellspacing=0> <tr> <th>Color</th> <th>Type</th> <th>Passes</th> <th>Power</th> <th>Speed mm/s</th> <th>Z</th> </tr>';
+						for (var i=0; i < cutParams.length; i++) {
+							cp = cutParams[i];
+							ci += '<tr>'+
+									'<td style="color:'+cp.c+';">'+cp.c+'</td>'+
+									'<td>'+cp.type+'</td>'+
+									'<td>'+cp.passes+'</td>'+
+									'<td>'+cp.power+'%</td>'+
+									'<td>'+cp.speed+'</td>'+
+									'<td>'+cp.z+'</td>'+
+								'</tr>';
+						}
+						ci += ' </table>'
+
+						// display cutting params
+						$("#cuttingInfo").html(ci);
+
+						view.zoom = 1;
+
+						// scale to bed
+						var w1  = machine.bedW;
+						var h1 = machine.bedD;
+						var aspect = w1/h1;
+						var vw = view.size.width;
+						var vh = view.size.height;
+						var va = vw/vh;
+
+						var scale = 1;
+
+						if (aspect > va) {
+							scale = vw / w1;
+						} else {
+							scale = vh / h1;
+						}
+
+						// scale to fit bed
+						item.transformContent = true;
+						//item.scale(scale);
+
+						// position at bottom left of view
+						var delta = new Point(item.bounds.left - 19, item.bounds.bottom - machine.bedD);
+						item.position = item.position.subtract(delta);
+
+						// reset view
+						//console.log(scale);
+						view.zoom = scale * 0.9;
+
+
+
+						//project.activeLayer.position.x += -item.bounds.width + view.center.x;
+						//project.activeLayer.position.y +=  -item.bounds.height + view.center.y;
+
+
+						UpdateItemInfo();
+
+						item.fillColor = new Color(0,0,0,0);
+						item.strokeWidth = 1;
+
+						recalc(true);
+
+						genGCode();
+					}});
+				}
+			}
+		});
+
+
+		view.draw();
+
+		function UpdateItemInfo() {
+			$('#left').val(loadedItem.bounds.left.toFixed(1));
+			$('#bottom').val((machine.bedD - loadedItem.bounds.bottom).toFixed(1));
+			$('#width').val(loadedItem.bounds.width.toFixed(1));
+			$('#height').val(loadedItem.bounds.height.toFixed(1));
+		}
+
+		function updateStrokeWidths() {
+			debugGroup.strokeWidth = view.size.width / view.viewSize.width;
+			loadedItem.strokeWidth = debugGroup.strokeWidth;
+			for (i=0; i < cutParams.length; i++) {
+				cutParams[i].g.strokeWidth = debugGroup.strokeWidth;
+			}
+		}
+
+
+		view.on('resize', function(event) {
+			view.draw();
+		});
+
+
+		$('#recalc').on('click',function() {
+
+			recalc(false);
+		});
+
+		$('#gcodebut').on('click',function() {
+
+			genGCode();
+		});
+
+		$('#calib').on('click',function() {
+
+			genCalibration();
+		});
+
+		$('#foamCalib').on('click',function() {
+
+			genFoamCalib();
+		});
+
+		$('#psycho').on('click',function() {
+
+			genPsycho();
+		});
+
+		$('#cutbut').on('click',function() {
+
+			// POST gcode to cutter
+			var src = $('#gcode').html();
+
+			$.post( "gcode", {'gcode':src}, function( data ) {
+  				alert( data );
+			});
+		});
+
+		var tool = new Tool();
+
+		tool.onMouseDown = function(event) {
+
+		}
+
+		tool.onMouseMove = function(event) {
+			/*
+			var hitResult = project.hitTest(event.point, hitOptions);
+			if (hitResult && hitResult.item.isDescendant(debugGroup)) {
+				hitResult.item.selected = true;
+			}
+			*/
+		}
+
+		tool.onMouseDown = function(event) {
+			selPath = null;
+			var hitResult = project.hitTest(event.point, hitOptions);
+			if (!hitResult)
+				return;
+
+
+
+			if (hitResult) {
+				selPath = hitResult.item;
+
+				movePath = true;
+			}
+			//if (movePath)
+			//	project.activeLayer.addChild(hitResult.item);
+		}
+
+		tool.onMouseUp = function(event) {
+			if (movePath)
+				recalc(false);
+			movePath = false;
+		}
+
+		tool.onMouseDrag = function(event) {
+
+			if (movePath) {
+				//loadedItem.position = loadedItem.position.add(event.delta);
+				//UpdateItemInfo();
+			} else {
+				//project.activeLayer.position = project.activeLayer.position.add(event.delta);
+			}
+
+		}
+
+
+		function exportGCode() {
+			window.URL = window.URL || window.webkitURL;
+
+			var src = $('#gcode').html();
+
+			var blob = new Blob([src], {type: 'text/plain'});
+
+			var link = $('#download');
+			link.attr('href',window.URL.createObjectURL(blob));
+			link.attr('download',loadedFilename.slice(0,-4) + '.gcode');
+			link.show();
+		}
+
+
+		function joinPaths(g) {
+			// join paths with overlapping points in a given group
+			var i=0, j=1;
+			while (i < g.children.length && j<g.children.length) {
+				// see if endpoints overlap
+				p1 = g.children[i];
+				p2 = g.children[j];
+
+				if (
+					p1.firstSegment.equals(p2.firstSegment) ||
+					p1.firstSegment.equals(p2.lastSegment)
+				) {
+					p1.join(p2);
+					//debugCrossHair(p1.firstSegment.point, 2, 'green');
+					//console.log('joined to start');
+				} else if (
+					p1.lastSegment.equals(p2.firstSegment) ||
+					p1.lastSegment.equals(p2.lastSegment)
+				) {
+					p1.join(p2);
+					//debugCrossHair(p1.lastSegment.point, 2, 'green');
+					//console.log('joined to end');
+				} else {
+					j++;
+					if (j == g.children.length) {
+						i++;
+						j = i+1;
+					}
+				}
+			}
+		}
+
+
+
+		function recalc(doReverse) {
+			if (debugGroup) debugGroup.remove();
+			debugGroup = new Group();
+
+			// clear gcode
+			$('#gcode').html('');
+			$('#download').hide();
+
+			// empty cutParams groups and clear existing containment trees
+			for (i=0; i < cutParams.length; i++) {
+				cutParams[i].g.removeChildren();
+				cutParams[i].ct = null;
+			}
+
+			// clone from loadedItem across to relevant cutParams group
+			doThisToPaths(loadedItem,  function(p) {
+				np = p.clone();
+				np.fillColor = new Color(0,0,0,0);
+				// add to relevant cutParams group
+				cp = getCutParams(np);
+				if (cp != null && cp.g && np.curves.length > 0) {
+					cp.g.addChild(np);
+				} else {
+					// abort - data is crap
+					np.remove();
+				}
+			});
+
+			// build containment trees for each cutParams group
+			for (i=0; i < cutParams.length; i++) {
+
+				// first clean stuff up
+				joinPaths(cutParams[i].g);
+
+				// build tree
+				cutParams[i].ct = buildContainmentTree(cutParams[i].g);
+				//debugContainmentTree(ct);
+
+				setPathDirectionInContainmentTree(cutParams[i].ct, false);
+
+				//sierpSortContainmentTree(cutParams[i].ct);
+
+				greedySortContainmentTree(cutParams[i].ct);
+
+				debugOrderingCT(cutParams[i].ct, cutParams[i].c);
+			}
+
+			//genGCode();
+
+			updateStrokeWidths();
+
+			view.draw();
+		}
+
+
+	function getCutParams(path) {
+		var tc = "";
+		if (path.strokeColor != undefined) {
+			tc = path.strokeColor.toCSS(true);
+		} else {
+			tc = path.fillColor.toCSS(true);
+		}
+		/*
+		if (tc == "") {
+			console.log("blank color, setting to black!");
+			path.strokeColor = new Color(0,0,0,1);
+			tc = "#000000";
+		}
+		*/
+
+		var found = null;
+
+		for (i=0; i < cutParams.length; i++) {
+			if (cutParams[i].c == tc) {
+				found = cutParams[i];
+			}
+		}
+
+		if (!found) console.log("Un-specified colour: ",tc);
+
+		return found;
+	}
+
+
+	// a is start value, b is end, p ranges 0-1
+	function lerp(a,b,p) {
+		return a + (b-a)*p;
+	}
+
+	// maodifies the feed rate based on the power map
+	function mapFeedRate(f, x, y) {
+
+		// work out cell size
+		var xs = (machine.bedW + 20) / (powerMapSize-1);
+		var ys = (machine.bedD + 20) / (powerMapSize-1);
+
+		// get coords of top-left in power map array
+		var i = Math.floor(x / xs);
+		var j = Math.floor(y / ys);
+
+		// get lerp ratios
+		var k = (x - (i*xs)) / xs;
+		var l = (y - (j*ys)) / ys;
+
+		// do the x lerps
+		var x1 = lerp( powerMap[j][i], powerMap[j][i+1], k);
+		var x2 = lerp( powerMap[j+1][i], powerMap[j+1][i+1], k);
+
+		// do the y lerp
+		var y1 = lerp(x1, x2, l);
+
+		return f * y1;
+	}
+
+
+	function genG1(x,y,z,f,cp,lp, doMap) {
+
+		var s = "";
+
+		var distMoved = new Point(x,y);
+		distMoved = distMoved.subtract(lp);
+
+		// how long is this line?
+		var segments = 1;
+		if (distMoved.length > maxLineLength && doMap) {
+			segments = Math.floor(distMoved.length / maxLineLength,1)+1;
+		}
+
+		// generate segment moves
+		var lx = lp.x;
+		var ly = lp.y;
+		var newF = f;
+		var newZ = z;
+		for (var i=0; i<segments; i++) {
+			var x1 = lerp(lx, x, (i+1.0)/segments);
+			var y1 = lerp(ly, y, (i+1.0)/segments);
+			if (doMap)
+				newF = mapFeedRate(f,x1,y1);
+
+			s += 'G1 X'+clamp(x1, 0, machine.bedW).toFixed(1)+
+				' Y'+clamp(machine.bedD-y1, 0, machine.bedD).toFixed(1);
+			if (newZ != lastZ)
+				s += 'Z'+clamp(z, 0, 120).toFixed(1);
+			if (newF != lastF)
+				s += 'F'+clamp(newF*60, 0, 18000).toFixed(0);
+			s += '\r\n';
+		}
+
+
+		cp.length += distMoved.length;
+		cp.time += distMoved.length / f;
+		lp = new Point(x,y);
+
+		lastF = newF;
+		lastZ = z;
+		return {'gcode':s, 'lp':lp};
+	}
+
+	function genG5(x,y,i,j,k,l,z,f,cp,lp,cl) {
+		newF = mapFeedRate(f,x,y);
+		newZ = z;
+		s = 'G5'+
+			'X'+clamp(x, 0, machine.bedW).toFixed(1)+
+			'Y'+clamp(machine.bedD-y, 0, machine.bedD).toFixed(1)+
+			'I'+clamp(i, 0, machine.bedW).toFixed(1)+
+			'J'+clamp(machine.bedD-j, 0, machine.bedD).toFixed(1)+
+			'K'+clamp(k, 0, machine.bedW).toFixed(1)+
+			'L'+clamp(machine.bedD-l, 0, machine.bedD).toFixed(1);
+		if (newZ != lastZ)
+			s += 'Z'+clamp(z, 0, 120).toFixed(1);
+		if (newF != lastF)
+			s += ' F'+clamp(newF*60, 0, 18000).toFixed(0);
+		s += '\r\n';
+		lastF = newF;
+		lastZ = z;
+
+
+		cp.length += cl;
+		cp.time += cl / f;
+		lp = new Point(x,y);
+
+		return {'gcode':s, 'lp':lp};
+	}
+
+	function genM4(pwr) {
+		return 'M4 S'+clamp(pwr,0,100) + '\r\n';
+	}
+
+	function genM5() {
+		return 'M5\r\n';
+	}
+
+	function genGCodeForPath(path, cp, pass, z, lp) {
+		var gcode = '';
+
+		if (path.curves.length == 0 || !cp) return {'gcode':gcode, 'lp':lp};
+
+		power = 0;
+		if (Array.isArray(cp.power)) {
+			power = cp.power[pass];
+		} else {
+			power = cp.power;
+		}
+
+		speed = 0;
+		if (Array.isArray(cp.speed)) {
+			speed = cp.speed[pass];
+		} else {
+			speed = cp.speed;
+		}
+
+
+		if (power > 0) {
+			// move to start point
+			res = genG1(path.curves[0].point1.x, path.curves[0].point1.y, z, 10000/60, cp, lp, false);
+			gcode += res.gcode;
+			lp = res.lp;
+
+			// start laser
+			gcode += genM4(power);
+
+			// output curve
+			for (var i=0; i<path.curves.length; i++) {
+				var curve = path.curves[i];
+
+				if (curve.isLinear()) {
+
+					res = genG1(curve.point2.x, curve.point2.y, z, speed, cp, lp, true);
+					gcode += res.gcode;
+					lp = res.lp;
+
+				} else {
+
+					res = genG5(curve.point2.x,
+								curve.point2.y,
+								curve.handle1.x + curve.point1.x,
+								curve.handle1.y + curve.point1.y,
+								curve.handle2.x + curve.point2.x,
+								curve.handle2.y + curve.point2.y,
+								z,
+								speed,
+								cp, lp,
+								curve.length);
+					gcode += res.gcode;
+					lp = res.lp;
+
+				}
+			}
+
+			// stop laser
+			gcode += genM5();
+		}
+
+
+		return {'gcode':gcode, 'lp':lp};
+	}
+
+	function genGCodeForItem(ct, cp, pass, z, lp) {
+		var gcode = '';
+
+		// check bed is at correct height before doing any XY moves
+		newZ = z;
+		if (newZ != lastZ) {
+			gcode += 'G1 Z'+clamp(z, 0, 120).toFixed(1) + ' F10000\r\n';
+			cp.length += Math.abs(newZ - lastZ);
+			cp.time += Math.abs(newZ - lastZ) / 2; // guess at Z rate - check firmware!
+		}
+		lastZ = z;
+
+		// parse children first
+		if (ct.children.length > 0) {
+			for (var i=0; i<ct.children.length; i++) {
+				var node = ct.children[i];
+				res = genGCodeForItem(node, cp, pass, z, lp);
+				gcode += res.gcode;
+				lp = res.lp;
+			}
+		}
+
+		// then self
+		if (ct.model.path && ct.model.path.segments.length > 0) {
+			res = genGCodeForPath(ct.model.path, cp, pass, z, lp);
+			gcode += res.gcode;
+			lp = res.lp;
+		}
+
+		return {'gcode':gcode, 'lp':lp};
+	}
+
+
+	function genGCode() {
+		// parse item to generate GCode
+		lastZ = 0;
+		lastF = 0;
+
+		minZ = 110;  // default minimum value
+
+		// timings
+		totalLength = 0;
+		totalTime = 0;
+
+		// insert commentary
+		var gcode = '';
+
+		console.log(loadedFilename);
+		gcode += ';'+loadedFilename+'\r\n';
+
+		// notes
+		for (var i=0; i < notes.length; i++) {
+			gcode += ';'+ notes[i] + '\r\n';
+		}
+
+		gcode += ';\r\n';
+
+		// cutting params
+		for (var i=0; i < cutParams.length; i++) {
+			cp = cutParams[i];
+			gcode += ';'+i+') '+cp.type+', ';
+			gcode += cp.passes + ' pass, ';
+			gcode += cp.power + '%, ';
+			gcode += cp.speed + 'mm/s, ';
+			gcode += 'Z'+cp.z;
+			if (Array.isArray(cp.z)) {
+				for (var j=0; j < cp.z.length; j++)
+					if (cp.z[j] < minZ) minZ = cp.z[j];
+			} else {
+				if (cp.z < minZ) minZ = cp.z;
+			}
+			gcode += '\r\n';
+		}
+
+		gcode += ';\r\n';
+
+		// home axes, arm laser, move the bed down in readiness for initial travel move
+		gcode += 'G28 XY\r\n'+
+					'G28 Z\r\n' +
+					'M669\r\n';
+
+		// move bed down to minZ-5, move head to center of bed
+		gcode += 'G1 Z'+clamp(minZ - 5, 0, 120).toFixed(1) + ' F10000\r\n';
+		gcode += 'G1 X'+(machine.bedW/2).toFixed(1) + ' Y'+(machine.bedD/2).toFixed(1) + ' F10000\r\n';
+
+		lp = new Point(machine.bedW, machine.bedD);
+
+		// work through each cut type (already ordered)
+		for (i=0; i < cutParams.length; i++) {
+			cp  = cutParams[i];
+
+			// calc lengths, times
+			cp.length = 0;
+			cp.time = 0;
+
+			// passes
+			for (var j=0; j < cp.passes; j++) {
+				gcode += ';Cut group: '+i+', pass: '+(j+1)+'\r\n';
+				z = Array.isArray(cp.z) ? cp.z[j < cp.z.length ? j : cp.z.length-1] : cp.z;
+				res = genGCodeForItem(cp.ct, cp, j, z, lp);
+				gcode += res.gcode;
+				lp = res.lp;
+			}
+
+			// add up times
+			totalLength += cp.length;
+			totalTime += cp.time;
+			console.log("Cut:",i, cp.length, cp.time);
+
+		}
+
+		console.log("Total",totalLength.toFixed(1), totalTime.toFixed(1));
+		console.log("Total in m and min",totalLength/1000, totalTime/60)
+
+		// move bed down to minZ-5, move head to near homing point
+		gcode += 'G1 Z'+clamp(minZ - 5, 0, 120).toFixed(1) + ' F10000\r\n';
+		gcode += 'G1 X850 Y650\r\n';
+
+		// disarm laser, move to near homing point, home
+		gcode += 'M670\r\n' +
+				 'G28 XY\r\n'+
+				 'G28 Z\r\n';
+
+		gcode += ';@say "your '+loadedFilename.slice(0,-4)+' is complete"\r\n';
+
+		gcode += ';Length: '+(totalLength/1000).toFixed(2)+'m\r\n';
+		gcode += ';Duration: '+(totalTime/60).toFixed(2)+'min\r\n';
+
+
+		$('#gcode').html(gcode);
+
+		// prep download link
+		exportGCode();
+	}
+
+
+
+	function genCalibration() {
+		var gcode = 'G28 XY\r\n'+
+					'G28 Z\r\n' +
+					'M669\r\n'+
+					'G1 Z110\r\n';
+
+		// bounds
+		var x1 = 30;
+		var y1 = 10;
+		var x2 = 770;
+		var y2 = 450;
+
+		// cells
+		var xSteps = 5;
+		var xStep = (x2-x1) / (xSteps-1);
+		var xSpacing = 13;
+
+		var ySteps = 3;
+		var yStep = (y2-y1) / (ySteps-1);
+		var ySpacing = 13;
+
+		// feed rate range
+		var f1 = 20;
+		var fSteps = 6;
+		var fStep = 10;
+
+		// z range
+		var z1 = 108;
+		var zSteps = 4;
+		var zStep = 1;
+
+
+		var x = x1;
+		for (var i=0; i<xSteps; i++) {
+
+			var y = y1;
+
+			for (var j=0; j<ySteps; j++) {
+				// per cell, gen set of lines at diff z and diff feed rates
+
+				// z
+				var z = z1;
+				for (var k =0; k<zSteps; k++) {
+					// f
+					var f = f1;
+
+					// move to start of box
+					gcode += 'G1 X'+clamp(x + k*xSpacing, 0, machine.bedW).toFixed(1)+
+						     ' Y'+clamp(y, 0, machine.bedD).toFixed(1);
+					gcode += 'F'+clamp(10000, 0, 18000).toFixed(0);
+					gcode += '\r\n';
+
+					// move to z height
+					gcode += 'G1 Z'+clamp(z, 0, 120).toFixed(1) + ' F10000\r\n';
+
+
+
+					for (var l=0; l<fSteps; l++) {
+
+						// move to start of box
+						gcode += 'G1 ';
+						gcode += ' X'+clamp(x + k*xSpacing, 0, machine.bedW).toFixed(1);
+						gcode += ' Y'+clamp(y + l*ySpacing, 0, machine.bedW).toFixed(1);
+						gcode += ' F'+clamp(10000, 0, 18000).toFixed(0);
+						gcode += '\r\n';
+
+						// start laser
+						gcode += genM4(100);
+
+						// cut a box, clockwise from top left
+						gcode += 'G1 ';
+						gcode += ' X'+clamp(x + k*xSpacing, 0, machine.bedW).toFixed(1);
+						gcode += ' Y'+clamp(y + 10 + l*ySpacing, 0, machine.bedW).toFixed(1);
+						gcode += ' F'+clamp(f*60, 0, 18000).toFixed(0);
+						gcode += '\r\n';
+
+						gcode += 'G1 ';
+						gcode += ' X'+clamp(x + 10 + k*xSpacing, 0, machine.bedW).toFixed(1);
+						gcode += ' Y'+clamp(y + 10 + l*ySpacing, 0, machine.bedW).toFixed(1);
+						gcode += '\r\n';
+
+						gcode += 'G1 ';
+						gcode += ' X'+clamp(x + 10 + k*xSpacing, 0, machine.bedW).toFixed(1);
+						gcode += ' Y'+clamp(y + l*ySpacing, 0, machine.bedW).toFixed(1);
+						gcode += '\r\n';
+
+						gcode += 'G1 ';
+						gcode += ' X'+clamp(x + k*xSpacing, 0, machine.bedW).toFixed(1);
+						gcode += ' Y'+clamp(y + l*ySpacing, 0, machine.bedW).toFixed(1);
+						gcode += '\r\n';
+
+						// stop laser
+						gcode += genM5();
+
+						f += fStep;
+					}
+
+
+					z += zStep;
+				}
+
+
+				// home the bed
+				/*
+				gcode +=
+					'M670\r\n'+
+					'G1 Z110 F10000\r\n'+
+					'G1 X850 Y650 F10000\r\n' +
+					'G28 XY\r\n'+
+					'G28 Z\r\n' +
+					'G1 Z110\r\n'+
+					'M669\r\n';
+				*/
+
+				y += yStep;
+			}
+
+			x += xStep;
+		}
+
+
+
+		// disarm laser, move to near homing point, home
+		gcode += 'M670\r\n' +
+				 'G1 Z106\r\n'+
+				 'G1 X850 Y650 F10000\r\n' +
+				 'G28 XY\r\n'+
+				 'G28 Z\r\n';
+
+		$('#gcode').html(gcode);
+
+		// prep download link
+		exportGCode();
+	}
+
+
+	function genFoamCalib() {
+		var gcode = 'G28 XY\r\n'+
+					'G28 Z\r\n' +
+					'M669\r\n'+
+					'G1 Z110\r\n';
+
+		// bounds
+		var x1 = 10;
+		var y1 = 90;
+		var x2 = 770;
+		var y2 = 450;
+
+		// cells
+		var xSteps = 5;
+		var xStep = (x2-x1) / (xSteps-1);
+		var xSpacing = 13;
+
+		var ySteps = 3;
+		var yStep = (y2-y1) / (ySteps-1);
+		var ySpacing = 13;
+
+		// feed rate range
+		var f1 = 30;
+		var fSteps = 10;
+		var fStep = 5;
+
+		// power range
+		var p1 = 20;
+		var pSteps = 9;
+		var pStep = 10;
+
+		// z range
+		var z = 112;
+
+		bw = 30;
+		//bh = fSteps * fStep;
+		bh = pSteps * 5;
+
+		// move to z height
+		gcode += 'G1 Z'+clamp(z, 0, 120).toFixed(1) + ' F10000\r\n';
+
+		var x = x1;
+		for (var i=0; i<xSteps; i++) {
+
+			var y = y1;
+
+			for (var j=0; j<ySteps; j++) {
+				// per cell, gen set of lines at diff feed rates
+
+				// f lines
+				var f = f1;
+
+				// cut lines at different feed rates
+				/*
+				for (var l=0; l<fSteps; l++) {
+
+					// move to start of line
+					gcode += 'G1 ';
+					gcode += ' X'+clamp(x, 0, machine.bedW).toFixed(1);
+					gcode += ' Y'+clamp(y + l*5, 0, machine.bedW).toFixed(1);
+					gcode += ' F'+clamp(10000, 0, 18000).toFixed(0);
+					gcode += '\r\n';
+
+					gcode += genM4(100);
+
+					// move to start of line
+					gcode += 'G1 ';
+					gcode += ' X'+clamp(x + bw, 0, machine.bedW).toFixed(1);
+					gcode += ' Y'+clamp(y + l*5, 0, machine.bedW).toFixed(1);
+					gcode += ' F'+clamp(f*60, 0, 18000).toFixed(0);
+					gcode += '\r\n';
+
+
+					gcode += genM5();
+
+					f += fStep;
+				}
+				*/
+
+
+				// fixed power lines
+				var p = p1;
+				for (var l=0; l<fSteps; l++) {
+
+					// move to start of line
+					gcode += 'G1 ';
+					gcode += ' X'+clamp(x, 0, machine.bedW).toFixed(1);
+					gcode += ' Y'+clamp(y + l*5, 0, machine.bedW).toFixed(1);
+					gcode += ' F'+clamp(10000, 0, 18000).toFixed(0);
+					gcode += '\r\n';
+
+					gcode += genM4(20);
+
+					// move to start of line
+					gcode += 'G1 ';
+					gcode += ' X'+clamp(x + bw, 0, machine.bedW).toFixed(1);
+					gcode += ' Y'+clamp(y + l*5, 0, machine.bedW).toFixed(1);
+					gcode += ' F'+clamp(70*60, 0, 18000).toFixed(0);
+					gcode += '\r\n';
+
+
+					gcode += genM5();
+				}
+
+				// wait for 30 sec
+				gcode += 'G4 S30\r\n';
+
+				// fixed power lines
+				var p = p1;
+				for (var l=0; l<fSteps; l++) {
+
+					// move to start of line
+					gcode += 'G1 ';
+					gcode += ' X'+clamp(x, 0, machine.bedW).toFixed(1);
+					gcode += ' Y'+clamp(y + l*5, 0, machine.bedW).toFixed(1);
+					gcode += ' F'+clamp(10000, 0, 18000).toFixed(0);
+					gcode += '\r\n';
+
+					gcode += genM4(40);
+
+					// move to start of line
+					gcode += 'G1 ';
+					gcode += ' X'+clamp(x + bw, 0, machine.bedW).toFixed(1);
+					gcode += ' Y'+clamp(y + l*5, 0, machine.bedW).toFixed(1);
+					gcode += ' F'+clamp(70*60, 0, 18000).toFixed(0);
+					gcode += '\r\n';
+
+
+					gcode += genM5();
+				}
+
+				// wait for 30 sec
+				gcode += 'G4 S30\r\n';
+
+				for (var l=0; l<fSteps; l++) {
+
+					// move to start of line
+					gcode += 'G1 ';
+					gcode += ' X'+clamp(x, 0, machine.bedW).toFixed(1);
+					gcode += ' Y'+clamp(y + l*5, 0, machine.bedW).toFixed(1);
+					gcode += ' F'+clamp(10000, 0, 18000).toFixed(0);
+					gcode += '\r\n';
+
+					gcode += genM4(100);
+
+					// move to start of line
+					gcode += 'G1 ';
+					gcode += ' X'+clamp(x + bw, 0, machine.bedW).toFixed(1);
+					gcode += ' Y'+clamp(y + l*5, 0, machine.bedW).toFixed(1);
+					gcode += ' F'+clamp(f*60, 0, 18000).toFixed(0);
+					gcode += '\r\n';
+
+
+					gcode += genM5();
+
+					f += fStep;
+				}
+
+				/*
+				// varying power lines
+				var p = p1;
+				for (var l=0; l<pSteps; l++) {
+
+					// move to start of line
+					gcode += 'G1 ';
+					gcode += ' X'+clamp(x, 0, machine.bedW).toFixed(1);
+					gcode += ' Y'+clamp(y + l*5, 0, machine.bedW).toFixed(1);
+					gcode += ' F'+clamp(10000, 0, 18000).toFixed(0);
+					gcode += '\r\n';
+
+					gcode += genM4(p);
+
+					// move to start of line
+					gcode += 'G1 ';
+					gcode += ' X'+clamp(x + bw, 0, machine.bedW).toFixed(1);
+					gcode += ' Y'+clamp(y + l*5, 0, machine.bedW).toFixed(1);
+					gcode += ' F'+clamp(70*60, 0, 18000).toFixed(0);
+					gcode += '\r\n';
+
+
+					gcode += genM5();
+
+					p += pStep;
+				}
+				*/
+
+
+				// cut the lines out with an outer box - 3 passes
+
+				for (var a=0; a<3; a++) {
+					// move to start of box
+					gcode += 'G1 ';
+					gcode += ' X'+clamp(x + 2, 0, machine.bedW).toFixed(1);
+					gcode += ' Y'+clamp(y -8, 0, machine.bedW).toFixed(1);
+					gcode += ' F'+clamp(10000, 0, 18000).toFixed(0);
+					gcode += '\r\n';
+
+					// start laser
+					gcode += genM4(20 + a * 40);
+
+					// cut a box, clockwise from top left
+					gcode += 'G1 ';
+					gcode += ' X'+clamp(x + 2, 0, machine.bedW).toFixed(1);
+					gcode += ' Y'+clamp(y + bh + 2, 0, machine.bedW).toFixed(1);
+					gcode += ' F'+clamp(50*60, 0, 18000).toFixed(0);
+					gcode += '\r\n';
+
+					gcode += 'G1 ';
+					gcode += ' X'+clamp(x + bw +3, 0, machine.bedW).toFixed(1);
+					gcode += ' Y'+clamp(y + bh + 2, 0, machine.bedW).toFixed(1);
+					gcode += '\r\n';
+
+					gcode += 'G1 ';
+					gcode += ' X'+clamp(x + bw +3, 0, machine.bedW).toFixed(1);
+					gcode += ' Y'+clamp(y - 8, 0, machine.bedW).toFixed(1);
+					gcode += '\r\n';
+
+					gcode += 'G1 ';
+					gcode += ' X'+clamp(x + 5, 0, machine.bedW).toFixed(1);
+					gcode += ' Y'+clamp(y - 8, 0, machine.bedW).toFixed(1);
+					gcode += '\r\n';
+
+					// stop laser
+					gcode += genM5();
+				}
+
+
+
+
+
+				y += yStep;
+			}
+
+			x += xStep;
+		}
+
+
+
+		// disarm laser, move to near homing point, home
+		gcode += 'M670\r\n' +
+				 'G1 Z106\r\n'+
+				 'G1 X850 Y650 F10000\r\n' +
+				 'G28 XY\r\n'+
+				 'G28 Z\r\n';
+
+		$('#gcode').html(gcode);
+
+		// prep download link
+		exportGCode();
+	}
+
+
+	function genPsycho() {
+		var gcode = 'G28 XY\r\n'+
+					'G28 Z\r\n' +
+					'M669\r\n'+
+					'G1 Z112 F10000\r\n';
+
+		// start
+		var x1 = machine.bedW / 2;
+		var y1 = machine.bedD / 2;
+		var walk = 10;  // distance of each walk
+
+		var lx = x1;
+		var ly = y1;
+
+		for (var i=0; i<1; i++) {
+
+			// break out and draw an L shape every now and again
+
+			gcode += 'G1 X680 Y500\r\n';
+			gcode += genM4(100);
+			gcode += 'G1 X690\r\n';
+			gcode += 'G1 Y510\r\n';
+			gcode += genM5();
+
+
+			// random walk
+			gcode += genM4(16);
+			for (var j=0; j<1000; j++) {
+
+				var ang = Math.random() * 2 * Math.PI;
+				var x = lx + walk * Math.cos(ang);
+				var y = ly + walk * Math.sin(ang);
+
+				// move - clamp with large margins
+				gcode += 'G1 X'+clamp(x, 50, 800).toFixed(1)+
+					     ' Y'+clamp(y, 50, 500).toFixed(1);
+				gcode += '\r\n';
+
+				lx = x;
+				ly = y;
+			}
+			gcode += genM5();
+
+		}
+
+		gcode += 'G1 X700 Y500\r\n';
+		gcode += genM4(100);
+		gcode += 'G1 X710\r\n';
+		gcode += 'G1 Y510\r\n';
+		gcode += genM5();
+
+		// disarm laser, move to near homing point, home
+		gcode += 'M670\r\n' +
+				 'G1 X850 Y650 F10000\r\n' +
+				 'G28 XY\r\n'+
+				 'G28 Z\r\n';
+
+		$('#gcode').html(gcode);
+
+		// prep download link
+		exportGCode();
+	}
+
+
+	$( "body" ).keydown(function( event ) {
+	  switch (event.which) {
+	  	case 187:	// zoom in
+	  	 	event.preventDefault();
+	   	  	view.zoom *= 1.2;
+			updateStrokeWidths();
+	  	  	break;
+
+	  	case 189:	// zoom out
+	  	  	event.preventDefault();
+	   		view.zoom *= 0.8;
+			updateStrokeWidths();
+	  		break;
+
+	  	case 37:	// left
+	  		event.preventDefault();
+	   		project.activeLayer.position.x -= view.size.width/20;
+	  		break;
+
+	  	case 38:	// up
+	  		event.preventDefault();
+	   		project.activeLayer.position.y -=view.size.width/20;
+	  		break;
+
+	  	case 39:	// right
+	  		event.preventDefault();
+	   		project.activeLayer.position.x += view.size.width/20;
+	  		break;
+
+	  	case 40:	// down
+	  		event.preventDefault();
+	   		project.activeLayer.position.y += view.size.width/20;
+	  		break;
+
+	  }
+
+	  view.draw();
+	});
+});
+
+	</script>
+</head>
+<body>
+	<form>
+	X<input id="left" value="0" class="numeric">
+	Y<input id="bottom" value="0" class="numeric">
+	W<input id="width" value="0" class="numeric">
+	H<input id="height" value="0" class="numeric">
+	<input type="file" id="file">
+	<input id="recalc" type="button" value="Recalc">
+	<input id="gcodebut" type="button" value="Gen GCode">
+	<input id="calib" type="button" value="Card Calib">
+	<input id="foamCalib" type="button" value="Foam Calib">
+	<input id="psycho" type="button" value="Psycho">
+	<input id="cutbut" type="button" value="Cut">
+	</form>
+	<canvas id="canvas" resize></canvas>
+
+	<textarea id="gcode"></textarea>
+	<a id="download" href="#" target="_blank">Download GCode</a>
+
+	<div id="cuttingInfo"></div>
+</body>
+</html>

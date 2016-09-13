@@ -1,0 +1,210 @@
+<div id="tab-new" class="tab-content">
+    <div class="row">
+        <div class="col-sm-4">
+
+            <div class="btn-group">
+                <button id="newResetBut" type="button" class="btn btn-default btn-md disabled" style="display:none; margin-bottom: 15px;">
+                    Import New
+                </button>
+            </div>
+
+            <div id="newStartSection" class="form-group">
+                <label>Import SVG:</label>
+
+                <input id="newSVGFile" type="file" class="form-control" accept=".svg"/>
+            </div>
+
+            <div id="newInfoSection" style="display:none">
+                <div class="panel panel-primary" >
+                    <div class="panel-heading" data-bind="if:newVM.loadedFilename">
+                        <strong data-bind="text:newVM.loadedFilename().slice(0,-4)"></strong>
+                    </div>
+                    <table class="table">
+                    <tbody data-bind="foreach: newVM.notes">
+                        <tr>
+                            <td colspan="2" data-bind="text: note"></td>
+                        </tr>
+                    </tbody>
+                    <tr>
+                        <td>Bounds:</td>
+                        <td data-bind="text: newVM.width().toFixed(0) + ' mm x '+newVM.height().toFixed(0) + ' mm'"></td>
+                    </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div id="newMaterialSection" class="form-group" style="display:none">
+                <label>Choose Material:</label>
+
+                <select class="form-control" data-bind="options: materialsVM.materials,
+                optionsText: 'name',
+                value: newVM.selectedMaterial,
+                optionsCaption: 'Choose...'"></select>
+
+            </div>
+
+
+            <div id="newOtherSections" style="display:none">
+                <label>Assign Line Types:</label>
+                <div class="panel panel-default">
+                    <table class="table">
+                        <tbody data-bind="foreach: newVM.lineTypes">
+                            <tr>
+                                <td style="vertical-align:middle"><span class="colorBlock" data-bind="text:color, style: {background:color}, css:{ignore: selectedType() == undefined || selectedType().type == 'ignore'}"></span></td>
+                                <td >
+                                    <select class="form-control lineTypeSelect" data-bind="options: $root.newVM.availableLineTypes,
+                                    optionsText: 'type',
+                                    value: selectedType,
+                                    css:{ignore: selectedType() == undefined || selectedType().type == 'ignore'}"></select>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+
+
+                <div class="form-group">
+                    <div class="btn-group">
+                        <button id="newGenBut" type="button" class="btn btn-primary btn-md">
+                            Generate GCode
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Advanced options -->
+                <button data-toggle="collapse" data-target="#advancedOptions" type="button" class="btn btn-default btn-md" style="margin-bottom:15px;">Advanced Options</button>
+
+                <div id="advancedOptions" class="collapse">
+
+                    <label >Set Origin:
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" title="Of bottom left corner of drawing boundary box, preset by the material type"></span>
+                    </label>
+                    <div>
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label>X</label>
+
+                                <input type="text" class="form-control" style="width:80px;" placeholder="0" data-bind="value:newVM.originX">
+
+                            </div>
+                            <div class="form-group">
+                                <label>Y</label>
+
+                                <input type="text" class="form-control" style="width:80px;" placeholder="0" data-bind="value:newVM.originY">
+                            </div>
+                        </div>
+                        <div class="clearfix" style="margin-bottom:20px;"></div>
+                    </div>
+
+
+                    <label >Optimisation:
+                    </label>
+                    <div class="form-group">
+                        <div class="btn-group">
+                            <select class="form-control" id="newTSPSelect">
+                                <option value="greedy">Nearest Neighbour</option>
+                                <option value="ni">Nearest Insertion</option>
+                                <option value="fi">Farthest Insertion</option>
+                            </select>
+
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                              <input id="newGenFullOpCB" type="checkbox" checked> Full Optimisation?
+                            </label>
+                          </div>
+                    </div>
+
+                    <label >Travel Moves:
+                    </label>
+                    <div class="form-group">
+
+                        <div class="checkbox">
+                            <label>
+                              <input id="newBezTravelMoves" type="checkbox" checked data-bind="checked:newVM.doBezierTravelMoves"> Bezier travel moves?
+                            </label>
+                        </div>
+
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label style="width:120px">Min Speed</label>
+
+                                <input type="text" class="form-control" style="width:80px;" placeholder="30" data-bind="value:newVM.travelMoveMinSpeed">
+
+                            </div>
+                        </div>
+                        <div class="clearfix" style="margin-bottom:20px;"></div>
+
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label style="width:120px">Min Angle</label>
+
+                                <input type="text" class="form-control" style="width:80px;" placeholder="20" data-bind="value:newVM.travelMoveMinAngle">
+
+                            </div>
+                        </div>
+                        <div class="clearfix" style="margin-bottom:20px;"></div>
+
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label style="width:120px">Lead-in/out (mm)</label>
+
+                                <input type="text" class="form-control" style="width:80px;" placeholder="20" data-bind="value:newVM.travelMoveLeadInOut">
+                            </div>
+                        </div>
+                        <div class="clearfix" style="margin-bottom:20px;"></div>
+
+                    </div>
+
+                </div>
+                <!-- End Advanced options -->
+        </div>
+
+
+
+    </div>
+
+    <div class="col-sm-8">
+
+        <canvas id="newCanvas"></canvas>
+
+        <div id="newProgressContainer" style="display:none">
+            <label>GCode Generation Progress</label>
+
+            <ul data-bind="foreach:newVM.progressLog">
+                <li>
+                    <div data-bind="text: text"></div>
+                    <!--
+                    <div data-bind="if: meter">
+                        <div data-bind="text:meter"></div>
+                    </div>
+                    -->
+                </li>
+            </ul>
+
+            <span id="newProgressSpinner" class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+
+            <hr>
+        </div>
+
+        <div style="display:none">
+            <label>GCode Generation Process</label>
+            <ul>
+                <li>Split into an array of single curves per line type (split long curves into smaller pieces)</li>
+                <li>Separate out passes (duplicate curves) and assign order, feedrate (via powerMap), z and cut power to each curve</li>
+                <li>Sort and group by order, then z</li>
+                <li>For each group, optimise cutting sequence using TSP solver (greedy, insertion, genetic, etc)</li>
+                <li>Generate final GCode (inserting travel moves, homing, etc) using start/end templates</li>
+            </ul>
+
+        </div>
+
+    </div>
+    </div>
+
+
+
+</div>

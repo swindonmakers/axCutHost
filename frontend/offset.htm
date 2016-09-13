@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Offset</title>
+	<script type="text/javascript" src="js/paperjs/dist/paper.js"></script>
+	<script type="text/paperscript" canvas="canvas">
+		
+		var path;
+		var newPath = true;
+		startNewPath();
+		
+		var offsetPath;
+		
+		var nearMarker = new Path.Circle(new Point(0,0),2);
+		nearMarker.strokeColor = 'blue';
+		
+		var clickStack = [];
+		
+		
+		function startNewPath() {
+			path = new Path();
+			path.strokeColor = 'black';
+			newPath = true;
+		}
+		
+		function angleBetweenLines(p1,p2,p3,p4) {
+			var v1 = p2-p1;
+			var v2 = p4-p3;
+			return v1.getDirectedAngle(v2);
+		}
+		
+		function angleBetweenCurves(c1,c2) {
+			var p1, p4;
+			if (c1.isLinear()) {
+				p1 = c1.point1.clone();
+			} else {
+				p1 = c1.handle2.clone();
+			}
+			if (c2.isLinear()) {
+				p4 = c2.point2.clone();
+			} else {
+				p4 = c2.handle1.clone();
+			}
+			return angleBetweenLines(p1, c1.point2, c2.point1, p4);
+		}
+		
+		function offsetLine(c, radius) {
+			var oc = c.clone();
+			var v = c.point2 - c.point1;
+			v = v.rotate(-90);
+			v = v.normalize(radius);
+			oc.point1 += v;
+			oc.point2 += v;
+			return oc;
+		}
+		
+		function drawCurveControl(c, clr) {
+			var p1 = new Path.Circle({
+				center: c.point1.clone(), 
+				radius: 3,
+				strokeColor:clr
+			});
+			var p2 = new Path.Circle({
+				center: c.point2.clone(), 
+				radius: 3,
+				strokeColor:clr
+			});
+			var h1 = new Path.Circle({
+				center: c.point1 + c.handle1, 
+				radius: 3,
+				strokeColor:clr
+				});
+			var h2 = new Path.Circle({
+				center: c.point2 + c.handle2, 
+				radius: 3,
+				strokeColor:clr
+			});
+			
+			var l = new Path({ strokeColor: clr });
+			l.moveTo(c.point1.clone());
+			l.lineTo(c.point1 + c.handle1);
+			l.lineTo(c.point2 + c.handle2);
+			l.lineTo(c.point2.clone());
+		}
+		
+		function offsetCurve(c, radius) {
+			if (c.isLinear()) {
+				return offsetLine(c, radius);
+			} else {
+				// reference curve(s)
+				var rc = new Path();
+				rc.moveTo(c.point1);
+				rc.cubicCurveTo(c.point1+c.handle1, c.point2+c.handle2, c.point2);
+				
+				var oc = new Path();
+				
+				var tol = 0.5;
+				
+				// rip up and retry approach to curve offsetting
+				var maxError = radius;
+				
+				var iteration = 0;
+				
+				
+				while (maxError > tol) {
+					
+					oc.removeSegments();
+					
+					// make an offset curve for each ref curve
+					for (var i=0; i<rc.curves.length; i++) {
+						var rc1 = rc.curves[i];
+						var oc1 = rc1.clone();
+				
+						var v1 = rc1.handle1.clone();
+						v1 = v1.rotate(-90);
+						v1 = v1.normalize(radius);
+						oc1.point1 += v1;
+				
+						var v2 = rc1.handle2.clone();
+						v2 = v2.rotate(90);
+						v2 = v2.normalize(radius);
+						oc1.point2 += v2;
+				
+						var ccl = rc1.handle1.length + rc1.handle2.length + ((rc1.handle2 + rc1.point2) - (rc1.handle1 + rc1.point1)).length;
+						var f1 = rc1.handle1.length / ccl;
+						var f2 = 1 - rc1.handle2.length / ccl;
+				
+						var v = rc1.getNormalAt(f1, true);
+						v = v.normalize(radius);
+						oc1.handle1 = rc1.handle1 + v - v1;
+				
+						v = rc1.getNormalAt(f2, true);
+						v = v.normalize(radius);
+						oc1.handle2 = rc1.handle2 + v - v2;
+						
+						if (oc.curves.length == 0) 
+							oc.moveTo(oc1.point1);
+							
+						oc.cubicCurveTo(oc1.point1+oc1.handle1, oc1.point2+oc1.handle2, oc1.point2);
+					
+					}
+					
+					// evaluate maxError, record position of maxError
+					maxError = 0;
+					var maxErrorPos = 0;
+					var steps = 20;
+					for (var i=0; i<steps; i++) {
+						var t = (1 + i)/(1 + steps);
+						
+						var p = rc.getLocationAt(t, true);
+						//var circ = new Path.Circle({ center: p.point.clone(), radius:3, strokeColor:'blue'});
+				
+						var d = oc.getLocationAt(t, true);
+						//circ = new Path.Circle({ center: d.point.clone(), radius:3, strokeColor:'blue'});
+						
+						var dist = p.point - d.point;
+						
+						var error = Math.abs(dist.length - radius);
+						if (error > maxError) {
+							maxError = error;
+							maxErrorPos = t;
+						}
+					}
+					
+					
+					// if maxError > tol, divide rc at position of maxError
+					if (maxError > tol) {
+						
+						var dc = rc.getLocationAt(maxErrorPos, true);
+						dc.curve.divide(dc.paramter);
+					}
+					
+					iteration++;
+					if (iteration > 10)
+						break;
+					
+				}
+				
+				//console.log('done', iteration, maxError, maxErrorPos);
+				
+				//var circ = new Path.Circle({ center: c.getPointAt(f1, true), radius:3, strokeColor:'blue'});
+				//circ = new Path.Circle({ center: c.getPointAt(f2, true), radius:3, strokeColor:'blue'});
+				
+				//drawCurveControl(c, 'black');
+				//drawCurveControl(oc, 'red');
+				
+				rc.remove();
+				
+				return oc;
+			}
+		}
+		
+		function checkLineIntersection(line1StartX, line1StartY, line1EndX, line1EndY, line2StartX, line2StartY, line2EndX, line2EndY) {
+			// if the lines intersect, the result contains the x and y of the intersection (treating the lines as infinite) and booleans for whether line segment 1 or line segment 2 contain the point
+			var denominator, a, b, numerator1, numerator2, result = {
+				x: null,
+				y: null,
+				onLine1: false,
+				onLine2: false
+			};
+			denominator = ((line2EndY - line2StartY) * (line1EndX - line1StartX)) - ((line2EndX - line2StartX) * (line1EndY - line1StartY));
+			if (denominator == 0) {
+				return result;
+			}
+			a = line1StartY - line2StartY;
+			b = line1StartX - line2StartX;
+			numerator1 = ((line2EndX - line2StartX) * a) - ((line2EndY - line2StartY) * b);
+			numerator2 = ((line1EndX - line1StartX) * a) - ((line1EndY - line1StartY) * b);
+			a = numerator1 / denominator;
+			b = numerator2 / denominator;
+
+			// if we cast these lines infinitely in both directions, they intersect here:
+			result.x = line1StartX + (a * (line1EndX - line1StartX));
+			result.y = line1StartY + (a * (line1EndY - line1StartY));
+		/*
+				// it is worth noting that this should be the same as:
+				x = line2StartX + (b * (line2EndX - line2StartX));
+				y = line2StartX + (b * (line2EndY - line2StartY));
+				*/
+			// if line1 is a segment and line2 is infinite, they intersect if:
+			if (a > 0 && a < 1) {
+				result.onLine1 = true;
+			}
+			// if line2 is a segment and line1 is infinite, they intersect if:
+			if (b > 0 && b < 1) {
+				result.onLine2 = true;
+			}
+			// if line1 and line2 are segments, they intersect if both of the above are true
+			return result;
+		};
+		
+		function createJoint(c1, c2, pc, radius) {
+			// returns a curve object linking c1 and c2, or null if no joint required
+			// pc should be the point at the center of the arc
+			
+			if (c1.point2 == c2.point1) {
+				return null;
+			} else {
+				var p1 = c1.point2;
+				var p2 = c2.point1;
+				
+				// get distance between points
+				var v = p2 - p1;
+				if (v.length < 1) {
+					// align endpoints
+					c2.point1 = c1.point2.clone();
+				
+					return null;
+				} else {				
+					// get angle between lines
+					var ang = angleBetweenLines(pc, p1, pc, p2);
+									
+					if (ang < 0)
+						ang = -ang;
+			
+					var h1 = p1 - pc;
+					h1 = h1.rotate(ang * 0.3);
+					h1 = h1 - (p1 - pc);
+			
+					var h2 = p2 - pc;
+					h2 = h2.rotate(-ang * 0.3);
+					h2 = h2 - (p2 - pc);
+			
+		
+					var jc = new Curve(p1,h1,h2,p2);
+					return jc;	
+				}
+			}
+		}
+		
+		function appendCurveToPath(c, p) {
+			if (c.isLinear()) {
+				p.lineTo(c.point2);
+			} else {
+				p.cubicCurveTo(c.point1 + c.handle1, c.point2 + c.handle2, c.point2);
+			}
+		}
+		
+		function calcOffsetPath(p, radius) {
+			var op = new Path();
+			op.strokeColor = new Color(1,0,0,0.3);
+			
+			var cc = p.curves.length;
+			
+			// create offset curves and joints
+			for (var i=0; i<cc; i++) {
+				var c = p.curves[i];
+				
+				// NB: offsetCurve may return a path object or a single curve
+				var oc = offsetCurve(c, radius);
+				
+				if (op.curves.length > 0) {
+					var lc = op.curves[op.curves.length-1];
+				
+					// generate joint
+					if (oc.type == 'path') {
+						var jc = createJoint(lc, oc.curves[0], c.point1, radius);
+					} else {
+						var jc = createJoint(lc, oc, c.point1, radius);
+					}
+					if (jc) {
+						op.cubicCurveTo(jc.handle1 + jc.point1, jc.handle2 + jc.point2, jc.point2);
+					}
+					
+				} else {
+					if (oc.type=='path') {
+						op.moveTo(oc.curves[0].point1);
+					} else {
+						op.moveTo(oc.point1);
+					}
+				}
+				
+				// add curve(s) to op
+				if (oc.type == 'path') {
+					for (var j=0; j<oc.curves.length; j++) {
+						op.cubicCurveTo(
+							oc.curves[j].handle1 + oc.curves[j].point1, 
+							oc.curves[j].handle2 + oc.curves[j].point2, 
+							oc.curves[j].point2);
+					}
+				} else {
+					op.cubicCurveTo(oc.handle1 + oc.point1, oc.handle2 + oc.point2, oc.point2);
+				}
+				
+			}
+			
+			// join end to beginning
+			if (p.closed) {
+				var oc = op.curves[0];
+				var lc = op.curves[op.curves.length-1];
+				
+				// generate joint
+				var jc = createJoint(lc, oc, p.curves[0].point1, radius);
+				if (jc) {
+					op.cubicCurveTo(jc.handle1 + jc.point1, jc.handle2 + jc.point2, jc.point2);
+				}
+			}
+			
+			// find (and divide at) all self-intersections
+			var intersections = [];
+			
+			var i=0;
+			var aargh = 0;
+			var restart = false;
+			while (i<op.curves.length) {
+				var c1 = op.curves[i];
+			
+				var j=i+1;
+				while (j<op.curves.length) {
+					var c2 = op.curves[j];
+					
+					// do c1 and c2 intersect?
+					var ci = c1.getIntersections(c2);
+					
+					// check intersections, ignore end-points
+					for (var k=0; k<ci.length; k++) {
+						intersec = ci[k];
+						if (intersec.point.getDistance(c1.point1,true)>0.01 && 
+						    intersec.point.getDistance(c1.point2,true)>0.01 && 
+						    intersec.point.getDistance(c2.point1,true)>0.01 && 
+						    intersec.point.getDistance(c2.point2,true)>0.01) {
+							
+							intersections.push(intersec);
+							
+							// divide c1 and c2 at intersection
+							c1.divide(intersec.parameter, true);
+							c2.divide(c2.getParameterOf(intersec.point), true);
+							
+							//console.log('restart',i,j, intersec);
+							
+							aargh += 1;
+							if (aargh > 100) {
+								console.log('aaaaargh');
+								return null;
+								
+							}
+							
+							// restart algorithm
+							restart = true;
+							break;
+						}
+						
+					}
+					
+					if (restart) {
+						break;
+					} else {
+						j++;	
+					}
+				}
+				
+				if (restart) {
+					i = 0;
+					restart = false;
+				} else {
+					i++;
+				}
+			}
+			
+			
+			if (false)
+			for (var i=0; i<intersections.length; i++) {
+				var ic = new Path.Circle({
+					center: intersections[i].point,
+					radius: 3,
+					strokeColor: new Color(0,0,1,0.2)
+				});
+			}
+			
+			
+			
+			// locate an outer point
+			// ??
+			
+			// walk the outline, discarding segments within self-intersecting regions
+			var fop = new CompoundPath();
+			fop.strokeColor = 'purple';
+			if (op.curves.length> 0) {
+				fop.moveTo(op.curves[0].point1);
+			
+				var inOut = true;  //  true if out, false if in
+				for (var i=0; i<op.curves.length; i++) {
+					var c = op.curves[i];
+				
+					if (intersections.length > 0) {
+						
+						if (inOut) {
+							appendCurveToPath(c, fop);
+						} else {
+							
+							fop.moveTo(c.point2);
+						}
+					
+						// does this segment end on an intersection?
+						var endsOnIntersection = false;
+						
+						for (var j=0; j<intersections.length; j++) {
+							var intersec = intersections[j];
+						
+							if (intersec.point.getDistance(c.point2, true) < 0.01) {
+								
+								endsOnIntersection = true;
+								break;
+							}					
+						}
+						
+						if (endsOnIntersection) {
+							inOut = !inOut;
+						}
+				
+					} else {
+						// append to fop
+						appendCurveToPath(c, fop);
+					}
+				
+				}
+			}
+			
+			// return the final result
+			op.remove();
+		
+			return fop;
+		}
+		
+		function onMouseDown(event) {
+			
+			if (newPath) {
+				path.moveTo(event.point);
+				newPath = false;
+			} else {
+		
+				if (event.modifiers.shift || clickStack.length > 0) {
+				
+					clickStack.push(event.point);
+				
+					if (clickStack.length == 3) {
+						path.cubicCurveTo(clickStack[0], clickStack[1], clickStack[2]);
+				
+						clickStack = [];
+					}
+			
+				} else {
+					path.lineTo(event.point);
+				}
+			
+			}
+			
+			
+			
+			//if (offsetPath)
+			//	offsetPath.remove();
+			//offsetPath = calcOffsetPath(path, 10);
+		}
+
+		function onMouseDrag(event) {
+			
+		}
+		
+		function onMouseMove(event) {
+			// get nearest point to live offsetPath
+			
+			if (offsetPath && offsetPath.curves.length > 0) {
+				//var cl = offsetPath.getNearestLocation(event.point);
+			
+				//nearMarker.position = cl.point;
+				
+				if (offsetPath.contains(event.point)) {
+					offsetPath.fillColor = new Color(0,1,0,0.5);
+				} else {
+					offsetPath.fillColor = new Color(0,0,0,0);
+				}
+			}
+			
+		}
+		
+		function onKeyDown(event) {
+			if (event.key == 'enter') {
+				path.closePath();
+				
+				//path.simplify(0.1);
+				
+				if (offsetPath)
+					offsetPath.remove();
+				offsetPath = calcOffsetPath(path, 10);
+				
+				startNewPath();
+			}
+		}
+
+	</script>
+</head>
+<body>
+	<canvas id="canvas" resize></canvas>
+</body>
+</html>

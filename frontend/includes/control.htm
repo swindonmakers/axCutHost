@@ -1,0 +1,41 @@
+<div id="tab-control" class="tab-content">
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-horizontal" id="controlGroups">
+            </div>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">GCode</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="gcodeEntry" placeholder="G1 X0 Y0 Z0">
+                        <div id="controlGCodeInfo" class="control-label"></div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="" style="margin-top:30px;">
+                <h4>GCode Command Reference</h4>
+                <ul id="controlGCodeCommands">
+
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <h4>Queued Commands <small>next 10, top is next</small></h4>
+            <pre id="controlQueueTop" data-bind="text: machineVM.queueTop"></pre>
+
+            <h4>Log Tail <small>last 10</small></h4>
+            <pre id="controlLogTail" data-bind="text: machineVM.logTail"></pre>
+        </div>
+    </div>
+
+
+
+
+</div>

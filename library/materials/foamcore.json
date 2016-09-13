@@ -1,0 +1,82 @@
+{
+	"description": "5mm foamcore board",
+	"origin": [
+		19,
+		0
+	],
+	"travelSpeed": 200,
+	"lineTypes": [
+		{
+			"type": "engrave",
+			"color": "#0000FF",
+			"order": 0,
+			"useContainment": false,
+			"passes": [
+				{
+					"speed": 100,
+					"z": 52,
+					"power": 37
+				}
+			]
+		},
+		{
+			"type": "score",
+			"color": "#FF0000",
+			"order": 0,
+			"useContainment": false,
+			"passes": [
+				{
+					"speed": 70,
+					"z": 52,
+					"power": 60
+				}
+			]
+		},
+		{
+			"type": "cut",
+			"color": "#000000",
+			"order": 0,
+			"useContainment": true,
+			"passes": [
+				{
+					"speed": 70,
+					"z": 52,
+					"power": 55
+				},
+				{
+					"speed": 22,
+					"z": 52,
+					"power": 100
+				},
+				{
+					"speed": 22,
+					"z": 52,
+					"power": 100
+				}
+			]
+		},
+		{
+			"type": "finalCut",
+			"color": "#00FF00",
+			"order": 1,
+			"useContainment": false,
+			"passes": [
+				{
+					"speed": 70,
+					"z": 52,
+					"power": 55
+				},
+				{
+					"speed": 20,
+					"z": 52,
+					"power": 100
+				},
+				{
+					"speed": 20,
+					"z": 52,
+					"power": 100
+				}
+			]
+		}
+	]
+}

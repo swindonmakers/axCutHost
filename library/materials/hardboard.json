@@ -1,0 +1,49 @@
+{
+	"description": "",
+	"origin": [
+		19,
+		0
+	],
+	"travelSpeed": 200,
+	"lineTypes": [
+		{
+			"type": "engrave",
+			"color": "#0000FF",
+			"order": 0,
+			"useContainment": false,
+			"passes": [
+				{
+					"speed": 70,
+					"z": 52,
+					"power": 37
+				}
+			]
+		},
+		{
+			"type": "cut",
+			"color": "#000000",
+			"order": 1,
+			"useContainment": true,
+			"passes": [
+				{
+					"speed": 4,
+					"z": 52,
+					"power": 100
+				}
+			]
+		},
+		{
+			"type": "finalCut",
+			"color": "#00FF00",
+			"order": 100,
+			"useContainment": false,
+			"passes": [
+				{
+					"speed": 4,
+					"z": 52,
+					"power": 100
+				}
+			]
+		}
+	]
+}

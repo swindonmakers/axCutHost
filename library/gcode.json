@@ -1,0 +1,121 @@
+{
+    "note":"this is the list of valid axCut GCode commands",
+    "commands": [
+        {
+            "code":"G1",
+            "desc":"Move to X Y Z at F mm/min"
+        },
+        {
+            "code":"G4",
+            "desc":"Dwell S<seconds> or P<milliseconds>"
+        },
+        {
+            "code":"G5",
+            "desc":"Bezier curve to X Y via I J K L at F mm/min"
+        },
+        {
+            "code":"G28",
+            "desc":"Home X Y Z"
+        },
+        {
+            "code":"G90",
+            "desc":"Use absolute coordinates"
+        },
+        {
+            "code":"G91",
+            "desc":"Use relative coordinates"
+        },
+        {
+            "code":"G92",
+            "desc":"Set current position to X Y Z"
+        },
+        {
+            "code":"M4",
+            "desc":"Turn laser on at S<power>"
+        },
+        {
+            "code":"M5",
+            "desc":"Turn laser off"
+        },
+        {
+            "code":"M17",
+            "desc":"Enable all stepper motors"
+        },
+        {
+            "code":"M18",
+            "desc":"Disable all stepper motors"
+        },
+        {
+            "code":"M105",
+            "desc":"Report current temperatures"
+        },
+        {
+            "code":"M114",
+            "desc":"Report current position"
+        },
+        {
+            "code":"M119",
+            "desc":"Report endstop status"
+        },
+        {
+            "code":"M400",
+            "desc":"Finish all moves"
+        },
+        {
+            "code":"M500",
+            "desc":"Store current parameters in EEPROM"
+        },
+        {
+            "code":"M501",
+            "desc":"Read parameters from EEPROM (to reset them)"
+        },
+        {
+            "code":"M502",
+            "desc":"Revert to factory settings (remember to store them with M500)"
+        },
+        {
+            "code":"M503",
+            "desc":"Print current settings (in memory)"
+        },
+        {
+            "code":"M666",
+            "desc":"Set endstop adjustment factor for Y hall sensor (store with M500)"
+        },
+        {
+            "code":"M667",
+            "desc":"Report endstop adjustment values"
+        },
+        {
+            "code":"M668",
+            "desc":"Report laser status and settings"
+        },
+        {
+            "code":"M669",
+            "desc":"Arm laser"
+        },
+        {
+            "code":"M670",
+            "desc":"Disarm laser"
+        },
+        {
+            "code":"M671",
+            "desc":"Testfire laser at S<power> for P<milliseconds>"
+        },
+        {
+            "code":"M680",
+            "desc":"Turn on relay P<1-4>"
+        },
+        {
+            "code":"M681",
+            "desc":"Turn off relay P<1-4>"
+        },
+        {
+            "code":"M682",
+            "desc":"Set lighting level to S<0-255>"
+        },
+        {
+            "code":"M683",
+            "desc":"Fade lighting level to S<0-255> over P<milliseconds>"
+        }
+    ]
+}

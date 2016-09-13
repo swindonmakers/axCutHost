@@ -1,0 +1,31 @@
+<div id="tab-calib" class="tab-content">
+
+    <div class="row">
+        <div class="col-sm-6 btn-group" role="group">
+            <select id="calibScriptSelect" class="form-control">
+                <option value="">Select a script</option>
+                <option value="bargraphs">Bargraphs</option>
+                <!--<option value="combs">Combs</option>-->
+                <option value="randomWalk">Random Walk</option>
+            </select>
+        </div>
+
+        <div class="col-sm-6 btn-group" role="group">
+            <button id="calibGenBut" type="button" class="btn btn-primary btn-md" style="display:none">
+                Generate GCode
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div id="calibNotes">Select a script from the dropdown above</div>
+        </div>
+
+        <div class="col-sm-6">
+            <h4>Script Parameters</h4>
+            <div id="calibEditor">{}</div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>axCut Host</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/paperjs/dist/paper.js"></script>
+    <link rel="stylesheet" href="js/jquery-ui/jquery-ui.css">
+    <script src="js/jquery-ui/jquery-ui.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src="js/knockout-3.3.0.js"></script>
+    <script src="js/knockstrap.min.js"></script>
+
+    <script src="js/bootstrap-notify.min.js"></script>
+
+    <script src="js/splitter.js"></script>
+
+    <link rel="stylesheet" href="css/app.css">
+
+
+
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" data-bind="css: {'navbar-cutting': machineVM.status.queuedLines() > 0}">
+        <div class="container-fluid">
+            <ul class="nav nav-pills tabs">
+
+                <li data-tab="tab-settings">
+                    Connect
+                </li>
+
+                <li data-tab="tab-control" >
+                    Control
+                </li>
+
+                <li data-tab="tab-new">
+                    Import
+                </li>
+
+                <li id="tabSimLink" class="active" data-tab="tab-sim">
+                    Playback
+                </li>
+
+                <li data-tab="tab-mat">
+                    Materials
+                </li>
+
+                <li data-tab="tab-calib">
+                    Calibrate
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="machineStatus">
+        <span class="label" data-bind="css: {'label-success': machineVM.connected(), 'disabled': !machineVM.connected()  }">
+            <span data-bind="if: machineVM.connected()">
+                Connected
+            </span>
+            <span data-bind="if: !machineVM.connected()">
+                Disconnected
+            </span>
+        </span>
+
+        <span class="label" data-bind="css: {'label-success': machineVM.status.ready(), 'disabled': !machineVM.connected()  }">Ready</span>
+        <span class="label" data-bind="css: {'label-success': machineVM.status.paused(), 'disabled': !machineVM.connected()  }">Paused</span>
+
+        <span class="badge" data-bind="text: machineVM.status.queuedLines().toFixed(0)"></span>
+
+        <span id="ETA"></span>
+
+        <button id="pauseBut" type="button" style="margin-left:15px;" class="btn btn-sm btn-default" data-bind="css: {'disabled': !machineVM.connected()}, text: machineVM.status.paused() ? 'Play' : 'Pause'">
+            Pause
+        </button>
+
+        <button id="abortBut" type="button" class="btn btn-sm btn-danger" data-bind="css: {'disabled': !machineVM.connected()}">
+            Abort
+        </button>
+
+    </div>
+
+    <div class="main">
+
+        <!--#include file="includes/control.htm" -->
+
+
+        <!--#include file="includes/new.htm" -->
+
+        <!--#include file="includes/sim.htm" -->
+
+
+        <!--#include file="includes/materials.htm" -->
+
+
+        <!--#include file="includes/calib.htm" -->
+
+
+        <!--#include file="includes/settings.htm" -->
+
+    </div>
+
+    <script type='text/javascript' src="js/app/app.js"></script>
+    <script type='text/javascript' src="js/app/control.js"></script>
+    <script type='text/javascript' src="js/app/new.js"></script>
+    <script type='text/javascript' src="js/app/sim.js"></script>
+    <script type='text/javascript' src="js/app/mat.js"></script>
+    <script type='text/javascript' src="js/app/calib.js"></script>
+    <script type='text/javascript' src="js/app/settings.js"></script>
+
+    <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+
+    // disable forward/back!
+    history.pushState({ page: 1 }, "title 1", "#nbb");
+    window.onhashchange = function (event) {
+        window.location.hash = "nbb";
+
+    };
+
+    </script>
+
+</body>
+</html>

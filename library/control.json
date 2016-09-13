@@ -1,0 +1,202 @@
+{
+    "groups":[
+        {
+            "label":"Homing",
+            "buttons": [
+                {
+                    "label":"All (Safe)",
+                    "commands":"M670\r\nG91\r\nG1 Z-5\r\nG90\r\nG28 XY\r\nG28 Z\r\nG1 Z105",
+                    "type":"success"
+                },
+                {
+                    "label":"All",
+                    "commands":"M670\r\nG28 XY\r\nG28 Z\r\nG1 Z105",
+                    "type":"default"
+                }
+                ,
+                {
+                    "label":"X",
+                    "commands":"M670\r\nG28 X\r\n",
+                    "type":"default"
+                }
+                ,
+                {
+                    "label":"Y",
+                    "commands":"M670\r\nG28 Y\r\n",
+                    "type":"default"
+                }
+                ,
+                {
+                    "label":"Z",
+                    "commands":"M670\r\nG28 Z\r\nG1 Z105",
+                    "type":"default"
+                }
+            ]
+
+        },
+        {
+            "label":"Compressor",
+            "buttons": [
+                {
+                    "label":"On",
+                    "commands":"M680 P2",
+                    "type":"default"
+                }
+                ,
+                {
+                    "label":"Off",
+                    "commands":"M681 P2",
+                    "type":"default"
+                }
+            ]
+
+        },
+        {
+            "label":"Extractor",
+            "buttons": [
+                {
+                    "label":"On",
+                    "commands":"M680 P4",
+                    "type":"default"
+                }
+                ,
+                {
+                    "label":"Off",
+                    "commands":"M681 P4",
+                    "type":"default"
+                }
+            ]
+
+        },
+        {
+            "label":"Firing",
+            "buttons": [
+                {
+                    "label":"Arm",
+                    "commands":"M669",
+                    "type":"default"
+                },
+                {
+                    "label":"Disarm",
+                    "commands":"M670",
+                    "type":"default"
+                }
+                ,
+                {
+                    "label":"Testfire",
+                    "commands":"M671 S50 P50",
+                    "type":"default"
+                }
+            ]
+
+        },
+        {
+            "label":"Position",
+            "buttons": [
+                {
+                    "label":"Top Left",
+                    "commands":"G1 X0 Y620 F10000",
+                    "type":"default"
+                },
+                {
+                    "label":"Top Middle",
+                    "commands":"G1 X425 Y620 F10000",
+                    "type":"default"
+                },
+                {
+                    "label":"Top Right",
+                    "commands":"G1 X850 Y620 F10000",
+                    "type":"default"
+                }
+            ]
+
+        },
+        {
+            "label":"",
+            "buttons": [
+                {
+                    "label":"Middle Left",
+                    "commands":"G1 X0 Y310 F10000",
+                    "type":"default"
+                },
+                {
+                    "label":"Middle Middle",
+                    "commands":"G1 X425 Y310 F10000",
+                    "type":"default"
+                },
+                {
+                    "label":"Middle Right",
+                    "commands":"G1 X850 Y310 F10000",
+                    "type":"default"
+                }
+            ]
+        },
+        {
+            "label":"",
+            "buttons": [
+                {
+                    "label":"Bottom Left",
+                    "commands":"G1 X0 Y0 F10000",
+                    "type":"default"
+                },
+                {
+                    "label":"Bottom Middle",
+                    "commands":"G1 X425 Y0 F10000",
+                    "type":"default"
+                },
+                {
+                    "label":"Bottom Right",
+                    "commands":"G1 X850 Y0 F10000",
+                    "type":"default"
+                }
+            ]
+        },
+        {
+            "label":"",
+            "buttons": [
+                {
+                    "label":"Origin",
+                    "commands":"G1 X19 Y0 F10000",
+                    "type":"default"
+                },
+                {
+                    "label":"800x600",
+                    "commands":"G1 X800 Y600 F10000",
+                    "type":"default"
+                },
+                {
+                    "label":"A1",
+                    "commands":"G1 X841 Y594 F10000",
+                    "type":"default"
+                }
+            ]
+        },
+        {
+            "label":"Other",
+            "buttons": [
+                {
+                    "label":"Recover from Head Crash",
+                    "commands":"M670\r\nG92 Z120\r\nG1 Z110 F10000",
+                    "type":"warning"
+                }
+            ]
+
+        },
+        {
+            "label":"Utilities",
+            "buttons": [
+                {
+                    "label":"Testfires in X order",
+                    "file":"gcode/testfireX.gcode",
+                    "type":"default"
+                },
+                {
+                    "label":"Testfires in Y order",
+                    "file":"gcode/testfireY.gcode",
+                    "type":"default"
+                }
+            ]
+
+        }
+    ]
+}

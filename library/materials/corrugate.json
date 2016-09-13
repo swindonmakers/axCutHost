@@ -1,0 +1,71 @@
+{
+	"description": "3mm corrugated cardboard, single layer, new laser",
+	"origin": [
+		19,
+		0
+	],
+	"travelSpeed": 200,
+	"lineTypes": [
+		{
+			"type": "engrave",
+			"color": "#0000FF",
+			"order": 50,
+			"useContainment": false,
+			"passes": [
+				{
+					"speed": 100,
+					"z": 55,
+					"power": 37
+				}
+			]
+		},
+		{
+			"type": "precut",
+			"color": "#FF00FF",
+			"order": 0,
+			"useContainment": true,
+			"anisotropic": false,
+			"anisotropicAxis": "Y",
+			"anisotropicPower": 0.8,
+			"passes": [
+				{
+					"speed": 35,
+					"z": 55,
+					"power": 100
+				}
+			]
+		},
+		{
+			"type": "cut",
+			"color": "#000000",
+			"order": 50,
+			"useContainment": true,
+			"anisotropic": false,
+			"anisotropicAxis": "Y",
+			"anisotropicPower": 0.8,
+			"passes": [
+				{
+					"speed": 35,
+					"z": 55,
+					"power": 100
+				}
+			]
+		},
+		{
+			"type": "finalCut",
+			"color": "#00FF00",
+			"order": 100,
+			"useContainment": false,
+			"anisotropic": false,
+			"anisotropicAxis": "Y",
+			"anisotropicPower": 0.8,
+			"passes": [
+				{
+					"speed": 35,
+					"z": 55,
+					"power": 100
+				}
+			]
+		}
+	]
+}

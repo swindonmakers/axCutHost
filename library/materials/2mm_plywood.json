@@ -1,0 +1,49 @@
+{
+	"description": "2mm plywood",
+	"origin": [
+		19,
+		0
+	],
+	"travelSpeed": 200,
+	"lineTypes": [
+		{
+			"type": "engrave",
+			"color": "#0000FF",
+			"order": 0,
+			"useContainment": false,
+			"passes": [
+				{
+					"speed": 30,
+					"z": 108,
+					"power": 16
+				}
+			]
+		},
+		{
+			"type": "cut",
+			"color": "#000000",
+			"order": 0,
+			"useContainment": true,
+			"passes": [
+				{
+					"speed": 10,
+					"z": 109,
+					"power": 100
+				}
+			]
+		},
+		{
+			"type": "finalCut",
+			"color": "#00FF00",
+			"order": 100,
+			"useContainment": false,
+			"passes": [
+				{
+					"speed": 10,
+					"z": 109,
+					"power": 100
+				}
+			]
+		}
+	]
+}

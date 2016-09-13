@@ -1,0 +1,80 @@
+<div id="tab-mat" class="tab-content">
+
+    <div class="row">
+        <div class="col-sm-4">
+
+
+            <div class="panel panel-default">
+                <table class="table table-hover">
+                    <tbody data-bind="foreach: materialsVM.materials, visible: materialsVM.materials().length > 0">
+                        <tr>
+                            <td class="matListName" data-bind="click:$parent.materialsVM.editMaterial"><strong data-bind="text: name"></strong></td>
+                            <td width="5%">
+                                <div class="btn-group pull-right">
+                                    <button type="button" class="btn btn-default btn-sm"
+                                        data-bind="click: $parent.materialsVM.removeMaterial">
+                                        Delete
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#matAddModal">Add Material</button>
+
+            </div>
+
+
+        </div>
+
+        <div id="matEditContainer" class="col-sm-8">
+
+
+            <div class="form-horizontal" style="margin-left:15px;">
+                <div class="row">
+                    <div class="form-group col-sm-8">
+                        <input type="text" class="form-control" id="matEditName" placeholder="">
+                    </div>
+
+                    <div class="col-sm-4">
+                        <button id="matEditSaveBut" type="button" class="btn btn-primary btn-md disabled">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="matEditor">{}</div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Modal -->
+<div id="matAddModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add a Material</h4>
+      </div>
+      <div class="modal-body">
+          <input type="text" class="form-control" id="matModalName" placeholder="material name">
+      </div>
+      <div class="modal-footer">
+         <button type="button" class="btn btn-primary" id="matModalAddBut">Add</button>
+
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>

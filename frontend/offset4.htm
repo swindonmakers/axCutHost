@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Offset</title>
+	<link rel="stylesheet" type="text/css" href="css/screen.css"/>
+
+	<script src="js/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="js/paperjs/dist/paper.js"></script>
+	<script type="text/javascript" src="js/grid.js"></script>
+	<script type="text/javascript" src="js/offsetPath3.js"></script>
+	<script type="text/javascript" src="js/TreeModel.js"></script>
+	<script type="text/javascript">
+
+	var debugGroup;
+	var loadedItem;
+
+	var calcTime = 0;
+
+	paper.install(window);
+
+	$( document ).ready(function() {
+  		var canvas = document.getElementById('canvas');
+		paper.setup(canvas);
+
+		var file = document.getElementById('file');
+		file.addEventListener('change', function (event) {
+			var files = event.target.files;
+			for (var i = 0; i < files.length; i++) {
+				var file = files[i];
+				if (file.type.match('svg')) {
+					project.activeLayer.position = new Point(0,0);
+
+					project.activeLayer.removeChildren();
+					project.importSVG(file, {expandShapes:true, onLoad:function(item) {
+
+						loadedItem = item;
+
+						var offset = Number($('#offset').val());
+
+						var acc = offset / 10;
+						if (acc < 0.2) acc = 0.2;
+						// convert beziers to straight lines
+						doThisToPaths(item, function(p) {
+							flattenPath(p, acc);
+						});
+
+
+						if (true) {
+							view.zoom = 1;
+
+
+
+							// scale item
+							var w1  = item.bounds.width + 2*offset;
+							var h1 = item.bounds.height + 2*offset;
+							var aspect = w1/h1;
+							var vw = view.size.width;
+							var vh = view.size.height;
+							var va = vw/vh;
+
+							var scale = 1;
+
+							if (aspect > va) {
+								scale = vw / w1;
+							} else {
+								scale = vh / h1;
+							}
+
+							// scale to fit bed
+							item.transformContent = true;
+							//item.scale(scale);
+
+							// position at top left of view
+							var delta = new Point(item.bounds.left, item.bounds.top);
+							item.position = item.position.subtract(delta);
+
+							// reset view
+							//console.log(scale);
+							view.zoom = scale * 0.9;
+
+
+
+							project.activeLayer.position.x += -item.bounds.width/2 + view.center.x;
+							project.activeLayer.position.y +=  -item.bounds.height/2 + view.center.y;
+
+
+
+
+						}
+
+						item.fillColor = new Color(0,0,0,0);
+						item.strokeWidth = 1;
+						item.strokeColor = new Color(0,0,0,0.1);
+
+
+						debugGroup = new Group();
+
+						/*
+						var steps = 20;
+						for (var j=0; j<steps; j++) {
+
+							$('#offset').val(1 + j*2);
+							recalc(j==0);
+						}
+						*/
+
+						recalc(true);
+
+
+						view.draw();
+
+					}});
+				}
+			}
+		});
+
+
+		view.draw();
+
+		view.on('resize', function(event) {
+			view.draw();
+		});
+
+
+		$('#recalc').on('click',function() {
+
+			recalc(false);
+		});
+
+		$('#exportsvg').on('click',function() {
+
+			exportSVG();
+		});
+
+
+		function exportSVG() {
+			window.URL = window.URL || window.webkitURL;
+
+			var svgSrc = '<svg x="0" y="0" width="'+view.viewSize.width+'" height="'+view.viewSize.height+'" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">'+
+							project.exportSVG().innerHTML+
+							'</svg>';
+
+			var blob = new Blob([svgSrc], {type: 'image/svg+xml'});
+
+			var link = $('#download');
+			link.attr('href',window.URL.createObjectURL(blob));
+			link.show();
+		}
+
+		function recalc(doReverse) {
+			// do some stuff here
+			if (debugGroup) debugGroup.remove();
+			debugGroup = new Group();
+
+			doThisToPaths(loadedItem,  function(p) {
+
+				var offset = Number($('#offset').val());
+
+				//p.simplify(0.1);
+
+				//joinCloseSegments(p, offset / 10);
+
+				//removeCloseHandles(p, 0.1);
+
+
+
+
+				// reverse?
+				if (doReverse && $('#reverse').prop('checked')) {
+					p.reverse();
+				}
+
+				// auto-clockwise...  doesn't work on compound or nested curves
+				if (!p.clockwise) p.reverse();
+
+
+				/*
+				var offsetPath = calcOffsetPath(p, offset, function (progress) {
+					//console.log(progress);
+				});
+				*/
+
+				//debugGroup = new Group();
+
+				if ($('#stopAfter').val() == 0) $('#stopAfter').val(p.curves.length);
+
+				//animatePathOffset(p, offset, 1, null);
+
+				//drawPathPoints(p, new Color(0,0,0,0.4));
+
+				analyseSelfIntersections(p, offset);
+
+				var offsetPath = calcOffsetPath(p, offset, function(cmd,text) {
+					updateProgressTree(cmd,text);
+				}, null);
+				if (offsetPath)
+					debugGroup.addChild(offsetPath);
+
+				view.draw();
+
+				//drawPathHandles(offsetPath, new Color(0,1,0,0.4));
+
+				//drawControlCurves(offsetPath, 'orange');
+
+			});
+
+			debugGroup.strokeWidth = view.size.width / view.viewSize.width;
+		   	loadedItem.strokeWidth = debugGroup.strokeWidth;
+		   //debugGroup.fontSize = '11px';
+		}
+
+
+		function animatePathOffset(p, offset, stopAfter) {
+
+			if (debugGroup) debugGroup.remove();
+			debugGroup = new Group();
+
+			console.log('stopAfter',stopAfter);
+
+
+			var offsetPath = calcOffsetPath(p, offset, null, stopAfter);
+			if (offsetPath)
+				debugGroup.addChild(offsetPath);
+
+			view.draw();
+
+			if (stopAfter < $('#stopAfter').val()) {
+				stopAfter += 1;
+				setTimeout(function() {
+					animatePathOffset(p, offset, stopAfter);
+				}, 1);
+			}
+		}
+
+
+function copyToClipboard(text) {
+  window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+}
+
+
+		$( "body" ).keydown(function( event ) {
+		  switch (event.which) {
+		  	case 187:	// zoom in
+		  	 	event.preventDefault();
+		   	  	view.zoom *= 1.2;
+		   	  	debugGroup.strokeWidth = view.size.width / view.viewSize.width;
+		   	  	loadedItem.strokeWidth = debugGroup.strokeWidth;
+		   	  	//debugGroup.fontSize = 3;
+		  	  	break;
+
+		  	case 189:	// zoom out
+		  	  	event.preventDefault();
+		   		view.zoom *= 0.8;
+		   		debugGroup.strokeWidth = view.size.width / view.viewSize.width;
+		   		loadedItem.strokeWidth = debugGroup.strokeWidth;
+		   		//debugGroup.fontSize = 3;
+		  		break;
+
+		  	case 37:	// left
+		  		event.preventDefault();
+		   		project.activeLayer.position.x -= view.size.width/20;
+		  		break;
+
+		  	case 38:	// up
+		  		event.preventDefault();
+		   		project.activeLayer.position.y -=view.size.width/20;
+		  		break;
+
+		  	case 39:	// right
+		  		event.preventDefault();
+		   		project.activeLayer.position.x += view.size.width/20;
+		  		break;
+
+		  	case 40:	// down
+		  		event.preventDefault();
+		   		project.activeLayer.position.y += view.size.width/20;
+		  		break;
+
+		  }
+
+		  view.draw();
+
+		  //console.log(event.which);
+
+
+		});
+
+
+		function startProgressItem(text) {
+			var pt = $('#progressTree');
+			var ptl = pt.children('ul');
+
+			var pti = $('<li/>');
+			pti.html(text);
+			ptl.append(pti);
+		}
+
+		function endProgressItem(text) {
+			var pt = $('#progressTree');
+			var pti = pt.children('ul').children('li').last();
+			pti.remove();
+		}
+
+		function updateProgressItem(text) {
+			var pt = $('#progressTree');
+			var pti = pt.children('ul').children('li').last();
+			pti.html(text);
+		}
+
+		function updateProgressTree(cmd,text) {
+			switch (cmd) {
+				case "start":
+					startProgressItem(text);
+					break;
+				case "end":
+					endProgressItem();
+					break;
+				default:
+					updateProgressItem(text);
+			}
+		}
+
+		function doThisToPaths(item, cb) {
+			updateProgressTree('start','doThisToPaths');
+			if (item.children && item.children.length > 0) {
+				console.log(item);
+
+				for (var i=0; i<item.children.length; i++) {
+					updateProgressTree('',i/(item.children.length-1));
+					var c = item.children[i];
+
+					setTimeout(doThisToPaths,1,c,cb);
+				}
+			} else if (item._class == 'Path') {
+				setTimeout(cb,1,item);
+			}
+			updateProgressTree('end','');
+		}
+
+	});
+
+	</script>
+</head>
+<body>
+	<form>
+	<input type="checkbox" id="reverse" value="reverse">
+	<input id="stopAfter" value="0">
+	<input id="offset" value="4">
+	<input type="file" id="file">
+	<input id="recalc" type="button" value="Recalc">
+	<input id="exportsvg" type="button" value="Export SVG">
+	<a href="#" id="download" style="display:none">Download SVG</a>
+	</form>
+	<canvas id="canvas" resize></canvas>
+	<div id="progressTree"><ul></ul></div>
+</body>
+</html>
