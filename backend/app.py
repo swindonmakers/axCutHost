@@ -119,6 +119,15 @@ def run_with_callback(host, port):
     print "-----------------------------------------------------------------------------"
     print
 
+    # load machine config
+    machinefile = open(os.path.join(resources_dir(), 'library/machine.json'), 'rb')
+    try:
+        obj = json.load(machinefile)
+        SerialManager.machine['axesLimits'] = obj['axesLimits']
+        SerialManager.machine['homeTo'] = obj['homeTo']
+    except ValueError, e:
+        raise SystemExit(e)
+
     # auto-connect on startup, only if serial port is defined
     global SERIAL_PORT
     #if not SERIAL_PORT:

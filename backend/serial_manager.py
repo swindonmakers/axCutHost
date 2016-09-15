@@ -9,6 +9,7 @@ import re
 import subprocess
 import copy
 import math
+import json
 
 
 def sqr(a):
@@ -46,6 +47,13 @@ class SerialManagerClass:
         # status flags
         self.status = {}
         self.reset_status()
+
+        # machine config
+        self.machine = {
+            'axesLimits': [100,100,100],
+            'homeTo': [100,100,100]
+        }
+
 
 
 
@@ -107,11 +115,11 @@ class SerialManagerClass:
 
             elif g == 28:
                 if 'X' in codes:
-                    self.cutter_state['pos'][0] = 890
+                    self.cutter_state['pos'][0] = self.machine['homeTo'][0]
                 if 'Y' in codes:
-                    self.cutter_state['pos'][1] = 650
+                    self.cutter_state['pos'][1] = self.machine['homeTo'][1]
                 if 'Z' in codes:
-                    self.cutter_state['pos'][2] = 120
+                    self.cutter_state['pos'][2] = self.machine['homeTo'][2]
 
 
         elif 'M' in codes:
@@ -178,11 +186,11 @@ class SerialManagerClass:
 
                 elif g == 28:
                     if 'X' in codes:
-                        state['pos'][0] = 890
+                        state['pos'][0] = self.machine['homeTo'][0]
                     if 'Y' in codes:
-                        state['pos'][1] = 650
+                        state['pos'][1] = self.machine['homeTo'][1]
                     if 'Z' in codes:
-                        state['pos'][2] = 120
+                        state['pos'][2] = self.machine['homeTo'][2]
 
                     state['elapsed'] += 10.0
 
