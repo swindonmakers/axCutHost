@@ -26,7 +26,8 @@ var machine = {
 		[1,    0.9,  0.9,   0.9,  0.4],
 		[0.8,  0.8,  0.8,   0.6,  0.4]
 	],
-	maxLineLength: 50 // mm
+	maxLineLength: 50, // mm
+    travelSpeed: 200
 };
 
 
@@ -58,6 +59,7 @@ function loadMachineConfig() {
       machine.powerMap = data.powerMap;
       machine.homeTo = data.homeTo;
       machine.maxLineLength = data.maxLineLength;
+      machine.travelSpeed = machine.travelSpeed;
     },
     error: function() {
         //?

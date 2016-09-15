@@ -998,6 +998,8 @@ function newGenGCode_Output() {
 
 	var bezLeadInOut = parseFloat(masterVM.newVM.travelMoveLeadInOut());
 
+	var doWarmUp = $('#newWarmUpBurnCB').is(':checked');
+
 	var errors = {
 		cropped: 0
 	};
@@ -1033,7 +1035,7 @@ function newGenGCode_Output() {
 
 	var minZ = 105;
 	var curPos = [machine.bedW, machine.bedD, 0, 0];
-	var travelSpeed = 200;
+	var travelSpeed = machine.travelSpeed;
 	if (masterVM.newVM.selectedMaterial().travelSpeed)
 		travelSpeed = masterVM.newVM.selectedMaterial().travelSpeed;
 
@@ -1051,11 +1053,13 @@ function newGenGCode_Output() {
 		gcode += genG1(curPos, travelSpeed, z.z);
 
 		// warm up burn - 3sec
-		curPos[0] -= 30;
-		gcode += '; Warm-up burn - 3sec\r\n';
-		gcode += 'M4 S100\r\n'+
-				 genG1(curPos, 30/3, z.z)+
-				'M5\r\n';
+		if (doWarmUp) {
+			curPos[0] -= 30;
+			gcode += '; Warm-up burn - 3sec\r\n';
+			gcode += 'M4 S100\r\n'+
+					 genG1(curPos, 30/3, z.z)+
+					'M5\r\n';
+		}
 	}
 
 	// for each pass (ordered set of curves)
