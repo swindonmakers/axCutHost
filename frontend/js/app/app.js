@@ -13,10 +13,12 @@ powerMap: [
 ],
 */
 
+// Machine defaults...  to be overridden by settings in library/machine.json
 var machine = {
     bedW: 890,
     bedD: 620,
     bedH: 100,
+    homeTo: [890,620,100],
     powerMap: [
 		[1,    1,    1,   0.8,  0.6],
 		[1,    1,    1,   0.9,  0.6],
@@ -46,6 +48,22 @@ masterVM = {
     machineVM: new MachineViewModel()
 };
 
+
+function loadMachineConfig() {
+    $.ajax({ url: "library/machine.json", cache: false,
+    success: function(data){
+      machine.bedW = data.axesLimits[0];
+      machine.bedD = data.axesLimits[1];
+      machine.bedH = data.axesLimits[2];
+      machine.powerMap = data.powerMap;
+      machine.homeTo = data.homeTo;
+      machine.maxLineLength = data.maxLineLength;
+    },
+    error: function() {
+        //?
+    },
+    dataType: "json"});
+}
 
 
 // GCode generation
@@ -296,7 +314,8 @@ $(document).ready(function(){
 
     });
 
-
+    // load machine config
+    loadMachineConfig();
 
     controlInit();
 
