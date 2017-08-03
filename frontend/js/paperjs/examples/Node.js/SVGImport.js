@@ -1,22 +1,23 @@
-var paper = require('paper'),
-	path = require('path'),
-	fs = require('fs');
+// Please note: When loading paper as a normal module installed in node_modules,
+// you would use this instead:
+// var paper = require('paper-jsdom-canvas');
+var paper = require('../../dist/paper-core.js');
 
-paper.setup(new paper.Canvas(300, 600));
-with (paper) {
-	fs.readFile('./in.svg', { encoding: 'utf8' }, function (err, data) {
-		if (err)
-			throw err; 
-		project.importSVG(data);
-		paper.view.exportFrames({
-			amount: 1,
-			directory: __dirname,
-			onComplete: function() {
-				console.log('Done exporting.');
-			},
-			onProgress: function(event) {
-				console.log(event.percentage + '% complete, frame took: ' + event.delta);
-			}
-		});
-	});
-}
+paper.setup(new paper.Size(300, 600));
+paper.project.importSVG('in.svg', {
+    onLoad: function(item) {
+        paper.view.exportFrames({
+            amount: 1,
+            directory: __dirname,
+            onComplete: function() {
+                console.log('Done exporting.');
+            },
+            onProgress: function(event) {
+                console.log(event.percentage + '% complete, frame took: ' + event.delta);
+            }
+        });
+    },
+    onError: function(message) {
+        console.error(message);
+    }
+});

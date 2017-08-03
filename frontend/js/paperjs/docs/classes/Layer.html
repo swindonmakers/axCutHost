@@ -10,22 +10,21 @@
 <script src="../assets/js/codemirror.js"></script>
 <script src="../assets/js/docs.js"></script>
 </head>
-<body class="reference">
+<body>
+<article class="reference"> 
 <div class="reference-class">
 <h1>Layer</h1>
 
 <p> Extends <b><a href="../classes/Item.html"><tt>Item</tt></a></b>, <b><a href="../classes/Group.html"><tt>Group</tt></a></b></p>
 
 <p>The Layer item represents a layer in a Paper.js project.</p>
-<p>The layer which is currently active can be accessed through
-<a href="../classes/Project.html#activelayer"><tt>project.activeLayer</tt></a>.</p>
-<p>An array of all layers in a project can be accessed through
-<a href="../classes/Project.html#layers"><tt>project.layers</tt></a>.</p>
+<p>The layer which is currently active can be accessed through <a href="../classes/Project.html#activelayer"><tt>project.activeLayer</tt></a>. An array of all layers in a project can be accessed through <a href="../classes/Project.html#layers"><tt>project.layers</tt></a>.</p>
 
 </div>
 
-<!-- ============================== constructors ========================= -->
-<div class="reference-members"><h2>Constructors</h2>
+<!-- =============================== constructors ========================== -->
+<div class="reference-members">
+	<h2>Constructors</h2>
 	
 		
 <div id="layer" class="member">
@@ -34,30 +33,39 @@
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-<p>Creates a new Layer item and places it at the end of the
-<a href="../classes/Project.html#layers"><tt>project.layers</tt></a> array. The newly created layer will be activated,
-so all newly created items will be placed within it.</p>
-
-<ul><b>Parameters:</b>
-
-<li>
+    <p>Creates a new Layer item and places it at the end of the <a href="../classes/Project.html#layers"><tt>project.layers</tt></a> array. The newly created layer will be activated, so all newly created items will be placed within it.</p>
+    
+    
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>children:</tt> 
 Array of <a href="../classes/Item.html"><tt>Item</tt></a> objects
-&mdash;&nbsp;An array of items that will be added to the
-newly created layer.
+&mdash;&nbsp;An array of items that will be added to the newly created layer
 &mdash;&nbsp;optional
 </li>
-
+	
 </ul>
 
+    
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Layer.html"><tt>Layer</tt></a></tt>
+</li>
 
-<p>
-<b>Example</b> 
-</p>
+		
+	</ul>
 
 
-<pre class="code">var layer = new Layer();</pre>
 
+    
+    <h4>Example:</h4>
+
+
+<pre><code>var layer = new Layer();</code></pre>
 
 </div>
 </div>
@@ -70,26 +78,36 @@ newly created layer.
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-<p>Creates a new Layer item and places it at the end of the
-<a href="../classes/Project.html#layers"><tt>project.layers</tt></a> array. The newly created layer will be activated,
-so all newly created items will be placed within it.</p>
-
-<ul><b>Parameters:</b>
-
-<li>
+    <p>Creates a new Layer item and places it at the end of the <a href="../classes/Project.html#layers"><tt>project.layers</tt></a> array. The newly created layer will be activated, so all newly created items will be placed within it.</p>
+    
+    
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>object:</tt> 
 <tt>Object</tt>
-&mdash;&nbsp;an object literal containing the properties to be
-set on the layer.
+&mdash;&nbsp;an object containing the properties to be set on  the layer
 
 </li>
-
+	
 </ul>
 
+    
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Layer.html"><tt>Layer</tt></a></tt>
+</li>
 
-<p>
-<b>Example</b> 
-</p>
+		
+	</ul>
+
+
+
+    
+    <h4>Example:</h4>
 
 <div class="paperscript split">
 
@@ -104,14 +122,13 @@ var path2 = new Path([50, 150], [150, 150]);
 // Create a layer. The properties in the object literal
 // are set on the newly created layer.
 var layer = new Layer({
-	children: [path, path2],
-	strokeColor: 'black',
-	position: view.center
+    children: [path, path2],
+    strokeColor: 'black',
+    position: view.center
 });
 </script>
 <div class="canvas"><canvas width="516" height="100" id="canvas-0"></canvas></div>
 </div>
-
 
 
 </div>
@@ -119,6 +136,8 @@ var layer = new Layer({
 </div>
 	
 </div>
+
+
 
 
 
@@ -127,9 +146,10 @@ var layer = new Layer({
 
 
 <!-- ============================== methods ================================ -->
-	<div class="reference-members"><h2>Methods</h2>
+	<div class="reference-members">
+		<h2>Methods</h2>
 		
-			
+	
 <div id="activate" class="member">
 <div class="member-link">
 <a name="activate" href="#activate"><tt><b>activate</b>()</tt></a>
@@ -137,23 +157,26 @@ var layer = new Layer({
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Activates the layer.</p>
+    
 	
 	
-	
-	<p>
-<b>Example</b> 
-</p>
 
 
-<pre class="code">var firstLayer = project.activeLayer;
+	
+	<h4>Example:</h4>
+
+
+<pre><code>var firstLayer = project.activeLayer;
 var secondLayer = new Layer();
 console.log(project.activeLayer == secondLayer); // true
 firstLayer.activate();
-console.log(project.activeLayer == firstLayer); // true</pre>
+console.log(project.activeLayer == firstLayer); // true</code></pre>
 
 </div>
 </div>
 </div>
+
+
 		
 	</div>
 
@@ -176,11 +199,14 @@ console.log(project.activeLayer == firstLayer); // true</pre>
 		<p>Read only.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Number</tt>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Number</tt>
+		</li>
 	</ul>
+    
 	
 	
 </div>
@@ -189,24 +215,29 @@ console.log(project.activeLayer == firstLayer); // true</pre>
 </div>
 
 	
-<div id="type" class="member">
+<div id="classname" class="member">
 <div class="member-link">
-<a name="type" href="#type"><tt><b>type</b></tt></a>
+<a name="classname" href="#classname"><tt><b>className</b></tt></a>
 </div>
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The type of the item as a string.</p>
-	
-		<p>Read only.</p>
+	<p>The class name of the item as a string.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>String('group', 'layer', 'path', 'compound-path', 'raster',
-'placed-symbol', 'point-text')</tt>
-	</li>
+		<ul class="member-list">
+			<h4>Values:</h4>
+			<li><tt>'Group'</tt>, <tt>'Layer'</tt>, <tt>'Path'</tt>, <tt>'CompoundPath'</tt>, <tt>'Shape'</tt>, <tt>'Raster'</tt>, <tt>'SymbolItem'</tt>, <tt>'PointText'</tt></li>
+		</ul>
+	
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>String</tt>
+		</li>
 	</ul>
+    
 	
 	
 </div>
@@ -222,19 +253,19 @@ console.log(project.activeLayer == firstLayer); // true</pre>
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The name of the item. If the item has a name, it can be accessed by name
-through its parent's children list.</p>
+	<p>The name of the item. If the item has a name, it can be accessed by name through its parent&rsquo;s children list.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>String</tt>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>String</tt>
+		</li>
 	</ul>
+    
 	
-	<p>
-<b>Example</b> 
-</p>
+	<h4>Example:</h4>
 
 <div class="paperscript split">
 
@@ -244,8 +275,8 @@ through its parent's children list.</p>
 
 <script type="text/paperscript" canvas="canvas-1">
 var path = new Path.Circle({
-	center: [80, 50],
-	radius: 35
+    center: [80, 50],
+    radius: 35
 });
 // Set the name of the path:
 path.name = 'example';
@@ -277,15 +308,16 @@ group.children['example'].fillColor = 'red';
 	<p>The path style of the item.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<a href="../classes/Style.html"><tt>Style</tt></a>
-	</li>
-	</ul>
 	
-	<p>
-<b>Example</b> &mdash; Applying several styles to an item in one go, by passing an object to its style property:
-</p>
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Style.html"><tt>Style</tt></a>
+		</li>
+	</ul>
+    
+	
+	<h4>Example:<span class="description">Applying several styles to an item in one go, by passing an object to its style property:</span></h4>
 
 <div class="paperscript split">
 
@@ -295,22 +327,20 @@ group.children['example'].fillColor = 'red';
 
 <script type="text/paperscript" canvas="canvas-2">
 var circle = new Path.Circle({
-	center: [80, 50],
-	radius: 30
+    center: [80, 50],
+    radius: 30
 });
 circle.style = {
-	fillColor: 'blue',
-	strokeColor: 'red',
-	strokeWidth: 5
+    fillColor: 'blue',
+    strokeColor: 'red',
+    strokeWidth: 5
 };
 </script>
 <div class="canvas"><canvas width="516" height="100" id="canvas-2"></canvas></div>
 </div>
 
 
-<p>
-<b>Example</b> &mdash; Copying the style of another item:
-</p>
+<h4>Example:<span class="description">Copying the style of another item:</span></h4>
 
 <div class="paperscript split">
 
@@ -320,14 +350,14 @@ circle.style = {
 
 <script type="text/paperscript" canvas="canvas-3">
 var path = new Path.Circle({
-	center: [50, 50],
-	radius: 30,
-	fillColor: 'red'
+    center: [50, 50],
+    radius: 30,
+    fillColor: 'red'
 });
 
 var path2 = new Path.Circle({
-	center: new Point(180, 50),
-	radius: 20
+    center: new Point(180, 50),
+    radius: 20
 });
 
 // Copy the path style of path:
@@ -337,9 +367,7 @@ path2.style = path.style;
 </div>
 
 
-<p>
-<b>Example</b> &mdash; Applying the same style object to multiple items:
-</p>
+<h4>Example:<span class="description">Applying the same style object to multiple items:</span></h4>
 
 <div class="paperscript split">
 
@@ -349,20 +377,20 @@ path2.style = path.style;
 
 <script type="text/paperscript" canvas="canvas-4">
 var myStyle = {
-	fillColor: 'red',
-	strokeColor: 'blue',
-	strokeWidth: 4
+    fillColor: 'red',
+    strokeColor: 'blue',
+    strokeWidth: 4
 };
 
 var path = new Path.Circle({
-	center: [50, 50],
-	radius: 30
+    center: [50, 50],
+    radius: 30
 });
 path.style = myStyle;
 
 var path2 = new Path.Circle({
-	center: new Point(150, 50),
-	radius: 20
+    center: new Point(150, 50),
+    radius: 20
 });
 path2.style = myStyle;
 </script>
@@ -383,25 +411,24 @@ path2.style = myStyle;
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>Specifies whether the item is visible. When set to <tt>false</tt>, the
-item won't be drawn.</p>
+	<p>Specifies whether the item is visible. When set to <code>false</code>, the item won&rsquo;t be drawn.</p>
 	
 	
-		<ul><b>Default:</b>
-		<li>
-		<tt>true</tt>
-		</li>
+	
+		<ul class="member-list">
+			<h4>Default:</h4>
+			<li><tt>true</tt></li>
 		</ul>
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Boolean</tt>
-	</li>
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Boolean</tt>
+		</li>
 	</ul>
+    
 	
-	<p>
-<b>Example</b> &mdash; Hiding an item:
-</p>
+	<h4>Example:<span class="description">Hiding an item:</span></h4>
 
 <div class="paperscript split">
 
@@ -411,9 +438,9 @@ item won't be drawn.</p>
 
 <script type="text/paperscript" canvas="canvas-5">
 var path = new Path.Circle({
-	center: [50, 50],
-	radius: 20,
-	fillColor: 'red'
+    center: [50, 50],
+    radius: 20,
+    fillColor: 'red'
 });
 
 // Hide the path:
@@ -436,33 +463,30 @@ path.visible = false;
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The blend mode with which the item is composited onto the canvas. Both
-the standard canvas compositing modes, as well as the new CSS blend modes
-are supported. If blend-modes cannot be rendered natively, they are
-emulated. Be aware that emulation can have an impact on performance.</p>
+	<p>The blend mode with which the item is composited onto the canvas. Both the standard canvas compositing modes, as well as the new CSS blend modes are supported. If blend-modes cannot be rendered natively, they are emulated. Be aware that emulation can have an impact on performance.</p>
 	
 	
-		<ul><b>Default:</b>
-		<li>
-		<tt>'normal'</tt>
-		</li>
+		<ul class="member-list">
+			<h4>Values:</h4>
+			<li><tt>'normal'</tt>, <tt>'multiply'</tt>, <tt>'screen'</tt>, <tt>'overlay'</tt>, <tt>'soft-light'</tt>, <tt>'hard-
+    light'</tt>, <tt>'color-dodge'</tt>, <tt>'color-burn'</tt>, <tt>'darken'</tt>, <tt>'lighten'</tt>, <tt>'difference'</tt>, <tt>'exclusion'</tt>, <tt>'hue'</tt>, <tt>'saturation'</tt>, <tt>'luminosity'</tt>, <tt>'color'</tt>, <tt>'add'</tt>, <tt>'subtract'</tt>, <tt>'average'</tt>, <tt>'pin-light'</tt>, <tt>'negation'</tt>, <tt>'source- over'</tt>, <tt>'source-in'</tt>, <tt>'source-out'</tt>, <tt>'source-atop'</tt>, <tt>'destination-over'</tt>, <tt>'destination-in'</tt>, <tt>'destination-out'</tt>, <tt>'destination-atop'</tt>, <tt>'lighter'</tt>, <tt>'darker'</tt>, <tt>'copy'</tt>, <tt>'xor'</tt></li>
 		</ul>
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>String('normal', 'multiply', 'screen', 'overlay', 'soft-light',
-'hard-light', 'color-dodge', 'color-burn', 'darken', 'lighten',
-'difference', 'exclusion', 'hue', 'saturation', 'luminosity', 'color',
-'add', 'subtract', 'average', 'pin-light', 'negation', 'source-over',
-'source-in', 'source-out', 'source-atop', 'destination-over',
-'destination-in', 'destination-out', 'destination-atop', 'lighter',
-'darker', 'copy', 'xor')</tt>
-	</li>
-	</ul>
 	
-	<p>
-<b>Example</b> &mdash; Setting an item's blend mode:
-</p>
+		<ul class="member-list">
+			<h4>Default:</h4>
+			<li><tt>'normal'</tt></li>
+		</ul>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>String</tt>
+		</li>
+	</ul>
+    
+	
+	<h4>Example:<span class="description">Setting an item's blend mode:</span></h4>
 
 <div class="paperscript split">
 
@@ -477,15 +501,15 @@ var background = new Path.Rectangle(view.bounds);
 background.fillColor = 'white';
 
 var circle = new Path.Circle({
-	center: [80, 50],
-	radius: 35,
-	fillColor: 'red'
+    center: [80, 50],
+    radius: 35,
+    fillColor: 'red'
 });
 
 var circle2 = new Path.Circle({
-	center: new Point(120, 50),
-	radius: 35,
-	fillColor: 'blue'
+    center: new Point(120, 50),
+    radius: 35,
+    fillColor: 'blue'
 });
 
 // Set the blend mode of circle2:
@@ -508,24 +532,24 @@ circle2.blendMode = 'multiply';
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The opacity of the item as a value between <tt>0</tt> and <tt>1</tt>.</p>
+	<p>The opacity of the item as a value between <code>0</code> and <code>1</code>.</p>
 	
 	
-		<ul><b>Default:</b>
-		<li>
-		<tt>1</tt>
-		</li>
+	
+		<ul class="member-list">
+			<h4>Default:</h4>
+			<li><tt>1</tt></li>
 		</ul>
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Number</tt>
-	</li>
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Number</tt>
+		</li>
 	</ul>
+    
 	
-	<p>
-<b>Example</b> &mdash; Making an item 50% transparent:
-</p>
+	<h4>Example:<span class="description">Making an item 50% transparent:</span></h4>
 
 <div class="paperscript split">
 
@@ -535,17 +559,17 @@ circle2.blendMode = 'multiply';
 
 <script type="text/paperscript" canvas="canvas-7">
 var circle = new Path.Circle({
-	center: [80, 50],
-	radius: 35,
-	fillColor: 'red'
+    center: [80, 50],
+    radius: 35,
+    fillColor: 'red'
 });
 
 var circle2 = new Path.Circle({
-	center: new Point(120, 50),
-	radius: 35,
-	fillColor: 'blue',
-	strokeColor: 'green',
-	strokeWidth: 10
+    center: new Point(120, 50),
+    radius: 35,
+    fillColor: 'blue',
+    strokeColor: 'green',
+    strokeWidth: 10
 });
 
 // Make circle2 50% transparent:
@@ -568,28 +592,33 @@ circle2.opacity = 0.5;
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>Specifies whether an item is selected and will also return <tt>true</tt>
-if the item is partially selected (groups with some selected or partially
-selected paths).</p>
-<p>Paper.js draws the visual outlines of selected items on top of your
-project. This can be useful for debugging, as it allows you to see the
-construction of paths, position of path curves, individual segment points
-and bounding boxes of symbol and raster items.</p>
+	<p>Specifies whether the item is selected. This will also return <code>true</code> for <a href="../classes/Group.html"><tt>Group</tt></a> items if they are partially selected, e.g. groups containing selected or partially selected paths.</p>
+<p>Paper.js draws the visual outlines of selected items on top of your project. This can be useful for debugging, as it allows you to see the construction of paths, position of path curves, individual segment points and bounding boxes of symbol and raster items.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Boolean</tt>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Boolean</tt>
+		</li>
 	</ul>
+    
 	
-	<p><b>See also:</b>
-	<tt><a href="../classes/Project.html#selecteditems"><tt>project.selectedItems</tt></a></tt>, <tt><a href="../classes/Segment.html#selected"><tt>segment.selected</tt></a></tt>, <tt><a href="../classes/Point.html#selected"><tt>point.selected</tt></a></tt>
-	</p>
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/Project.html#selecteditems"><tt>project.selectedItems</tt></a></tt></li>
+		
+			<li><tt><a href="../classes/Segment.html#selected"><tt>segment.selected</tt></a></tt></li>
+		
+			<li><tt><a href="../classes/Curve.html#selected"><tt>curve.selected</tt></a></tt></li>
+		
+			<li><tt><a href="../classes/Point.html#selected"><tt>point.selected</tt></a></tt></li>
+		
+	</ul>
 
-	<p>
-<b>Example</b> &mdash; Selecting an item:
-</p>
+	<h4>Example:<span class="description">Selecting an item:</span></h4>
 
 <div class="paperscript split">
 
@@ -599,8 +628,8 @@ and bounding boxes of symbol and raster items.</p>
 
 <script type="text/paperscript" canvas="canvas-8">
 var path = new Path.Circle({
-	center: [80, 50],
-	radius: 35
+    center: [80, 50],
+    radius: 35
 });
 path.selected = true; // Select the path
 </script>
@@ -621,16 +650,17 @@ path.selected = true; // Select the path
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>Specifies whether the item defines a clip mask. This can only be set on
-paths, compound paths, and text frame objects, and only if the item is
-already contained within a clipping group.</p>
+	<p>Specifies whether the item defines a clip mask. This can only be set on paths, compound paths, and text frame objects, and only if the item is already contained within a clipping group.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Boolean</tt>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Boolean</tt>
+		</li>
 	</ul>
+    
 	
 	
 </div>
@@ -646,59 +676,53 @@ already contained within a clipping group.</p>
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>A plain javascript object which can be used to store
-arbitrary data on the item.</p>
+	<p>A plain javascript object which can be used to store arbitrary data on the item.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Object</tt>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Object</tt>
+		</li>
 	</ul>
+    
 	
-	<p>
-<b>Example</b> 
-</p>
+	<h4>Example:</h4>
 
 
-<pre class="code">var path = new Path();
-path.data.remember = 'milk';</pre>
+<pre><code>var path = new Path();
+path.data.remember = 'milk';</code></pre>
 
-<p>
-<b>Example</b> 
-</p>
+<h4>Example:</h4>
 
 
-<pre class="code">var path = new Path();
+<pre><code>var path = new Path();
 path.data.malcolm = new Point(20, 30);
-console.log(path.data.malcolm.x); // 20</pre>
+console.log(path.data.malcolm.x); // 20</code></pre>
 
-<p>
-<b>Example</b> 
-</p>
+<h4>Example:</h4>
 
 
-<pre class="code">var path = new Path();
+<pre><code>var path = new Path();
 path.data = {
-	home: 'Omicron Theta',
-	found: 2338,
-	pets: ['Spot']
+    home: 'Omicron Theta',
+    found: 2338,
+    pets: ['Spot']
 };
-console.log(path.data.pets.length); // 1</pre>
+console.log(path.data.pets.length); // 1</code></pre>
 
-<p>
-<b>Example</b> 
-</p>
+<h4>Example:</h4>
 
 
-<pre class="code">var path = new Path({
-	data: {
-		home: 'Omicron Theta',
-		found: 2338,
-		pets: ['Spot']
-	}
+<pre><code>var path = new Path({
+    data: {
+        home: 'Omicron Theta',
+        found: 2338,
+        pets: ['Spot']
+    }
 });
-console.log(path.data.pets.length); // 1</pre>
+console.log(path.data.pets.length); // 1</code></pre>
 
 </div>
 
@@ -715,19 +739,19 @@ console.log(path.data.pets.length); // 1</pre>
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The item's position within the project. This is the
-<a href="../classes/Rectangle.html#center"><tt>rectangle.center</tt></a> of the item's <a href="../classes/Item.html#bounds" onclick="return toggleMember('bounds', true);"><tt>bounds</tt></a> rectangle.</p>
+	<p>The item&rsquo;s position within the parent item&rsquo;s coordinate system. By default, this is the <a href="../classes/Rectangle.html#center"><tt>rectangle.center</tt></a> of the item&rsquo;s <a href="../classes/Item.html#bounds"><tt>bounds</tt></a> rectangle.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<a href="../classes/Point.html"><tt>Point</tt></a>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Point.html"><tt>Point</tt></a>
+		</li>
 	</ul>
+    
 	
-	<p>
-<b>Example</b> &mdash; Changing the position of a path:
-</p>
+	<h4>Example:<span class="description">Changing the position of a path:</span></h4>
 
 <div class="paperscript split">
 
@@ -738,9 +762,9 @@ console.log(path.data.pets.length); // 1</pre>
 <script type="text/paperscript" canvas="canvas-9">
 // Create a circle at position { x: 10, y: 10 }
 var circle = new Path.Circle({
-	center: new Point(10, 10),
-	radius: 10,
-	fillColor: 'red'
+    center: new Point(10, 10),
+    radius: 10,
+    fillColor: 'red'
 });
 
 // Move the circle to { x: 20, y: 20 }
@@ -753,9 +777,7 @@ circle.position += new Point(100, 50);
 </div>
 
 
-<p>
-<b>Example</b> &mdash; Changing the x coordinate of an item's position:
-</p>
+<h4>Example:<span class="description">Changing the x coordinate of an item's position:</span></h4>
 
 <div class="paperscript split">
 
@@ -766,9 +788,9 @@ circle.position += new Point(100, 50);
 <script type="text/paperscript" canvas="canvas-10">
 // Create a circle at position { x: 20, y: 20 }
 var circle = new Path.Circle({
-	center: new Point(20, 20),
-	radius: 10,
-	fillColor: 'red'
+    center: new Point(20, 20),
+    radius: 10,
+    fillColor: 'red'
 });
 
 // Move the circle 100 points to the right
@@ -784,6 +806,32 @@ circle.position.x += 100;
 </div>
 
 	
+<div id="pivot" class="member">
+<div class="member-link">
+<a name="pivot" href="#pivot"><tt><b>pivot</b></tt></a>
+</div>
+<div class="member-description hidden">
+
+<div class="member-text">
+	<p>The item&rsquo;s pivot point specified in the item coordinate system, defining the point around which all transformations are hinging. This is also the reference point for <a href="../classes/Item.html#position"><tt>position</tt></a>. By default, it is set to <code>null</code>, meaning the <a href="../classes/Rectangle.html#center"><tt>rectangle.center</tt></a> of the item&rsquo;s <a href="../classes/Item.html#bounds"><tt>bounds</tt></a> rectangle is used as pivot.</p>
+	
+	
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Point.html"><tt>Point</tt></a>
+		</li>
+	</ul>
+    
+	
+	
+</div>
+
+</div>
+</div>
+
+	
 <div id="bounds" class="member">
 <div class="member-link">
 <a name="bounds" href="#bounds"><tt><b>bounds</b></tt></a>
@@ -793,14 +841,15 @@ circle.position.x += 100;
 <div class="member-text">
 	<p>The bounding rectangle of the item excluding stroke width.</p>
 	
-		<p>Read only.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<a href="../classes/Rectangle.html"><tt>Rectangle</tt></a>
-	</li>
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Rectangle.html"><tt>Rectangle</tt></a>
+		</li>
 	</ul>
+    
 	
 	
 </div>
@@ -818,14 +867,15 @@ circle.position.x += 100;
 <div class="member-text">
 	<p>The bounding rectangle of the item including stroke width.</p>
 	
-		<p>Read only.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<a href="../classes/Rectangle.html"><tt>Rectangle</tt></a>
-	</li>
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Rectangle.html"><tt>Rectangle</tt></a>
+		</li>
 	</ul>
+    
 	
 	
 </div>
@@ -843,14 +893,67 @@ circle.position.x += 100;
 <div class="member-text">
 	<p>The bounding rectangle of the item including handles.</p>
 	
-		<p>Read only.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<a href="../classes/Rectangle.html"><tt>Rectangle</tt></a>
-	</li>
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Rectangle.html"><tt>Rectangle</tt></a>
+		</li>
 	</ul>
+    
+	
+	
+</div>
+
+</div>
+</div>
+
+	
+<div id="rotation" class="member">
+<div class="member-link">
+<a name="rotation" href="#rotation"><tt><b>rotation</b></tt></a>
+</div>
+<div class="member-description hidden">
+
+<div class="member-text">
+	<p>The current rotation angle of the item, as described by its <a href="../classes/Item.html#matrix"><tt>matrix</tt></a>. Please note that this only returns meaningful values for items with <a href="../classes/Item.html#applymatrix"><tt>applyMatrix</tt></a> set to <code>false</code>, meaning they do not directly bake transformations into their content.</p>
+	
+	
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Number</tt>
+		</li>
+	</ul>
+    
+	
+	
+</div>
+
+</div>
+</div>
+
+	
+<div id="scaling" class="member">
+<div class="member-link">
+<a name="scaling" href="#scaling"><tt><b>scaling</b></tt></a>
+</div>
+<div class="member-description hidden">
+
+<div class="member-text">
+	<p>The current scale factor of the item, as described by its <a href="../classes/Item.html#matrix"><tt>matrix</tt></a>. Please note that this only returns meaningful values for items with <a href="../classes/Item.html#applymatrix"><tt>applyMatrix</tt></a> set to <code>false</code>, meaning they do not directly bake transformations into their content.</p>
+	
+	
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Point.html"><tt>Point</tt></a>
+		</li>
+	</ul>
+    
 	
 	
 </div>
@@ -866,15 +969,17 @@ circle.position.x += 100;
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The item's transformation matrix, defining position and dimensions in
-relation to its parent item in which it is contained.</p>
+	<p>The item&rsquo;s transformation matrix, defining position and dimensions in relation to its parent item in which it is contained.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<a href="../classes/Matrix.html"><tt>Matrix</tt></a>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Matrix.html"><tt>Matrix</tt></a>
+		</li>
 	</ul>
+    
 	
 	
 </div>
@@ -890,17 +995,73 @@ relation to its parent item in which it is contained.</p>
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The item's global transformation matrix in relation to the global project
-coordinate space.</p>
+	<p>The item&rsquo;s global transformation matrix in relation to the global project coordinate space. Note that the view&rsquo;s transformations resulting from zooming and panning are not factored in.</p>
 	
 		<p>Read only.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<a href="../classes/Matrix.html"><tt>Matrix</tt></a>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Matrix.html"><tt>Matrix</tt></a>
+		</li>
 	</ul>
+    
+	
+	
+</div>
+
+</div>
+</div>
+
+	
+<div id="viewmatrix" class="member">
+<div class="member-link">
+<a name="viewmatrix" href="#viewmatrix"><tt><b>viewMatrix</b></tt></a>
+</div>
+<div class="member-description hidden">
+
+<div class="member-text">
+	<p>The item&rsquo;s global matrix in relation to the view coordinate space. This means that the view&rsquo;s transformations resulting from zooming and panning are factored in.</p>
+	
+		<p>Read only.</p>
+	
+	
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Matrix.html"><tt>Matrix</tt></a>
+		</li>
+	</ul>
+    
+	
+	
+</div>
+
+</div>
+</div>
+
+	
+<div id="applymatrix" class="member">
+<div class="member-link">
+<a name="applymatrix" href="#applymatrix"><tt><b>applyMatrix</b></tt></a>
+</div>
+<div class="member-description hidden">
+
+<div class="member-text">
+	<p>Controls whether the transformations applied to the item (e.g. through <a href="../classes/Item.html#transform-matrix"><tt>transform(matrix)</tt></a>, <a href="../classes/Item.html#rotate-angle"><tt>rotate(angle)</tt></a>, <a href="../classes/Item.html#scale-scale"><tt>scale(scale)</tt></a>, etc.) are stored in its <a href="../classes/Item.html#matrix"><tt>matrix</tt></a> property, or whether they are directly applied to its contents or children (passed on to the segments in <a href="../classes/Path.html"><tt>Path</tt></a> items, the children of <a href="../classes/Group.html"><tt>Group</tt></a> items, etc.).</p>
+	
+	
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Boolean</tt>
+		</li>
+	</ul>
+    
 	
 	
 </div>
@@ -914,20 +1075,6 @@ coordinate space.</p>
 <a name="transformcontent" href="#transformcontent"><tt><b>transformContent</b></tt></a>
 </div>
 <div class="member-description hidden">
-
-<div class="member-text">
-	<p>Specifies whether the group applies transformations directly to its
-children, or whether they are to be stored in its <a href="../classes/Item.html#matrix"><tt>item.matrix</tt></a></p>
-	
-	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Boolean</tt>
-	</li>
-	</ul>
-	
-	
-</div>
 
 </div>
 </div>
@@ -947,11 +1094,42 @@ children, or whether they are to be stored in its <a href="../classes/Item.html#
 		<p>Read only.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<a href="../classes/Project.html"><tt>Project</tt></a>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Project.html"><tt>Project</tt></a>
+		</li>
 	</ul>
+    
+	
+	
+</div>
+
+</div>
+</div>
+
+	
+<div id="view" class="member">
+<div class="member-link">
+<a name="view" href="#view"><tt><b>view</b></tt></a>
+</div>
+<div class="member-description hidden">
+
+<div class="member-text">
+	<p>The view that this item belongs to.</p>
+	
+		<p>Read only.</p>
+	
+	
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/View.html"><tt>View</tt></a>
+		</li>
+	</ul>
+    
 	
 	
 </div>
@@ -972,11 +1150,14 @@ children, or whether they are to be stored in its <a href="../classes/Item.html#
 		<p>Read only.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<a href="../classes/Layer.html"><tt>Layer</tt></a>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Layer.html"><tt>Layer</tt></a>
+		</li>
 	</ul>
+    
 	
 	
 </div>
@@ -995,18 +1176,19 @@ children, or whether they are to be stored in its <a href="../classes/Item.html#
 	<p>The item that this item is contained within.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<a href="../classes/Item.html"><tt>Item</tt></a>
-	</li>
-	</ul>
 	
-	<p>
-<b>Example</b> 
-</p>
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Item.html"><tt>Item</tt></a>
+		</li>
+	</ul>
+    
+	
+	<h4>Example:</h4>
 
 
-<pre class="code">var path = new Path();
+<pre><code>var path = new Path();
 
 // New items are placed in the active layer:
 console.log(path.parent == project.activeLayer); // true
@@ -1015,43 +1197,39 @@ var group = new Group();
 group.addChild(path);
 
 // Now the parent of the path has become the group:
-console.log(path.parent == group); // true</pre>
+console.log(path.parent == group); // true</code></pre>
 
-<p>
-<b>Example</b> &mdash; Setting the parent of the item to another item
-</p>
+<h4>Example:<span class="description">Setting the parent of the item to another item</span></h4>
 
 
-<pre class="code">var path = new Path();
+<pre><code>var path = new Path();
 
 // New items are placed in the active layer:
 console.log(path.parent == project.activeLayer); // true
 
 var group = new Group();
-group.parent = path;
+path.parent = group;
 
 // Now the parent of the path has become the group:
 console.log(path.parent == group); // true
 
 // The path is now contained in the children list of group:
-console.log(group.children[0] == path); // true</pre>
+console.log(group.children[0] == path); // true</code></pre>
 
-<p>
-<b>Example</b> &mdash; Setting the parent of an item in the constructor
-</p>
+<h4>Example:<span class="description">Setting the parent of an item in the constructor</span></h4>
 
 
-<pre class="code">var group = new Group();
+<pre><code>var group = new Group();
 
 var path = new Path({
-	parent: group
+    parent: group
 });
 
 // The parent of the path is the group:
 console.log(path.parent == group); // true
 
 // The path is contained in the children list of group:
-console.log(group.children[0] == path); // true</pre>
+console.log(group.children[0] == path); // true</code></pre>
 
 </div>
 
@@ -1066,24 +1244,20 @@ console.log(group.children[0] == path); // true</pre>
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The children items contained within this item. Items that define a
-<a href="../classes/Item.html#name" onclick="return toggleMember('name', true);"><tt>name</tt></a> can also be accessed by name.</p>
-<p><b>Please note:</b> The children array should not be modified directly
-using array functions. To remove single items from the children list, use
-<a href="../classes/Item.html#remove"><tt>item.remove</tt></a>(), to remove all items from the children list, use
-<a href="../classes/Item.html#removechildren"><tt>item.removeChildren</tt></a>(). To add items to the children list, use
-<a href="../classes/Item.html#addchild-item"><tt>item.addChild(item)</tt></a> or <a href="../classes/Item.html#insertchild-index-item"><tt>item.insertChild(index, item)</tt></a>.</p>
+	<p>The children items contained within this item. Items that define a <a href="../classes/Item.html#name"><tt>name</tt></a> can also be accessed by name.</p>
+<p><b>Please note:</b> The children array should not be modified directly using array functions. To remove single items from the children list, use <a href="../classes/Item.html#remove"><tt>item.remove</tt></a>(), to remove all items from the children list, use <a href="../classes/Item.html#removechildren"><tt>item.removeChildren</tt></a>(). To add items to the children list, use <a href="../classes/Item.html#addchild-item"><tt>item.addChild(item)</tt></a> or <a href="../classes/Item.html#insertchild-index-item"><tt>item.insertChild(index, item)</tt></a>.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		Array of <a href="../classes/Item.html"><tt>Item</tt></a> objects
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			Array of <a href="../classes/Item.html"><tt>Item</tt></a> objects
+		</li>
 	</ul>
+    
 	
-	<p>
-<b>Example</b> &mdash; Accessing items in the children array:
-</p>
+	<h4>Example:<span class="description">Accessing items in the children array:</span></h4>
 
 <div class="paperscript split">
 
@@ -1093,8 +1267,8 @@ using array functions. To remove single items from the children list, use
 
 <script type="text/paperscript" canvas="canvas-11">
 var path = new Path.Circle({
-	center: [80, 50],
-	radius: 35
+    center: [80, 50],
+    radius: 35
 });
 
 // Create a group and move the path into it:
@@ -1108,9 +1282,7 @@ group.children[0].fillColor = 'red';
 </div>
 
 
-<p>
-<b>Example</b> &mdash; Accessing children by name:
-</p>
+<h4>Example:<span class="description">Accessing children by name:</span></h4>
 
 <div class="paperscript split">
 
@@ -1120,8 +1292,8 @@ group.children[0].fillColor = 'red';
 
 <script type="text/paperscript" canvas="canvas-12">
 var path = new Path.Circle({
-	center: [80, 50],
-	radius: 35
+    center: [80, 50],
+    radius: 35
 });
 // Set the name of the path:
 path.name = 'example';
@@ -1137,9 +1309,7 @@ group.children['example'].fillColor = 'orange';
 </div>
 
 
-<p>
-<b>Example</b> &mdash; Passing an array of items to item.children:
-</p>
+<h4>Example:<span class="description">Passing an array of items to item.children:</span></h4>
 
 <div class="paperscript split">
 
@@ -1149,8 +1319,8 @@ group.children['example'].fillColor = 'orange';
 
 <script type="text/paperscript" canvas="canvas-13">
 var path = new Path.Circle({
-	center: [80, 50],
-	radius: 35
+    center: [80, 50],
+    radius: 35
 });
 
 var group = new Group();
@@ -1176,17 +1346,19 @@ group.firstChild.fillColor = 'green';
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The first item contained within this item. This is a shortcut for
-accessing <tt>item.children[0]</tt>.</p>
+	<p>The first item contained within this item. This is a shortcut for accessing <code>item.children[0]</code>.</p>
 	
 		<p>Read only.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<a href="../classes/Item.html"><tt>Item</tt></a>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Item.html"><tt>Item</tt></a>
+		</li>
 	</ul>
+    
 	
 	
 </div>
@@ -1202,17 +1374,19 @@ accessing <tt>item.children[0]</tt>.</p>
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The last item contained within this item.This is a shortcut for
-accessing <tt>item.children[item.children.length - 1]</tt>.</p>
+	<p>The last item contained within this item.This is a shortcut for accessing <code>item.children[item.children.length - 1]</code>.</p>
 	
 		<p>Read only.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<a href="../classes/Item.html"><tt>Item</tt></a>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Item.html"><tt>Item</tt></a>
+		</li>
 	</ul>
+    
 	
 	
 </div>
@@ -1233,11 +1407,14 @@ accessing <tt>item.children[item.children.length - 1]</tt>.</p>
 		<p>Read only.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<a href="../classes/Item.html"><tt>Item</tt></a>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Item.html"><tt>Item</tt></a>
+		</li>
 	</ul>
+    
 	
 	
 </div>
@@ -1258,11 +1435,14 @@ accessing <tt>item.children[item.children.length - 1]</tt>.</p>
 		<p>Read only.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<a href="../classes/Item.html"><tt>Item</tt></a>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Item.html"><tt>Item</tt></a>
+		</li>
 	</ul>
+    
 	
 	
 </div>
@@ -1278,72 +1458,19 @@ accessing <tt>item.children[item.children.length - 1]</tt>.</p>
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The index of this item within the list of its parent's children.</p>
+	<p>The index of this item within the list of its parent&rsquo;s children.</p>
 	
 		<p>Read only.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Number</tt>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Number</tt>
+		</li>
 	</ul>
-	
-	
-</div>
-
-</div>
-</div>
-
-	
-<div id="appendtop-item" class="member">
-<div class="member-link">
-<a name="appendtop-item" href="#appendtop-item"><tt><b>appendTop</b></tt></a>
-</div>
-<div class="member-description hidden">
-
-</div>
-</div>
-
-	
-<div id="moveabove-item" class="member">
-<div class="member-link">
-<a name="moveabove-item" href="#moveabove-item"><tt><b>moveAbove</b></tt></a>
-</div>
-<div class="member-description hidden">
-
-<div class="member-text">
-	<p>Moves this item above the specified item.</p>
-	
-	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Boolean</tt>
-	</li>
-	</ul>
-	
-	
-</div>
-
-</div>
-</div>
-
-	
-<div id="movebelow-item" class="member">
-<div class="member-link">
-<a name="movebelow-item" href="#movebelow-item"><tt><b>moveBelow</b></tt></a>
-</div>
-<div class="member-description hidden">
-
-<div class="member-text">
-	<p>Moves the item below the specified item.</p>
-	
-	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Boolean</tt>
-	</li>
-	</ul>
+    
 	
 	
 </div>
@@ -1364,15 +1491,16 @@ accessing <tt>item.children[item.children.length - 1]</tt>.</p>
 	<p>The color of the stroke.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<a href="../classes/Color.html"><tt>Color</tt></a>
-	</li>
-	</ul>
 	
-	<p>
-<b>Example</b> &mdash; Setting the stroke color of a path:
-</p>
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Color.html"><tt>Color</tt></a>
+		</li>
+	</ul>
+    
+	
+	<h4>Example:<span class="description">Setting the stroke color of a path:</span></h4>
 
 <div class="paperscript split">
 
@@ -1384,8 +1512,8 @@ accessing <tt>item.children[item.children.length - 1]</tt>.</p>
 // Create a circle shaped path at { x: 80, y: 50 }
 // with a radius of 35:
 var circle = new Path.Circle({
-	center: [80, 50],
-	radius: 35
+    center: [80, 50],
+    radius: 35
 });
 
 // Set its stroke color to RGB red:
@@ -1411,15 +1539,16 @@ circle.strokeColor = new Color(1, 0, 0);
 	<p>The width of the stroke.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Number</tt>
-	</li>
-	</ul>
 	
-	<p>
-<b>Example</b> &mdash; Setting an item's stroke width:
-</p>
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Number</tt>
+		</li>
+	</ul>
+    
+	
+	<h4>Example:<span class="description">Setting an item's stroke width:</span></h4>
 
 <div class="paperscript split">
 
@@ -1431,9 +1560,9 @@ circle.strokeColor = new Color(1, 0, 0);
 // Create a circle shaped path at { x: 80, y: 50 }
 // with a radius of 35:
 var circle = new Path.Circle({
-	center: [80, 50],
-	radius: 35,
-	strokeColor: 'red'
+    center: [80, 50],
+    radius: 35,
+    strokeColor: 'red'
 });
 
 // Set its stroke width to 10:
@@ -1456,25 +1585,29 @@ circle.strokeWidth = 10;
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The shape to be used at the end of open <a href="../classes/Path.html"><tt>Path</tt></a> items, when they
-have a stroke.</p>
+	<p>The shape to be used at the beginning and end of open <a href="../classes/Path.html"><tt>Path</tt></a> items, when they have a stroke.</p>
 	
 	
-		<ul><b>Default:</b>
-		<li>
-		<tt>'butt'</tt>
-		</li>
+		<ul class="member-list">
+			<h4>Values:</h4>
+			<li><tt>'round'</tt>, <tt>'square'</tt>, <tt>'butt'</tt></li>
 		</ul>
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>String('round', 'square', 'butt')</tt>
-	</li>
-	</ul>
 	
-	<p>
-<b>Example</b> &mdash; A look at the different stroke caps:
-</p>
+		<ul class="member-list">
+			<h4>Default:</h4>
+			<li><tt>'butt'</tt></li>
+		</ul>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>String</tt>
+		</li>
+	</ul>
+    
+	
+	<h4>Example:<span class="description">A look at the different stroke caps:</span></h4>
 
 <div class="paperscript split">
 
@@ -1484,10 +1617,10 @@ have a stroke.</p>
 
 <script type="text/paperscript" canvas="canvas-16">
 var line = new Path({
-	segments: [[80, 50], [420, 50]],
-	strokeColor: 'black',
-	strokeWidth: 20,
-	selected: true
+    segments: [[80, 50], [420, 50]],
+    strokeColor: 'black',
+    strokeWidth: 20,
+    selected: true
 });
 
 // Set the stroke cap of the line to be round:
@@ -1520,24 +1653,29 @@ line2.strokeCap = 'butt';
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The shape to be used at the corners of paths when they have a stroke.</p>
+	<p>The shape to be used at the segments and corners of <a href="../classes/Path.html"><tt>Path</tt></a> items when they have a stroke.</p>
 	
 	
-		<ul><b>Default:</b>
-		<li>
-		<tt>'miter'</tt>
-		</li>
+		<ul class="member-list">
+			<h4>Values:</h4>
+			<li><tt>'miter'</tt>, <tt>'round'</tt>, <tt>'bevel'</tt></li>
 		</ul>
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>String('miter', 'round', 'bevel')</tt>
-	</li>
-	</ul>
 	
-	<p>
-<b>Example</b> &mdash; A look at the different stroke joins:
-</p>
+		<ul class="member-list">
+			<h4>Default:</h4>
+			<li><tt>'miter'</tt></li>
+		</ul>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>String</tt>
+		</li>
+	</ul>
+    
+	
+	<h4>Example:<span class="description">A look at the different stroke joins:</span></h4>
 
 <div class="paperscript split">
 
@@ -1547,11 +1685,11 @@ line2.strokeCap = 'butt';
 
 <script type="text/paperscript" canvas="canvas-17">
 var path = new Path({
-	segments: [[80, 100], [120, 40], [160, 100]],
-	strokeColor: 'black',
-	strokeWidth: 20,
-	// Select the path, in order to see where the stroke is formed:
-	selected: true
+    segments: [[80, 100], [120, 40], [160, 100]],
+    strokeColor: 'black',
+    strokeWidth: 20,
+    // Select the path, in order to see where the stroke is formed:
+    selected: true
 });
 
 var path2 = path.clone();
@@ -1582,17 +1720,50 @@ path3.strokeJoin = 'bevel';
 	<p>The dash offset of the stroke.</p>
 	
 	
-		<ul><b>Default:</b>
-		<li>
-		<tt>0</tt>
-		</li>
+	
+		<ul class="member-list">
+			<h4>Default:</h4>
+			<li><tt>0</tt></li>
 		</ul>
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Number</tt>
-	</li>
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Number</tt>
+		</li>
 	</ul>
+    
+	
+	
+</div>
+
+</div>
+</div>
+
+	
+<div id="strokescaling" class="member">
+<div class="member-link">
+<a name="strokescaling" href="#strokescaling"><tt><b>strokeScaling</b></tt></a>
+</div>
+<div class="member-description hidden">
+
+<div class="member-text">
+	<p>Specifies whether the stroke is to be drawn taking the current affine transformation into account (the default behavior), or whether it should appear as a non-scaling stroke.</p>
+	
+	
+	
+		<ul class="member-list">
+			<h4>Default:</h4>
+			<li><tt>true</tt></li>
+		</ul>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Boolean</tt>
+		</li>
+	</ul>
+    
 	
 	
 </div>
@@ -1611,21 +1782,21 @@ path3.strokeJoin = 'bevel';
 	<p>Specifies an array containing the dash and gap lengths of the stroke.</p>
 	
 	
-		<ul><b>Default:</b>
-		<li>
-		<tt>[]</tt>
-		</li>
+	
+		<ul class="member-list">
+			<h4>Default:</h4>
+			<li><tt>[]</tt></li>
 		</ul>
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Array</tt>
-	</li>
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Array</tt>
+		</li>
 	</ul>
+    
 	
-	<p>
-<b>Example</b> 
-</p>
+	<h4>Example:</h4>
 
 <div class="paperscript split">
 
@@ -1635,10 +1806,10 @@ path3.strokeJoin = 'bevel';
 
 <script type="text/paperscript" canvas="canvas-18">
 var path = new Path.Circle({
-	center: [80, 50],
-	radius: 40,
-	strokeWidth: 2,
-	strokeColor: 'black'
+    center: [80, 50],
+    radius: 40,
+    strokeWidth: 2,
+    strokeColor: 'black'
 });
 
 // Set the dashed stroke to [10pt dash, 4pt gap]:
@@ -1661,55 +1832,22 @@ path.dashArray = [10, 4];
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The miter limit of the stroke.</p>
-<p>When two line segments meet at a sharp angle and miter joins have been
-specified for <a href="../classes/Item.html#strokejoin"><tt>item.strokeJoin</tt></a>, it is possible for the miter to
-extend far beyond the <a href="../classes/Item.html#strokewidth"><tt>item.strokeWidth</tt></a> of the path. The
-miterLimit imposes a limit on the ratio of the miter length to the
-<a href="../classes/Item.html#strokewidth"><tt>item.strokeWidth</tt></a>.</p>
+	<p>The miter limit of the stroke. When two line segments meet at a sharp angle and miter joins have been specified for <a href="../classes/Item.html#strokejoin"><tt>item.strokeJoin</tt></a>, it is possible for the miter to extend far beyond the <a href="../classes/Item.html#strokewidth"><tt>item.strokeWidth</tt></a> of the path. The miterLimit imposes a limit on the ratio of the miter length to the <a href="../classes/Item.html#strokewidth"><tt>item.strokeWidth</tt></a>.</p>
 	
 	
-		<ul><b>Default:</b>
-		<li>
-		<tt>10</tt>
-		</li>
+	
+		<ul class="member-list">
+			<h4>Default:</h4>
+			<li><tt>10</tt></li>
 		</ul>
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Number</tt>
-	</li>
-	</ul>
-	
-	
-</div>
-
-</div>
-</div>
-
-	
-<div id="windingrule" class="member">
-<div class="member-link">
-<a name="windingrule" href="#windingrule"><tt><b>windingRule</b></tt></a>
-</div>
-<div class="member-description hidden">
-
-<div class="member-text">
-	<p>The winding-rule with which the shape gets filled. Please note that only
-modern browsers support winding-rules other than <tt>'nonzero'</tt>.</p>
-	
-	
-		<ul><b>Default:</b>
+	<ul class="member-list">
+		<h4>Type:</h4>
 		<li>
-		<tt>'nonzero'</tt>
+			<tt>Number</tt>
 		</li>
-		</ul>
-	
-	<ul><b>Type:</b>
-	<li>
-		<tt>String('nonzero', 'evenodd')</tt>
-	</li>
 	</ul>
+    
 	
 	
 </div>
@@ -1730,15 +1868,16 @@ modern browsers support winding-rules other than <tt>'nonzero'</tt>.</p>
 	<p>The fill color of the item.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<a href="../classes/Color.html"><tt>Color</tt></a>
-	</li>
-	</ul>
 	
-	<p>
-<b>Example</b> &mdash; Setting the fill color of a path to red:
-</p>
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Color.html"><tt>Color</tt></a>
+		</li>
+	</ul>
+    
+	
+	<h4>Example:<span class="description">Setting the fill color of a path to red:</span></h4>
 
 <div class="paperscript split">
 
@@ -1750,8 +1889,8 @@ modern browsers support winding-rules other than <tt>'nonzero'</tt>.</p>
 // Create a circle shaped path at { x: 80, y: 50 }
 // with a radius of 35:
 var circle = new Path.Circle({
-	center: [80, 50],
-	radius: 35
+    center: [80, 50],
+    radius: 35
 });
 
 // Set the fill color of the circle to RGB red:
@@ -1767,6 +1906,156 @@ circle.fillColor = new Color(1, 0, 0);
 </div>
 
 	
+<div id="fillrule" class="member">
+<div class="member-link">
+<a name="fillrule" href="#fillrule"><tt><b>fillRule</b></tt></a>
+</div>
+<div class="member-description hidden">
+
+<div class="member-text">
+	<p>The fill-rule with which the shape gets filled. Please note that only modern browsers support fill-rules other than <code>&#39;nonzero&#39;</code>.</p>
+	
+	
+		<ul class="member-list">
+			<h4>Values:</h4>
+			<li><tt>'nonzero'</tt>, <tt>'evenodd'</tt></li>
+		</ul>
+	
+	
+		<ul class="member-list">
+			<h4>Default:</h4>
+			<li><tt>'nonzero'</tt></li>
+		</ul>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>String</tt>
+		</li>
+	</ul>
+    
+	
+	
+</div>
+
+</div>
+</div>
+
+	
+	<h3>Shadow Style</h3>
+
+<div id="shadowcolor" class="member">
+<div class="member-link">
+<a name="shadowcolor" href="#shadowcolor"><tt><b>shadowColor</b></tt></a>
+</div>
+<div class="member-description hidden">
+
+<div class="member-text">
+	<p>The shadow color.</p>
+	
+	
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Color.html"><tt>Color</tt></a>
+		</li>
+	</ul>
+    
+	
+	<h4>Example:<span class="description">Creating a circle with a black shadow:</span></h4>
+
+<div class="paperscript split">
+
+<div class="buttons">
+<div class="button run">Run</div>
+</div>
+
+<script type="text/paperscript" canvas="canvas-20">
+var circle = new Path.Circle({
+    center: [80, 50],
+    radius: 35,
+    fillColor: 'white',
+    // Set the shadow color of the circle to RGB black:
+    shadowColor: new Color(0, 0, 0),
+    // Set the shadow blur radius to 12:
+    shadowBlur: 12,
+    // Offset the shadow by { x: 5, y: 5 }
+    shadowOffset: new Point(5, 5)
+});
+</script>
+<div class="canvas"><canvas width="516" height="100" id="canvas-20"></canvas></div>
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+	
+<div id="shadowblur" class="member">
+<div class="member-link">
+<a name="shadowblur" href="#shadowblur"><tt><b>shadowBlur</b></tt></a>
+</div>
+<div class="member-description hidden">
+
+<div class="member-text">
+	<p>The shadow&rsquo;s blur radius.</p>
+	
+	
+	
+		<ul class="member-list">
+			<h4>Default:</h4>
+			<li><tt>0</tt></li>
+		</ul>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Number</tt>
+		</li>
+	</ul>
+    
+	
+	
+</div>
+
+</div>
+</div>
+
+	
+<div id="shadowoffset" class="member">
+<div class="member-link">
+<a name="shadowoffset" href="#shadowoffset"><tt><b>shadowOffset</b></tt></a>
+</div>
+<div class="member-description hidden">
+
+<div class="member-text">
+	<p>The shadow&rsquo;s offset.</p>
+	
+	
+	
+		<ul class="member-list">
+			<h4>Default:</h4>
+			<li><tt>0</tt></li>
+		</ul>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Point.html"><tt>Point</tt></a>
+		</li>
+	</ul>
+    
+	
+	
+</div>
+
+</div>
+</div>
+
+	
 	<h3>Selection Style</h3>
 
 <div id="selectedcolor" class="member">
@@ -1776,15 +2065,17 @@ circle.fillColor = new Color(1, 0, 0);
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The color the item is highlighted with when selected. If the item does
-not specify its own color, the color defined by its layer is used instead.</p>
+	<p>The color the item is highlighted with when selected. If the item does not specify its own color, the color defined by its layer is used instead.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<a href="../classes/Color.html"><tt>Color</tt></a>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<a href="../classes/Color.html"><tt>Color</tt></a>
+		</li>
 	</ul>
+    
 	
 	
 </div>
@@ -1802,30 +2093,31 @@ not specify its own color, the color defined by its layer is used instead.</p>
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>Item level handler function to be called on each frame of an animation.</p>
-<p>The function receives an event object which contains information about
-the frame event:</p>
-<p><b><tt>event.count</tt></b>: the number of times the frame event was
-fired.</p>
-<p><b><tt>event.time</tt></b>: the total amount of time passed since the
-first frame event in seconds.</p>
-<p><b><tt>event.delta</tt></b>: the time passed in seconds since the last
-frame event.</p>
+	<p>Item level handler function to be called on each frame of an animation. The function receives an event object which contains information about the frame event:</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Function</tt>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Function</tt>
+		</li>
 	</ul>
+    <ul class="member-list">
+<h4>Options:</h4>
+<li><tt>event.count: <tt>Number</tt></tt> &mdash; the number of times the frame event was  fired</li>
+<li><tt>event.time: <tt>Number</tt></tt> &mdash; the total amount of time passed since the  first frame event in seconds</li>
+<li><tt>event.delta: <tt>Number</tt></tt> &mdash; the time passed in seconds since the last  frame event</li>
+</ul>
 	
-	<p><b>See also:</b>
-	<tt><a href="../classes/View.html#onframe"><tt>view.onFrame</tt></a></tt>
-	</p>
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/View.html#onframe"><tt>view.onFrame</tt></a></tt></li>
+		
+	</ul>
 
-	<p>
-<b>Example</b> &mdash; Creating an animation:
-</p>
+	<h4>Example:<span class="description">Creating an animation:</span></h4>
 
 <div class="paperscript split">
 
@@ -1833,18 +2125,18 @@ frame event.</p>
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-20">
+<script type="text/paperscript" canvas="canvas-21">
 // Create a rectangle shaped path with its top left point at:
 // {x: 50, y: 25} and a size of {width: 50, height: 50}
 var path = new Path.Rectangle(new Point(50, 25), new Size(50, 50));
 path.fillColor = 'black';
 
 path.onFrame = function(event) {
-	// Every frame, rotate the path by 3 degrees:
-	this.rotate(3);
+    // Every frame, rotate the path by 3 degrees:
+    this.rotate(3);
 }
 </script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-20"></canvas></div>
+<div class="canvas"><canvas width="516" height="100" id="canvas-21"></canvas></div>
 </div>
 
 
@@ -1861,48 +2153,26 @@ path.onFrame = function(event) {
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The function to be called when the mouse button is pushed down on the
-item. The function receives a <a href="../classes/MouseEvent.html"><tt>MouseEvent</tt></a> object which contains
-information about the mouse event.</p>
+	<p>The function to be called when the mouse button is pushed down on the item. The function receives a <a href="../classes/MouseEvent.html"><tt>MouseEvent</tt></a> object which contains information about the mouse event. Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with <a href="../classes/Event.html#stoppropagation"><tt>event.stopPropagation</tt></a>() or by returning <code>false</code> from the handler.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Function</tt>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Function</tt>
+		</li>
 	</ul>
+    
 	
-	<p>
-<b>Example</b> &mdash; Press the mouse button down on the circle shaped path, to make it red:
-</p>
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/View.html#onmousedown"><tt>view.onMouseDown</tt></a></tt></li>
+		
+	</ul>
 
-<div class="paperscript split">
-
-<div class="buttons">
-<div class="button run">Run</div>
-</div>
-
-<script type="text/paperscript" canvas="canvas-21">
-// Create a circle shaped path at the center of the view:
-var path = new Path.Circle({
-	center: view.center,
-	radius: 25,
-	fillColor: 'black'
-});
-
-// When the mouse is pressed on the item,
-// set its fill color to red:
-path.onMouseDown = function(event) {
-	this.fillColor = 'red';
-}
-</script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-21"></canvas></div>
-</div>
-
-
-<p>
-<b>Example</b> &mdash; Press the mouse on the circle shaped paths to remove them:
-</p>
+	<h4>Example:<span class="description">Press the mouse button down on the circle shaped path, to make it red:</span></h4>
 
 <div class="paperscript split">
 
@@ -1911,24 +2181,107 @@ path.onMouseDown = function(event) {
 </div>
 
 <script type="text/paperscript" canvas="canvas-22">
-// Loop 30 times:
-for (var i = 0; i < 30; i++) {
-	// Create a circle shaped path at a random position
-	// in the view:
-	var path = new Path.Circle({
-		center: Point.random() * view.size,
-		radius: 25,
-		fillColor: 'black',
-		strokeColor: 'white'
-	});
+// Create a circle shaped path at the center of the view:
+var path = new Path.Circle({
+    center: view.center,
+    radius: 25,
+    fillColor: 'black'
+});
 
-	// When the mouse is pressed on the item, remove it:
-	path.onMouseDown = function(event) {
-		this.remove();
-	}
+// When the mouse is pressed on the item,
+// set its fill color to red:
+path.onMouseDown = function(event) {
+    this.fillColor = 'red';
 }
 </script>
 <div class="canvas"><canvas width="516" height="100" id="canvas-22"></canvas></div>
+</div>
+
+
+<h4>Example:<span class="description">Press the mouse on the circle shaped paths to remove them:</span></h4>
+
+<div class="paperscript split">
+
+<div class="buttons">
+<div class="button run">Run</div>
+</div>
+
+<script type="text/paperscript" canvas="canvas-23">
+// Loop 30 times:
+for (var i = 0; i < 30; i++) {
+    // Create a circle shaped path at a random position
+    // in the view:
+    var path = new Path.Circle({
+        center: Point.random() * view.size,
+        radius: 25,
+        fillColor: 'black',
+        strokeColor: 'white'
+    });
+
+    // When the mouse is pressed on the item, remove it:
+    path.onMouseDown = function(event) {
+        this.remove();
+    }
+}
+</script>
+<div class="canvas"><canvas width="516" height="100" id="canvas-23"></canvas></div>
+</div>
+
+
+</div>
+
+</div>
+</div>
+
+	
+<div id="onmousedrag" class="member">
+<div class="member-link">
+<a name="onmousedrag" href="#onmousedrag"><tt><b>onMouseDrag</b></tt></a>
+</div>
+<div class="member-description hidden">
+
+<div class="member-text">
+	<p>The function to be called when the mouse position changes while the mouse is being dragged over the item. The function receives a <a href="../classes/MouseEvent.html"><tt>MouseEvent</tt></a> object which contains information about the mouse event. Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with <a href="../classes/Event.html#stoppropagation"><tt>event.stopPropagation</tt></a>() or by returning <code>false</code> from the handler.</p>
+	
+	
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Function</tt>
+		</li>
+	</ul>
+    
+	
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/View.html#onmousedrag"><tt>view.onMouseDrag</tt></a></tt></li>
+		
+	</ul>
+
+	<h4>Example:<span class="description">Press and drag the mouse on the blue circle to move it:</span></h4>
+
+<div class="paperscript split">
+
+<div class="buttons">
+<div class="button run">Run</div>
+</div>
+
+<script type="text/paperscript" canvas="canvas-24">
+// Create a circle shaped path at the center of the view:
+var path = new Path.Circle({
+    center: view.center,
+    radius: 50,
+    fillColor: 'blue'
+});
+
+// Install a drag event handler that moves the path along.
+path.onMouseDrag = function(event) {
+    path.position += event.delta;
+}
+</script>
+<div class="canvas"><canvas width="516" height="240" id="canvas-24"></canvas></div>
 </div>
 
 
@@ -1945,20 +2298,26 @@ for (var i = 0; i < 30; i++) {
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The function to be called when the mouse button is released over the item.</p>
-<p>The function receives a <a href="../classes/MouseEvent.html"><tt>MouseEvent</tt></a> object which contains
-information about the mouse event.</p>
+	<p>The function to be called when the mouse button is released over the item. The function receives a <a href="../classes/MouseEvent.html"><tt>MouseEvent</tt></a> object which contains information about the mouse event. Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with <a href="../classes/Event.html#stoppropagation"><tt>event.stopPropagation</tt></a>() or by returning <code>false</code> from the handler.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Function</tt>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Function</tt>
+		</li>
 	</ul>
+    
 	
-	<p>
-<b>Example</b> &mdash; Release the mouse button over the circle shaped path, to make it red:
-</p>
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/View.html#onmouseup"><tt>view.onMouseUp</tt></a></tt></li>
+		
+	</ul>
+
+	<h4>Example:<span class="description">Release the mouse button over the circle shaped path, to make it red:</span></h4>
 
 <div class="paperscript split">
 
@@ -1966,21 +2325,21 @@ information about the mouse event.</p>
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-23">
+<script type="text/paperscript" canvas="canvas-25">
 // Create a circle shaped path at the center of the view:
 var path = new Path.Circle({
-	center: view.center,
-	radius: 25,
-	fillColor: 'black'
+    center: view.center,
+    radius: 25,
+    fillColor: 'black'
 });
 
 // When the mouse is released over the item,
 // set its fill color to red:
 path.onMouseUp = function(event) {
-	this.fillColor = 'red';
+    this.fillColor = 'red';
 }
 </script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-23"></canvas></div>
+<div class="canvas"><canvas width="516" height="100" id="canvas-25"></canvas></div>
 </div>
 
 
@@ -1997,20 +2356,26 @@ path.onMouseUp = function(event) {
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The function to be called when the mouse clicks on the item. The function
-receives a <a href="../classes/MouseEvent.html"><tt>MouseEvent</tt></a> object which contains information about the
-mouse event.</p>
+	<p>The function to be called when the mouse clicks on the item. The function receives a <a href="../classes/MouseEvent.html"><tt>MouseEvent</tt></a> object which contains information about the mouse event. Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with <a href="../classes/Event.html#stoppropagation"><tt>event.stopPropagation</tt></a>() or by returning <code>false</code> from the handler.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Function</tt>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Function</tt>
+		</li>
 	</ul>
+    
 	
-	<p>
-<b>Example</b> &mdash; Click on the circle shaped path, to make it red:
-</p>
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/View.html#onclick"><tt>view.onClick</tt></a></tt></li>
+		
+	</ul>
+
+	<h4>Example:<span class="description">Click on the circle shaped path, to make it red:</span></h4>
 
 <div class="paperscript split">
 
@@ -2018,27 +2383,25 @@ mouse event.</p>
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-24">
+<script type="text/paperscript" canvas="canvas-26">
 // Create a circle shaped path at the center of the view:
 var path = new Path.Circle({
-	center: view.center,
-	radius: 25,
-	fillColor: 'black'
+    center: view.center,
+    radius: 25,
+    fillColor: 'black'
 });
 
 // When the mouse is clicked on the item,
 // set its fill color to red:
 path.onClick = function(event) {
-	this.fillColor = 'red';
+    this.fillColor = 'red';
 }
 </script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-24"></canvas></div>
+<div class="canvas"><canvas width="516" height="100" id="canvas-26"></canvas></div>
 </div>
 
 
-<p>
-<b>Example</b> &mdash; Click on the circle shaped paths to remove them:
-</p>
+<h4>Example:<span class="description">Click on the circle shaped paths to remove them:</span></h4>
 
 <div class="paperscript split">
 
@@ -2046,25 +2409,25 @@ path.onClick = function(event) {
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-25">
+<script type="text/paperscript" canvas="canvas-27">
 // Loop 30 times:
 for (var i = 0; i < 30; i++) {
-	// Create a circle shaped path at a random position
-	// in the view:
-	var path = new Path.Circle({
-		center: Point.random() * view.size,
-		radius: 25,
-		fillColor: 'black',
-		strokeColor: 'white'
-	});
+    // Create a circle shaped path at a random position
+    // in the view:
+    var path = new Path.Circle({
+        center: Point.random() * view.size,
+        radius: 25,
+        fillColor: 'black',
+        strokeColor: 'white'
+    });
 
-	// When the mouse clicks on the item, remove it:
-	path.onClick = function(event) {
-		this.remove();
-	}
+    // When the mouse clicks on the item, remove it:
+    path.onClick = function(event) {
+        this.remove();
+    }
 }
 </script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-25"></canvas></div>
+<div class="canvas"><canvas width="516" height="100" id="canvas-27"></canvas></div>
 </div>
 
 
@@ -2081,20 +2444,26 @@ for (var i = 0; i < 30; i++) {
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The function to be called when the mouse double clicks on the item. The
-function receives a <a href="../classes/MouseEvent.html"><tt>MouseEvent</tt></a> object which contains information
-about the mouse event.</p>
+	<p>The function to be called when the mouse double clicks on the item. The function receives a <a href="../classes/MouseEvent.html"><tt>MouseEvent</tt></a> object which contains information about the mouse event. Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with <a href="../classes/Event.html#stoppropagation"><tt>event.stopPropagation</tt></a>() or by returning <code>false</code> from the handler.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Function</tt>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Function</tt>
+		</li>
 	</ul>
+    
 	
-	<p>
-<b>Example</b> &mdash; Double click on the circle shaped path, to make it red:
-</p>
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/View.html#ondoubleclick"><tt>view.onDoubleClick</tt></a></tt></li>
+		
+	</ul>
+
+	<h4>Example:<span class="description">Double click on the circle shaped path, to make it red:</span></h4>
 
 <div class="paperscript split">
 
@@ -2102,27 +2471,25 @@ about the mouse event.</p>
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-26">
+<script type="text/paperscript" canvas="canvas-28">
 // Create a circle shaped path at the center of the view:
 var path = new Path.Circle({
-	center: view.center,
-	radius: 25,
-	fillColor: 'black'
+    center: view.center,
+    radius: 25,
+    fillColor: 'black'
 });
 
 // When the mouse is double clicked on the item,
 // set its fill color to red:
 path.onDoubleClick = function(event) {
-	this.fillColor = 'red';
+    this.fillColor = 'red';
 }
 </script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-26"></canvas></div>
+<div class="canvas"><canvas width="516" height="100" id="canvas-28"></canvas></div>
 </div>
 
 
-<p>
-<b>Example</b> &mdash; Double click on the circle shaped paths to remove them:
-</p>
+<h4>Example:<span class="description">Double click on the circle shaped paths to remove them:</span></h4>
 
 <div class="paperscript split">
 
@@ -2130,25 +2497,25 @@ path.onDoubleClick = function(event) {
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-27">
+<script type="text/paperscript" canvas="canvas-29">
 // Loop 30 times:
 for (var i = 0; i < 30; i++) {
-	// Create a circle shaped path at a random position
-	// in the view:
-	var path = new Path.Circle({
-		center: Point.random() * view.size,
-		radius: 25,
-		fillColor: 'black',
-		strokeColor: 'white'
-	});
+    // Create a circle shaped path at a random position
+    // in the view:
+    var path = new Path.Circle({
+        center: Point.random() * view.size,
+        radius: 25,
+        fillColor: 'black',
+        strokeColor: 'white'
+    });
 
-	// When the mouse is double clicked on the item, remove it:
-	path.onDoubleClick = function(event) {
-		this.remove();
-	}
+    // When the mouse is double clicked on the item, remove it:
+    path.onDoubleClick = function(event) {
+        this.remove();
+    }
 }
 </script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-27"></canvas></div>
+<div class="canvas"><canvas width="516" height="100" id="canvas-29"></canvas></div>
 </div>
 
 
@@ -2165,20 +2532,26 @@ for (var i = 0; i < 30; i++) {
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The function to be called repeatedly when the mouse moves on top of the
-item. The function receives a <a href="../classes/MouseEvent.html"><tt>MouseEvent</tt></a> object which contains
-information about the mouse event.</p>
+	<p>The function to be called repeatedly while the mouse moves over the item. The function receives a <a href="../classes/MouseEvent.html"><tt>MouseEvent</tt></a> object which contains information about the mouse event. Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with <a href="../classes/Event.html#stoppropagation"><tt>event.stopPropagation</tt></a>() or by returning <code>false</code> from the handler.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Function</tt>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Function</tt>
+		</li>
 	</ul>
+    
 	
-	<p>
-<b>Example</b> &mdash; Move over the circle shaped path, to change its opacity:
-</p>
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/View.html#onmousemove"><tt>view.onMouseMove</tt></a></tt></li>
+		
+	</ul>
+
+	<h4>Example:<span class="description">Move over the circle shaped path, to change its opacity:</span></h4>
 
 <div class="paperscript split">
 
@@ -2186,21 +2559,21 @@ information about the mouse event.</p>
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-28">
+<script type="text/paperscript" canvas="canvas-30">
 // Create a circle shaped path at the center of the view:
-	var path = new Path.Circle({
-	center: view.center,
-	radius: 25,
-	fillColor: 'black'
-	});
+    var path = new Path.Circle({
+    center: view.center,
+    radius: 25,
+    fillColor: 'black'
+    });
 
 // When the mouse moves on top of the item, set its opacity
 // to a random value between 0 and 1:
 path.onMouseMove = function(event) {
-	this.opacity = Math.random();
+    this.opacity = Math.random();
 }
 </script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-28"></canvas></div>
+<div class="canvas"><canvas width="516" height="100" id="canvas-30"></canvas></div>
 </div>
 
 
@@ -2217,21 +2590,26 @@ path.onMouseMove = function(event) {
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The function to be called when the mouse moves over the item. This
-function will only be called again, once the mouse moved outside of the
-item first. The function receives a <a href="../classes/MouseEvent.html"><tt>MouseEvent</tt></a> object which
-contains information about the mouse event.</p>
+	<p>The function to be called when the mouse moves over the item. This function will only be called again, once the mouse moved outside of the item first. The function receives a <a href="../classes/MouseEvent.html"><tt>MouseEvent</tt></a> object which contains information about the mouse event. Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with <a href="../classes/Event.html#stoppropagation"><tt>event.stopPropagation</tt></a>() or by returning <code>false</code> from the handler.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Function</tt>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Function</tt>
+		</li>
 	</ul>
+    
 	
-	<p>
-<b>Example</b> &mdash; When you move the mouse over the item, its fill color is set to red. When you move the mouse outside again, its fill color is set back to black.
-</p>
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/View.html#onmouseenter"><tt>view.onMouseEnter</tt></a></tt></li>
+		
+	</ul>
+
+	<h4>Example:<span class="description">When you move the mouse over the item, its fill color is set to red. When you move the mouse outside again, its fill color is set back to black.</span></h4>
 
 <div class="paperscript split">
 
@@ -2239,31 +2617,29 @@ contains information about the mouse event.</p>
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-29">
+<script type="text/paperscript" canvas="canvas-31">
 // Create a circle shaped path at the center of the view:
 var path = new Path.Circle({
-	center: view.center,
-	radius: 25,
-	fillColor: 'black'
+    center: view.center,
+    radius: 25,
+    fillColor: 'black'
 });
 
 // When the mouse enters the item, set its fill color to red:
 path.onMouseEnter = function(event) {
-	this.fillColor = 'red';
+    this.fillColor = 'red';
 }
 
 // When the mouse leaves the item, set its fill color to black:
 path.onMouseLeave = function(event) {
-	this.fillColor = 'black';
+    this.fillColor = 'black';
 }
 </script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-29"></canvas></div>
+<div class="canvas"><canvas width="516" height="100" id="canvas-31"></canvas></div>
 </div>
 
 
-<p>
-<b>Example</b> &mdash; When you click the mouse, you create new circle shaped items. When you move the mouse over the item, its fill color is set to red. When you move the mouse outside again, its fill color is set back to black.
-</p>
+<h4>Example:<span class="description">When you click the mouse, you create new circle shaped items. When you move the mouse over the item, its fill color is set to red. When you move the mouse outside again, its fill color is set back to black.</span></h4>
 
 <div class="paperscript split">
 
@@ -2271,29 +2647,29 @@ path.onMouseLeave = function(event) {
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-30">
+<script type="text/paperscript" canvas="canvas-32">
 function enter(event) {
-	this.fillColor = 'red';
+    this.fillColor = 'red';
 }
 
 function leave(event) {
-	this.fillColor = 'black';
+    this.fillColor = 'black';
 }
 
 // When the mouse is pressed:
 function onMouseDown(event) {
-	// Create a circle shaped path at the position of the mouse:
-	var path = new Path.Circle(event.point, 25);
-	path.fillColor = 'black';
+    // Create a circle shaped path at the position of the mouse:
+    var path = new Path.Circle(event.point, 25);
+    path.fillColor = 'black';
 
-	// When the mouse enters the item, set its fill color to red:
-	path.onMouseEnter = enter;
+    // When the mouse enters the item, set its fill color to red:
+    path.onMouseEnter = enter;
 
-	// When the mouse leaves the item, set its fill color to black:
-	path.onMouseLeave = leave;
+    // When the mouse leaves the item, set its fill color to black:
+    path.onMouseLeave = leave;
 }
 </script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-30"></canvas></div>
+<div class="canvas"><canvas width="516" height="100" id="canvas-32"></canvas></div>
 </div>
 
 
@@ -2310,20 +2686,26 @@ function onMouseDown(event) {
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>The function to be called when the mouse moves out of the item.</p>
-<p>The function receives a <a href="../classes/MouseEvent.html"><tt>MouseEvent</tt></a> object which contains
-information about the mouse event.</p>
+	<p>The function to be called when the mouse moves out of the item. The function receives a <a href="../classes/MouseEvent.html"><tt>MouseEvent</tt></a> object which contains information about the mouse event. Note that such mouse events bubble up the scene graph hierarchy and will reach the view, unless they are stopped with <a href="../classes/Event.html#stoppropagation"><tt>event.stopPropagation</tt></a>() or by returning <code>false</code> from the handler.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Function</tt>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Function</tt>
+		</li>
 	</ul>
+    
 	
-	<p>
-<b>Example</b> &mdash; Move the mouse over the circle shaped path and then move it out of it again to set its fill color to red:
-</p>
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/View.html#onmouseleave"><tt>view.onMouseLeave</tt></a></tt></li>
+		
+	</ul>
+
+	<h4>Example:<span class="description">Move the mouse over the circle shaped path and then move it out of it again to set its fill color to red:</span></h4>
 
 <div class="paperscript split">
 
@@ -2331,20 +2713,20 @@ information about the mouse event.</p>
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-31">
+<script type="text/paperscript" canvas="canvas-33">
 // Create a circle shaped path at the center of the view:
 var path = new Path.Circle({
-	center: view.center,
-	radius: 25,
-	fillColor: 'black'
+    center: view.center,
+    radius: 25,
+    fillColor: 'black'
 });
 
 // When the mouse leaves the item, set its fill color to red:
 path.onMouseLeave = function(event) {
-	this.fillColor = 'red';
+    this.fillColor = 'red';
 }
 </script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-31"></canvas></div>
+<div class="canvas"><canvas width="516" height="100" id="canvas-33"></canvas></div>
 </div>
 
 
@@ -2366,34 +2748,36 @@ path.onMouseLeave = function(event) {
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Sets those properties of the passed object literal on this item to
-the values defined in the object literal, if the item has property of the
-given name (or a setter defined for it).</p>
+	<p>Sets the properties of the passed object literal on this item to the values defined in the object literal, if the item has property of the given name (or a setter defined for it).</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>props:</tt> 
 <tt>Object</tt>
 
 
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
-<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the item itself.
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the item itself
 </li>
-	
+
+		
 	</ul>
 
+
+
 	
-	<p>
-<b>Example</b> &mdash; Setting properties through an object literal
-</p>
+	<h4>Example:<span class="description">Setting properties through an object literal</span></h4>
 
 <div class="paperscript split">
 
@@ -2401,48 +2785,23 @@ given name (or a setter defined for it).</p>
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-32">
+<script type="text/paperscript" canvas="canvas-34">
 var circle = new Path.Circle({
-	center: [80, 50],
-	radius: 35
+    center: [80, 50],
+    radius: 35
 });
 
 circle.set({
-	strokeColor: 'red',
-	strokeWidth: 10,
-	fillColor: 'black',
-	selected: true
+    strokeColor: 'red',
+    strokeWidth: 10,
+    fillColor: 'black',
+    selected: true
 });
 </script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-32"></canvas></div>
+<div class="canvas"><canvas width="516" height="100" id="canvas-34"></canvas></div>
 </div>
 
 
-</div>
-</div>
-</div>
-
-	
-<div id="isinserted" class="member">
-<div class="member-link">
-<a name="isinserted" href="#isinserted"><tt><b>isInserted</b>()</tt></a>
-</div>
-<div class="member-description hidden">
-<div class="member-text">
-	<p>Checks whether the item and all its parents are inserted into the DOM or
-not.</p>
-	
-	
-	<ul><b>Returns:</b>
-	
-		<li>
-<tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if the item is inserted into the DOM, <tt>false</tt> otherwise
-</li>
-	
-	</ul>
-
-	
-	
 </div>
 </div>
 </div>
@@ -2450,39 +2809,44 @@ not.</p>
 	
 <div id="clone" class="member">
 <div class="member-link">
-<a name="clone" href="#clone"><tt><b>clone</b>([insert])</tt></a>
+<a name="clone" href="#clone"><tt><b>clone</b>([options])</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Clones the item within the same project and places the copy above the
-item.</p>
+	<p>Clones the item within the same project and places the copy above the item.</p>
+    <ul class="member-list">
+<h4>Options:</h4>
+<li><tt>insert: undefined</tt> &mdash; specifies whether the copy should be  inserted into the scene graph. When set to <code>true</code>, it is inserted  above the original &mdash;&nbsp;default: <tt>true</tt></li>
+<li><tt>deep: undefined</tt> &mdash; specifies whether the item&rsquo;s children should also be  cloned &mdash;&nbsp;default: <tt>true</tt></li>
+</ul>
 	
-<ul><b>Parameters:</b>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>options:</tt> 
+<tt>Object</tt>
 
-<li>
-<tt>insert:</tt> 
-<tt>Boolean</tt>
-&mdash;&nbsp;specifies whether the copy should be
-inserted into the DOM. When set to <tt>true</tt>, it is inserted above the
-original.
-&mdash;&nbsp;optional, default: <tt>true</tt>
+&mdash;&nbsp;optional, default: <tt>{ insert: true, deep: true }</tt>
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
 <tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the newly cloned item
 </li>
-	
+
+		
 	</ul>
 
+
+
 	
-	<p>
-<b>Example</b> &mdash; Cloning items:
-</p>
+	<h4>Example:<span class="description">Cloning items:</span></h4>
 
 <div class="paperscript split">
 
@@ -2490,22 +2854,22 @@ original.
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-33">
+<script type="text/paperscript" canvas="canvas-35">
 var circle = new Path.Circle({
-	center: [50, 50],
-	radius: 10,
-	fillColor: 'red'
+    center: [50, 50],
+    radius: 10,
+    fillColor: 'red'
 });
 
 // Make 20 copies of the circle:
 for (var i = 0; i < 20; i++) {
-	var copy = circle.clone();
+    var copy = circle.clone();
 
-	// Distribute the copies horizontally, so we can see them:
-	copy.position.x += i * copy.bounds.width;
+    // Distribute the copies horizontally, so we can see them:
+    copy.position.x += i * copy.bounds.width;
 }
 </script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-33"></canvas></div>
+<div class="canvas"><canvas width="516" height="100" id="canvas-35"></canvas></div>
 </div>
 
 
@@ -2514,36 +2878,67 @@ for (var i = 0; i < 20; i++) {
 </div>
 
 	
-<div id="copyto-item" class="member">
+<div id="copycontent-source" class="member">
 <div class="member-link">
-<a name="copyto-item" href="#copyto-item"><tt><b>copyTo</b>(item)</tt></a>
+<a name="copycontent-source" href="#copycontent-source"><tt><b>copyContent</b>(source)</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>When passed a project, copies the item to the project,
-or duplicates it within the same project. When passed an item,
-copies the item into the specified item.</p>
+	<p>Copies the content of the specified item over to this item.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
-<tt>item:</tt> 
-<a href="../classes/Project.html"><tt>Project</tt></a> / <a href="../classes/Layer.html"><tt>Layer</tt></a> / <a href="../classes/Group.html"><tt>Group</tt></a> / <a href="../classes/CompoundPath.html"><tt>CompoundPath</tt></a>
-&mdash;&nbsp;the item or project to
-copy the item to
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>source:</tt> 
+<a href="../classes/Item.html"><tt>Item</tt></a>
+&mdash;&nbsp;the item to copy the content from
 
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
+
+
 	
-		<li>
-<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the new copy of the item
+	
+</div>
+</div>
+</div>
+
+	
+<div id="copyattributes-source-excludeMatrix" class="member">
+<div class="member-link">
+<a name="copyattributes-source-excludeMatrix" href="#copyattributes-source-excludeMatrix"><tt><b>copyAttributes</b>(source, excludeMatrix)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Copies all attributes of the specified item over to this item. This includes its style, visibility, matrix, pivot, blend-mode, opacity, selection state, data, name, etc.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>source:</tt> 
+<a href="../classes/Item.html"><tt>Item</tt></a>
+&mdash;&nbsp;the item to copy the attributes from
+
 </li>
 	
-	</ul>
+	<li>
+<tt>excludeMatrix:</tt> 
+<tt>Boolean</tt>
+&mdash;&nbsp;whether to exclude the transformation matrix when copying all attributes
+
+</li>
+	
+</ul>
+
+	
+
 
 	
 	
@@ -2554,37 +2949,47 @@ copy the item to
 	
 <div id="rasterize" class="member">
 <div class="member-link">
-<a name="rasterize" href="#rasterize"><tt><b>rasterize</b>([resolution])</tt></a>
+<a name="rasterize" href="#rasterize"><tt><b>rasterize</b>([resolution[, insert]])</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Rasterizes the item into a newly created Raster object. The item itself
-is not removed after rasterization.</p>
+	<p>Rasterizes the item into a newly created Raster object. The item itself is not removed after rasterization.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>resolution:</tt> 
 <tt>Number</tt>
-&mdash;&nbsp;the resolution of the raster in dpi
-&mdash;&nbsp;optional, default: <tt>72</tt>
+&mdash;&nbsp;the resolution of the raster  in pixels per inch (DPI). If not specified, the value of  <code>view.resolution</code> is used.
+&mdash;&nbsp;optional, default: <tt>view.resolution</tt>
 </li>
-
+	
+	<li>
+<tt>insert:</tt> 
+<tt>Boolean</tt>
+&mdash;&nbsp;specifies whether the raster should be  inserted into the scene graph. When set to <code>true</code>, it is inserted  above the original
+&mdash;&nbsp;optional, default: <tt>true</tt>
+</li>
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
 <tt><a href="../classes/Raster.html"><tt>Raster</tt></a></tt>&nbsp;&mdash;&nbsp;the newly created raster item
 </li>
-	
+
+		
 	</ul>
 
+
+
 	
-	<p>
-<b>Example</b> &mdash; Rasterizing an item:
-</p>
+	<h4>Example:<span class="description">Rasterizing an item:</span></h4>
 
 <div class="paperscript split">
 
@@ -2592,11 +2997,11 @@ is not removed after rasterization.</p>
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-34">
+<script type="text/paperscript" canvas="canvas-36">
 var circle = new Path.Circle({
-	center: [50, 50],
-	radius: 5,
-	fillColor: 'red'
+    center: [50, 50],
+    radius: 5,
+    fillColor: 'red'
 });
 
 // Create a rasterized version of the path:
@@ -2609,7 +3014,7 @@ raster.position.x += 100;
 circle.scale(5);
 raster.scale(5);
 </script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-34"></canvas></div>
+<div class="canvas"><canvas width="516" height="100" id="canvas-36"></canvas></div>
 </div>
 
 
@@ -2618,30 +3023,34 @@ raster.scale(5);
 </div>
 
 	
+<h3>Geometric Tests</h3>
+
 <div id="contains-point" class="member">
 <div class="member-link">
 <a name="contains-point" href="#contains-point"><tt><b>contains</b>(point)</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Checks whether the item's geometry contains the given point.</p>
+	<p>Checks whether the item&rsquo;s geometry contains the given point.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>point:</tt> 
 <a href="../classes/Point.html"><tt>Point</tt></a>
-&mdash;&nbsp;The point to check for.
+&mdash;&nbsp;the point to check for
 
 </li>
-
+	
 </ul>
 
 	
+
+
 	
-	<p>
-<b>Example</b> &mdash; Click within and outside the star below Create a star shaped path:
-</p>
+	<h4>Example:<span class="description">Click within and outside the star below Create a star shaped path:</span></h4>
 
 <div class="paperscript split">
 
@@ -2649,28 +3058,28 @@ raster.scale(5);
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-35">
+<script type="text/paperscript" canvas="canvas-37">
 var path = new Path.Star({
-	center: [50, 50],
-	points: 12,
-	radius1: 20,
-	radius2: 40,
-	fillColor: 'black'
+    center: [50, 50],
+    points: 12,
+    radius1: 20,
+    radius2: 40,
+    fillColor: 'black'
 });
 
 // Whenever the user presses the mouse:
 function onMouseDown(event) {
-	// If the position of the mouse is within the path,
-	// set its fill color to red, otherwise set it to
-	// black:
-	if (path.contains(event.point)) {
-		path.fillColor = 'red';
-	} else {
-		path.fillColor = 'black';
-	}
+    // If the position of the mouse is within the path,
+    // set its fill color to red, otherwise set it to
+    // black:
+    if (path.contains(event.point)) {
+        path.fillColor = 'red';
+    } else {
+        path.fillColor = 'black';
+    }
 }
 </script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-35"></canvas></div>
+<div class="canvas"><canvas width="516" height="100" id="canvas-37"></canvas></div>
 </div>
 
 
@@ -2679,70 +3088,415 @@ function onMouseDown(event) {
 </div>
 
 	
+<div id="isinside-rect" class="member">
+<div class="member-link">
+<a name="isinside-rect" href="#isinside-rect"><tt><b>isInside</b>(rect)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>rect:</tt> 
+<a href="../classes/Rectangle.html"><tt>Rectangle</tt></a>
+&mdash;&nbsp;the rectangle to check against
+
+</li>
+	
+</ul>
+
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><tt>Boolean</tt></tt>
+</li>
+
+		
+	</ul>
+
+
+
+	
+	
+</div>
+</div>
+</div>
+
+	
+<div id="intersects-item" class="member">
+<div class="member-link">
+<a name="intersects-item" href="#intersects-item"><tt><b>intersects</b>(item)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>item:</tt> 
+<a href="../classes/Item.html"><tt>Item</tt></a>
+&mdash;&nbsp;the item to check against
+
+</li>
+	
+</ul>
+
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><tt>Boolean</tt></tt>
+</li>
+
+		
+	</ul>
+
+
+
+	
+	
+</div>
+</div>
+</div>
+
+	
+<h3>Hit-testing, Fetching and Matching Items</h3>
+
 <div id="hittest-point" class="member">
 <div class="member-link">
 <a name="hittest-point" href="#hittest-point"><tt><b>hitTest</b>(point[, options])</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Perform a hit test on the item (and its children, if it is a
-<a href="../classes/Group.html"><tt>Group</tt></a> or <a href="../classes/Layer.html"><tt>Layer</tt></a>) at the location of the specified point.</p>
-<p>The options object allows you to control the specifics of the hit test
-and may contain a combination of the following values:</p>
-<p><b>options.tolerance:</b> <tt>Number</tt> – the tolerance of the hit test
-in points. Can also be controlled through
-<a href="../classes/Project.html#options"><tt>project.options</tt></a><tt>.hitTolerance</tt>.</p>
-<p><b>options.type:</b> Only hit test again a certain item
-type: <a href="../classes/PathItem.html"><tt>PathItem</tt></a>, <a href="../classes/Raster.html"><tt>Raster</tt></a>, <a href="../classes/TextItem.html"><tt>TextItem</tt></a>, etc.</p>
-<p><b>options.fill:</b> <tt>Boolean</tt> – hit test the fill of items.</p>
-<p><b>options.stroke:</b> <tt>Boolean</tt> – hit test the curves of path
-items, taking into account stroke width.</p>
-<p><b>options.segment:</b> <tt>Boolean</tt> – hit test for
-<a href="../classes/Segment.html#point"><tt>segment.point</tt></a> of <a href="../classes/Path.html"><tt>Path</tt></a> items.</p>
-<p><b>options.handles:</b> <tt>Boolean</tt> – hit test for the handles
-(<a href="../classes/Segment.html#handlein"><tt>segment.handleIn</tt></a> / <a href="../classes/Segment.html#handleout"><tt>segment.handleOut</tt></a>) of path segments.</p>
-<p><b>options.ends:</b> <tt>Boolean</tt> – only hit test for the first or
-last segment points of open path items.</p>
-<p><b>options.bounds:</b> <tt>Boolean</tt> – hit test the corners and
-side-centers of the bounding rectangle of items (<a href="../classes/Item.html#bounds"><tt>item.bounds</tt></a>).</p>
-<p><b>options.center:</b> <tt>Boolean</tt> – hit test the
-<a href="../classes/Rectangle.html#center"><tt>rectangle.center</tt></a> of the bounding rectangle of items
-(<a href="../classes/Item.html#bounds"><tt>item.bounds</tt></a>).</p>
-<p><b>options.guides:</b> <tt>Boolean</tt> – hit test items that have
-<tt>Item#guide</tt> set to <tt>true</tt>.</p>
-<p><b>options.selected:</b> <tt>Boolean</tt> – only hit selected items.<b</p>
+	<p>Performs a hit-test on the item and its children (if it is a <a href="../classes/Group.html"><tt>Group</tt></a> or <a href="../classes/Layer.html"><tt>Layer</tt></a>) at the location of the specified point, returning the first found hit.</p>
+<p>The options object allows you to control the specifics of the hit- test and may contain a combination of the following values:</p>
+    <ul class="member-list">
+<h4>Options:</h4>
+<li><tt>options.tolerance: <tt>Number</tt></tt> &mdash; the tolerance of the hit-test &mdash;&nbsp;default: <tt><a href="../classes/PaperScope.html#settings"><tt>paperScope.settings</tt></a>.hitTolerance</tt></li>
+<li><tt>options.class: <tt>Function</tt></tt> &mdash; only hit-test against a specific item  class, or any of its sub-classes, by providing the constructor  function against which an <code>instanceof</code> check is performed:  <tt>Group</tt>, <tt>Layer</tt>, <tt>Path</tt>, <tt>CompoundPath</tt>, <tt>Shape</tt>, <tt>Raster</tt>, <tt>SymbolItem</tt>, <tt>PointText</tt>, &hellip;</li>
+<li><tt>options.match: <tt>Function</tt></tt> &mdash; a match function to be called for each  found hit result: Return <code>true</code> to return the result, <code>false</code> to keep  searching</li>
+<li><tt>options.fill: <tt>Boolean</tt></tt> &mdash; hit-test the fill of items &mdash;&nbsp;default: <tt>true</tt></li>
+<li><tt>options.stroke: <tt>Boolean</tt></tt> &mdash; hit-test the stroke of path  items, taking into account the setting of stroke color and width &mdash;&nbsp;default: <tt>true</tt></li>
+<li><tt>options.segments: <tt>Boolean</tt></tt> &mdash; hit-test for <a href="../classes/Segment.html#point"><tt>segment.point</tt></a> of <a href="../classes/Path.html"><tt>Path</tt></a> items &mdash;&nbsp;default: <tt>true</tt></li>
+<li><tt>options.curves: <tt>Boolean</tt></tt> &mdash; hit-test the curves of path items,  without taking the stroke color or width into account</li>
+<li><tt>options.handles: <tt>Boolean</tt></tt> &mdash; hit-test for the handles (<a href="../classes/Segment.html#handlein"><tt>segment.handleIn</tt></a> / <a href="../classes/Segment.html#handleout"><tt>segment.handleOut</tt></a>) of path segments.</li>
+<li><tt>options.ends: <tt>Boolean</tt></tt> &mdash; only hit-test for the first or last  segment points of open path items</li>
+<li><tt>options.position: <tt>Boolean</tt></tt> &mdash; hit-test the <a href="../classes/Item.html#position"><tt>item.position</tt></a> of  of items, which depends on the setting of <a href="../classes/Item.html#pivot"><tt>item.pivot</tt></a></li>
+<li><tt>options.center: <tt>Boolean</tt></tt> &mdash; hit-test the <a href="../classes/Rectangle.html#center"><tt>rectangle.center</tt></a> of  the bounding rectangle of items (<a href="../classes/Item.html#bounds"><tt>item.bounds</tt></a>)</li>
+<li><tt>options.bounds: <tt>Boolean</tt></tt> &mdash; hit-test the corners and side-centers of  the bounding rectangle of items (<a href="../classes/Item.html#bounds"><tt>item.bounds</tt></a>)</li>
+<li><tt>options.guides: <tt>Boolean</tt></tt> &mdash; hit-test items that have <tt>Item#guide</tt> set to <code>true</code></li>
+<li><tt>options.selected: <tt>Boolean</tt></tt> &mdash; only hit selected items</li>
+</ul>
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>point:</tt> 
 <a href="../classes/Point.html"><tt>Point</tt></a>
-&mdash;&nbsp;The point where the hit test should be performed
+&mdash;&nbsp;the point where the hit-test should be performed
 
 </li>
-
-<li>
+	
+	<li>
 <tt>options:</tt> 
 <tt>Object</tt>
 
-&mdash;&nbsp;optional, default: <tt>{ fill: true, stroke: true, segments: true,
-tolerance: 2 }</tt>
+&mdash;&nbsp;optional, default: <tt>{ fill: true, stroke: true, segments: true,  tolerance: settings.hitTolerance }</tt>
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/HitResult.html"><tt>HitResult</tt></a></tt>&nbsp;&mdash;&nbsp;a hit result object describing what exactly was hit  or <code>null</code> if nothing was hit
+</li>
+
+		
+	</ul>
+
+
+
 	
-		<li>
-<tt><a href="../classes/HitResult.html"><tt>HitResult</tt></a></tt>&nbsp;&mdash;&nbsp;a hit result object that contains more
-information about what exactly was hit or <tt>null</tt> if nothing was
-hit
+	
+</div>
+</div>
+</div>
+
+	
+<div id="hittestall-point" class="member">
+<div class="member-link">
+<a name="hittestall-point" href="#hittestall-point"><tt><b>hitTestAll</b>(point[, options])</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Performs a hit-test on the item and its children (if it is a <a href="../classes/Group.html"><tt>Group</tt></a> or <a href="../classes/Layer.html"><tt>Layer</tt></a>) at the location of the specified point, returning all found hits.</p>
+<p>The options object allows you to control the specifics of the hit- test. See <a href="../classes/Item.html#hittest-point"><tt>hitTest(point[, options])</tt></a> for a list of all options.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>point:</tt> 
+<a href="../classes/Point.html"><tt>Point</tt></a>
+&mdash;&nbsp;the point where the hit-test should be performed
+
 </li>
 	
+	<li>
+<tt>options:</tt> 
+<tt>Object</tt>
+
+&mdash;&nbsp;optional, default: <tt>{ fill: true, stroke: true, segments: true,  tolerance: settings.hitTolerance }</tt>
+</li>
+	
+</ul>
+
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt>Array of <a href="../classes/HitResult.html"><tt>HitResult</tt></a> objects</tt>&nbsp;&mdash;&nbsp;hit result objects for all hits, describing what  exactly was hit or <code>null</code> if nothing was hit
+</li>
+
+		
+	</ul>
+
+
+
+	
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/Item.html#hittest-point"><tt>hitTest(point[, options])</tt></a>;</tt></li>
+		
 	</ul>
 
 	
+</div>
+</div>
+</div>
+
+	
+<div id="matches-options" class="member">
+<div class="member-link">
+<a name="matches-options" href="#matches-options"><tt><b>matches</b>(options)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Checks whether the item matches the criteria described by the given object, by iterating over all of its properties and matching against their values through <a href="../classes/Item.html#matches-name-compare"><tt>matches(name, compare)</tt></a>.</p>
+<p>See <a href="../classes/Project.html#getitems-options"><tt>project.getItems(options)</tt></a> for a selection of illustrated examples.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>options:</tt> 
+<tt>Object</tt>⟋<tt>Function</tt>
+&mdash;&nbsp;the criteria to match against
+
+</li>
+	
+</ul>
+
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if the item matches all the criteria, <tt>false</tt> otherwise
+</li>
+
+		
+	</ul>
+
+
+
+	
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/Item.html#getitems-options"><tt>getItems(options)</tt></a></tt></li>
+		
+	</ul>
+
+	
+</div>
+</div>
+</div>
+
+	
+<div id="matches-name-compare" class="member">
+<div class="member-link">
+<a name="matches-name-compare" href="#matches-name-compare"><tt><b>matches</b>(name, compare)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Checks whether the item matches the given criteria. Extended matching is possible by providing a compare function or a regular expression. Matching points, colors only work as a comparison of the full object, not partial matching (e.g. only providing the x-coordinate to match all points with that x-value). Partial matching does work for <a href="../classes/Item.html#data"><tt>item.data</tt></a>.</p>
+<p>See <a href="../classes/Project.html#getitems-options"><tt>project.getItems(options)</tt></a> for a selection of illustrated examples.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>name:</tt> 
+<tt>String</tt>
+&mdash;&nbsp;the name of the state to match against
+
+</li>
+	
+	<li>
+<tt>compare:</tt> 
+<tt>Object</tt>
+&mdash;&nbsp;the value, function or regular expression to compare against
+
+</li>
+	
+</ul>
+
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if the item matches the state, <tt>false</tt> otherwise
+</li>
+
+		
+	</ul>
+
+
+
+	
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/Item.html#getitems-options"><tt>getItems(options)</tt></a></tt></li>
+		
+	</ul>
+
+	
+</div>
+</div>
+</div>
+
+	
+<div id="getitems-options" class="member">
+<div class="member-link">
+<a name="getitems-options" href="#getitems-options"><tt><b>getItems</b>(options)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Fetch the descendants (children or children of children) of this item that match the properties in the specified object. Extended matching is possible by providing a compare function or regular expression. Matching points, colors only work as a comparison of the full object, not partial matching (e.g. only providing the x- coordinate to match all points with that x-value). Partial matching does work for <a href="../classes/Item.html#data"><tt>item.data</tt></a>.</p>
+<p>Matching items against a rectangular area is also possible, by setting either <code>options.inside</code> or <code>options.overlapping</code> to a rectangle describing the area in which the items either have to be fully or partly contained.</p>
+<p>See <a href="../classes/Project.html#getitems-options"><tt>project.getItems(options)</tt></a> for a selection of illustrated examples.</p>
+    <ul class="member-list">
+<h4>Options:</h4>
+<li><tt>options.recursive: <tt>Boolean</tt></tt> &mdash; whether to loop recursively  through all children, or stop at the current level &mdash;&nbsp;default: <tt>true</tt></li>
+<li><tt>options.match: <tt>Function</tt></tt> &mdash; a match function to be called for each  item, allowing the definition of more flexible item checks that are  not bound to properties. If no other match properties are defined,  this function can also be passed instead of the <code>options</code> object</li>
+<li><tt>options.class: <tt>Function</tt></tt> &mdash; the constructor function of the item type  to match against</li>
+<li><tt>options.inside: <a href="../classes/Rectangle.html"><tt>Rectangle</tt></a></tt> &mdash; the rectangle in which the items need to  be fully contained</li>
+<li><tt>options.overlapping: <a href="../classes/Rectangle.html"><tt>Rectangle</tt></a></tt> &mdash; the rectangle with which the items  need to at least partly overlap</li>
+</ul>
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>options:</tt> 
+<tt>Object</tt>⟋<tt>Function</tt>
+&mdash;&nbsp;the criteria to match against
+
+</li>
+	
+</ul>
+
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt>Array of <a href="../classes/Item.html"><tt>Item</tt></a> objects</tt>&nbsp;&mdash;&nbsp;the list of matching descendant items
+</li>
+
+		
+	</ul>
+
+
+
+	
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/Item.html#matches-options"><tt>matches(options)</tt></a></tt></li>
+		
+	</ul>
+
+	
+</div>
+</div>
+</div>
+
+	
+<div id="getitem-match" class="member">
+<div class="member-link">
+<a name="getitem-match" href="#getitem-match"><tt><b>getItem</b>(match)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Fetch the first descendant (child or child of child) of this item that matches the properties in the specified object. Extended matching is possible by providing a compare function or regular expression. Matching points, colors only work as a comparison of the full object, not partial matching (e.g. only providing the x- coordinate to match all points with that x-value). Partial matching does work for <a href="../classes/Item.html#data"><tt>item.data</tt></a>. See <a href="../classes/Project.html#getitems-match"><tt>project.getItems(match)</tt></a> for a selection of illustrated examples.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>match:</tt> 
+<tt>Object</tt>⟋<tt>Function</tt>
+&mdash;&nbsp;the criteria to match against
+
+</li>
+	
+</ul>
+
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the first descendant item matching the given criteria
+</li>
+
+		
+	</ul>
+
+
+
+	
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/Item.html#getitems-match"><tt>getItems(match)</tt></a></tt></li>
+		
+	</ul>
+
 	
 </div>
 </div>
@@ -2757,31 +3511,37 @@ hit
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Exports (serializes) the item with its content and child items to a JSON
-data string.</p>
-<p>The options object offers control over some aspects of the SVG export:</p>
-<p><b>options.precision:</b> <tt>Number</tt> – the amount of fractional
-digits in numbers used in JSON data.</p>
+	<p>Exports (serializes) the item with its content and child items to a JSON data string.</p>
+    <ul class="member-list">
+<h4>Options:</h4>
+<li><tt>options.asString: <tt>Boolean</tt></tt> &mdash; whether the JSON is returned as  a <code>Object</code> or a <code>String</code> &mdash;&nbsp;default: <tt>true</tt></li>
+<li><tt>options.precision: <tt>Number</tt></tt> &mdash; the amount of fractional digits in  numbers used in JSON data &mdash;&nbsp;default: <tt>5</tt></li>
+</ul>
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>options:</tt> 
 <tt>Object</tt>
 &mdash;&nbsp;the serialization options
-&mdash;&nbsp;optional, default: <tt>{ precision: 5 }</tt>
+&mdash;&nbsp;optional
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
 <tt><tt>String</tt></tt>&nbsp;&mdash;&nbsp;the exported JSON data
 </li>
-	
+
+		
 	</ul>
+
+
 
 	
 	
@@ -2796,24 +3556,24 @@ digits in numbers used in JSON data.</p>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Imports (deserializes) the stored JSON data into this item. If the data
-describes an item of the same class or a parent class of the item, the
-data is imported into the item itself. If not, the imported item is added
-to this item's <a href="../classes/Item.html#children"><tt>item.children</tt></a> list. Note that not all type of
-items can have children.</p>
+	<p>Imports (deserializes) the stored JSON data into this item. If the data describes an item of the same class or a parent class of the item, the data is imported into the item itself. If not, the imported item is added to this item&rsquo;s <a href="../classes/Item.html#children"><tt>item.children</tt></a> list. Note that not all type of items can have children.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>json:</tt> 
 <tt>String</tt>
-&mdash;&nbsp;the JSON data to import from.
+&mdash;&nbsp;the JSON data to import from
 
 </li>
-
+	
 </ul>
 
 	
+
+
 	
 	
 </div>
@@ -2828,35 +3588,40 @@ items can have children.</p>
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Exports the item with its content and child items as an SVG DOM.</p>
-<p>The options object offers control over some aspects of the SVG export:</p>
-<p><b>options.asString:</b> <tt>Boolean</tt> – wether a SVG node or a String
-is to be returned.</p>
-<p><b>options.precision:</b> <tt>Number</tt> – the amount of fractional
-digits in numbers used in SVG data.</p>
-<p><b>options.matchShapes:</b> <tt>Boolean</tt> – wether imported path
-items should tried to be converted to shape items, if their geometries
-match.</p>
+    <ul class="member-list">
+<h4>Options:</h4>
+<li><tt>options.bounds: <tt>String</tt>⟋<a href="../classes/Rectangle.html"><tt>Rectangle</tt></a></tt> &mdash; the bounds of the area  to export, either as a string (<tt>&lsquo;view&rsquo;</tt>, <tt>content&rsquo;</tt>), or a  <a href="../classes/Rectangle.html"><tt>Rectangle</tt></a> object: <code>&#39;view&#39;</code> uses the view bounds,  <code>&#39;content&#39;</code> uses the stroke bounds of all content &mdash;&nbsp;default: <tt>&lsquo;view&rsquo;</tt></li>
+<li><tt>options.matrix: <a href="../classes/Matrix.html"><tt>Matrix</tt></a></tt> &mdash; the matrix with which  to transform the exported content: If <code>options.bounds</code> is set to  <code>&#39;view&#39;</code>, <code>paper.view.matrix</code> is used, for all other settings of  <code>options.bounds</code> the identity matrix is used. &mdash;&nbsp;default: <tt>paper.view.matrix</tt></li>
+<li><tt>options.asString: <tt>Boolean</tt></tt> &mdash; whether a SVG node or a  <code>String</code> is to be returned &mdash;&nbsp;default: <tt>false</tt></li>
+<li><tt>options.precision: <tt>Number</tt></tt> &mdash; the amount of fractional digits in  numbers used in SVG data &mdash;&nbsp;default: <tt>5</tt></li>
+<li><tt>options.matchShapes: <tt>Boolean</tt></tt> &mdash; whether path items should  tried to be converted to SVG shape items (rect, circle, ellipse,  line, polyline, polygon), if their geometries match &mdash;&nbsp;default: <tt>false</tt></li>
+<li><tt>options.embedImages: <tt>Boolean</tt></tt> &mdash; whether raster images should  be embedded as base64 data inlined in the xlink:href attribute, or  kept as a link to their external URL. &mdash;&nbsp;default: <tt>true</tt></li>
+</ul>
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>options:</tt> 
 <tt>Object</tt>
-&mdash;&nbsp;the export options.
-&mdash;&nbsp;optional, default: <tt>{ asString: false, precision: 5,
-matchShapes: false }</tt>
+&mdash;&nbsp;the export options
+&mdash;&nbsp;optional
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
-<tt><tt>SVGSVGElement</tt></tt>&nbsp;&mdash;&nbsp;the item converted to an SVG node
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><tt>SVGElement</tt></tt>&nbsp;&mdash;&nbsp;the item converted to an SVG node
 </li>
-	
+
+		
 	</ul>
+
+
 
 	
 	
@@ -2871,40 +3636,95 @@ matchShapes: false }</tt>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Converts the provided SVG content into Paper.js items and adds them to
-the this item's children list.</p>
-<p>Note that the item is not cleared first. You can call
-<a href="../classes/Item.html#removechildren"><tt>item.removeChildren</tt></a>() to do so.</p>
-<p>The options object offers control over some aspects of the SVG import:</p>
-<p><b>options.expandShapes:</b> <tt>Boolean</tt> – wether imported shape
-items should be expanded to path items.</p>
+	<p>Converts the provided SVG content into Paper.js items and adds them to the this item&rsquo;s children list. Note that the item is not cleared first. You can call <a href="../classes/Item.html#removechildren"><tt>item.removeChildren</tt></a>() to do so.</p>
+    <ul class="member-list">
+<h4>Options:</h4>
+<li><tt>options.expandShapes: <tt>Boolean</tt></tt> &mdash; whether imported shape  items should be expanded to path items &mdash;&nbsp;default: <tt>false</tt></li>
+<li><tt>options.onLoad: <tt>Function</tt></tt> &mdash; the callback function to call once the  SVG content is loaded from the given URL receiving two arguments: the  converted <code>item</code> and the original <code>svg</code> data as a string. Only  required when loading from external resources.</li>
+<li><tt>options.onError: <tt>Function</tt></tt> &mdash; the callback function to call if an  error occurs during loading. Only required when loading from external  resources.</li>
+<li><tt>options.insert: <tt>Boolean</tt></tt> &mdash; whether the imported items should  be added to the item that <code>importSVG()</code> is called on &mdash;&nbsp;default: <tt>true</tt></li>
+<li><tt>options.applyMatrix: <tt>Boolean</tt></tt> &mdash; whether the imported items should have their transformation  matrices applied to their contents or not &mdash;&nbsp;default: <tt><a href="../classes/PaperScope.html#settings"><tt>paperScope.settings</tt></a>.applyMatrix</tt></li>
+</ul>
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>svg:</tt> 
-<tt>SVGSVGElement</tt> / <tt>String</tt>
-&mdash;&nbsp;the SVG content to import
+<tt>SVGElement</tt>⟋<tt>String</tt>
+&mdash;&nbsp;the SVG content to import, either as a SVG  DOM node, a string containing SVG content, or a string describing the  URL of the SVG file to fetch.
 
 </li>
-
-<li>
+	
+	<li>
 <tt>options:</tt> 
 <tt>Object</tt>
 &mdash;&nbsp;the import options
-&mdash;&nbsp;optional, default: <tt>{ expandShapes: false }</tt>
+&mdash;&nbsp;optional
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the newly created Paper.js item containing the converted  SVG content
+</li>
+
+		
+	</ul>
+
+
+
 	
-		<li>
-<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the imported Paper.js parent item
+	
+</div>
+</div>
+</div>
+
+	
+<div id="importsvg-svg-onLoad" class="member">
+<div class="member-link">
+<a name="importsvg-svg-onLoad" href="#importsvg-svg-onLoad"><tt><b>importSVG</b>(svg, onLoad)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Imports the provided external SVG file, converts it into Paper.js items and adds them to the this item&rsquo;s children list. Note that the item is not cleared first. You can call <a href="../classes/Item.html#removechildren"><tt>item.removeChildren</tt></a>() to do so.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>svg:</tt> 
+<tt>SVGElement</tt>⟋<tt>String</tt>
+&mdash;&nbsp;the URL of the SVG file to fetch.
+
 </li>
 	
+	<li>
+<tt>onLoad:</tt> 
+<tt>Function</tt>
+&mdash;&nbsp;the callback function to call once the SVG  content is loaded from the given URL receiving two arguments: the  converted <code>item</code> and the original <code>svg</code> data as a string. Only  required when loading from external files.
+
+</li>
+	
+</ul>
+
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the newly created Paper.js item containing the converted  SVG content
+</li>
+
+		
 	</ul>
+
+
 
 	
 	
@@ -2915,37 +3735,40 @@ items should be expanded to path items.</p>
 	
 <h3>Hierarchy Operations</h3>
 
-<div id="addchild-item-_preserve" class="member">
+<div id="addchild-item" class="member">
 <div class="member-link">
-<a name="addchild-item-_preserve" href="#addchild-item-_preserve"><tt><b>addChild</b>(item)</tt></a>
+<a name="addchild-item" href="#addchild-item"><tt><b>addChild</b>(item)</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Adds the specified item as a child of this item at the end of the
-its children list. You can use this function for groups, compound
-paths and layers.</p>
+	<p>Adds the specified item as a child of this item at the end of the its <a href="../classes/Item.html#children"><tt>children</tt></a> list. You can use this function for groups, compound paths and layers.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>item:</tt> 
 <a href="../classes/Item.html"><tt>Item</tt></a>
 &mdash;&nbsp;the item to be added as a child
 
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
-<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the added item, or <tt>null</tt> if adding was not
-possible.
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the added item, or <code>null</code> if adding was not possible
 </li>
-	
+
+		
 	</ul>
 
+
+
 	
 	
 </div>
@@ -2953,44 +3776,47 @@ possible.
 </div>
 
 	
-<div id="insertchild-index-item-_preserve" class="member">
+<div id="insertchild-index-item" class="member">
 <div class="member-link">
-<a name="insertchild-index-item-_preserve" href="#insertchild-index-item-_preserve"><tt><b>insertChild</b>(index, item)</tt></a>
+<a name="insertchild-index-item" href="#insertchild-index-item"><tt><b>insertChild</b>(index, item)</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Inserts the specified item as a child of this item at the specified
-index in its <a href="../classes/Item.html#children" onclick="return toggleMember('children', true);"><tt>children</tt></a> list. You can use this function for
-groups, compound paths and layers.</p>
+	<p>Inserts the specified item as a child of this item at the specified index in its <a href="../classes/Item.html#children"><tt>children</tt></a> list. You can use this function for groups, compound paths and layers.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>index:</tt> 
 <tt>Number</tt>
-
+&mdash;&nbsp;the index at which to insert the item
 
 </li>
-
-<li>
+	
+	<li>
 <tt>item:</tt> 
 <a href="../classes/Item.html"><tt>Item</tt></a>
 &mdash;&nbsp;the item to be inserted as a child
 
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
-<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the inserted item, or <tt>null</tt> if inserting was not
-possible.
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the inserted item, or <code>null</code> if inserting was not possible
 </li>
-	
+
+		
 	</ul>
 
+
+
 	
 	
 </div>
@@ -2998,37 +3824,40 @@ possible.
 </div>
 
 	
-<div id="addchildren-items-_preserve" class="member">
+<div id="addchildren-items" class="member">
 <div class="member-link">
-<a name="addchildren-items-_preserve" href="#addchildren-items-_preserve"><tt><b>addChildren</b>(items)</tt></a>
+<a name="addchildren-items" href="#addchildren-items"><tt><b>addChildren</b>(items)</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Adds the specified items as children of this item at the end of the
-its children list. You can use this function for groups, compound
-paths and layers.</p>
+	<p>Adds the specified items as children of this item at the end of the its children list. You can use this function for groups, compound paths and layers.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>items:</tt> 
 Array of <a href="../classes/Item.html"><tt>Item</tt></a> objects
-&mdash;&nbsp;The items to be added as children
+&mdash;&nbsp;the items to be added as children
 
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
-<tt>Array of <a href="../classes/Item.html"><tt>Item</tt></a> objects</tt>&nbsp;&mdash;&nbsp;the added items, or <tt>null</tt> if adding was not
-possible.
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt>Array of <a href="../classes/Item.html"><tt>Item</tt></a> objects</tt>&nbsp;&mdash;&nbsp;the added items, or <code>null</code> if adding was not possible
 </li>
-	
+
+		
 	</ul>
 
+
+
 	
 	
 </div>
@@ -3036,44 +3865,47 @@ possible.
 </div>
 
 	
-<div id="insertchildren-index-items-_preserve-_type" class="member">
+<div id="insertchildren-index-items" class="member">
 <div class="member-link">
-<a name="insertchildren-index-items-_preserve-_type" href="#insertchildren-index-items-_preserve-_type"><tt><b>insertChildren</b>(index, items)</tt></a>
+<a name="insertchildren-index-items" href="#insertchildren-index-items"><tt><b>insertChildren</b>(index, items)</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Inserts the specified items as children of this item at the specified
-index in its <a href="../classes/Item.html#children" onclick="return toggleMember('children', true);"><tt>children</tt></a> list. You can use this function for
-groups, compound paths and layers.</p>
+	<p>Inserts the specified items as children of this item at the specified index in its <a href="../classes/Item.html#children"><tt>children</tt></a> list. You can use this function for groups, compound paths and layers.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>index:</tt> 
 <tt>Number</tt>
 
 
 </li>
-
-<li>
+	
+	<li>
 <tt>items:</tt> 
 Array of <a href="../classes/Item.html"><tt>Item</tt></a> objects
-&mdash;&nbsp;The items to be appended as children
+&mdash;&nbsp;the items to be appended as children
 
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
-<tt>Array of <a href="../classes/Item.html"><tt>Item</tt></a> objects</tt>&nbsp;&mdash;&nbsp;the inserted items, or <tt>null</tt> if inserted was not
-possible.
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt>Array of <a href="../classes/Item.html"><tt>Item</tt></a> objects</tt>&nbsp;&mdash;&nbsp;the inserted items, or <code>null</code> if inserted was not  possible
 </li>
-	
+
+		
 	</ul>
 
+
+
 	
 	
 </div>
@@ -3081,35 +3913,40 @@ possible.
 </div>
 
 	
-<div id="insertabove-item-_preserve" class="member">
+<div id="insertabove-item" class="member">
 <div class="member-link">
-<a name="insertabove-item-_preserve" href="#insertabove-item-_preserve"><tt><b>insertAbove</b>(item)</tt></a>
+<a name="insertabove-item" href="#insertabove-item"><tt><b>insertAbove</b>(item)</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Inserts this item above the specified item.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>item:</tt> 
 <a href="../classes/Item.html"><tt>Item</tt></a>
 &mdash;&nbsp;the item above which it should be inserted
 
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
-<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the inserted item, or <tt>null</tt> if inserting was not
-possible.
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the inserted item, or <code>null</code> if inserting was not possible
 </li>
-	
+
+		
 	</ul>
 
+
+
 	
 	
 </div>
@@ -3117,34 +3954,39 @@ possible.
 </div>
 
 	
-<div id="insertbelow-item-_preserve" class="member">
+<div id="insertbelow-item" class="member">
 <div class="member-link">
-<a name="insertbelow-item-_preserve" href="#insertbelow-item-_preserve"><tt><b>insertBelow</b>(item)</tt></a>
+<a name="insertbelow-item" href="#insertbelow-item"><tt><b>insertBelow</b>(item)</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Inserts this item below the specified item.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>item:</tt> 
 <a href="../classes/Item.html"><tt>Item</tt></a>
-&mdash;&nbsp;the item above which it should be inserted
+&mdash;&nbsp;the item below which it should be inserted
 
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
-<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the inserted item, or <tt>null</tt> if inserting was not
-possible.
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the inserted item, or <code>null</code> if inserting was not possible
 </li>
-	
+
+		
 	</ul>
+
+
 
 	
 	
@@ -3160,8 +4002,11 @@ possible.
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Sends this item to the back of all other items within the same parent.</p>
+    
 	
 	
+
+
 	
 	
 </div>
@@ -3176,8 +4021,42 @@ possible.
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Brings this item to the front of all other items within the same parent.</p>
+    
 	
 	
+
+
+	
+	
+</div>
+</div>
+</div>
+
+	
+<div id="appendtop-item" class="member">
+<div class="member-link">
+<a name="appendtop-item" href="#appendtop-item"><tt><b>appendTop</b>(item)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Inserts the specified item as a child of this item by appending it to the list of children and moving it above all other children. You can use this function for groups, compound paths and layers.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>item:</tt> 
+<a href="../classes/Item.html"><tt>Item</tt></a>
+&mdash;&nbsp;the item to be appended as a child
+
+</li>
+	
+</ul>
+
+	
+
+
 	
 	
 </div>
@@ -3191,22 +4070,24 @@ possible.
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Inserts the specified item as a child of this item by appending it to
-the list of children and moving it below all other children. You can
-use this function for groups, compound paths and layers.</p>
+	<p>Inserts the specified item as a child of this item by appending it to the list of children and moving it below all other children. You can use this function for groups, compound paths and layers.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>item:</tt> 
 <a href="../classes/Item.html"><tt>Item</tt></a>
-&mdash;&nbsp;The item to be appended as a child
+&mdash;&nbsp;the item to be appended as a child
 
 </li>
-
+	
 </ul>
 
 	
+
+
 	
 	
 </div>
@@ -3214,24 +4095,203 @@ use this function for groups, compound paths and layers.</p>
 </div>
 
 	
-<div id="reduce" class="member">
+<div id="moveabove-item" class="member">
 <div class="member-link">
-<a name="reduce" href="#reduce"><tt><b>reduce</b>()</tt></a>
+<a name="moveabove-item" href="#moveabove-item"><tt><b>moveAbove</b>(item)</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>If this is a group, layer or compound-path with only one child-item,
-the child-item is moved outside and the parent is erased. Otherwise, the
-item itself is returned unmodified.</p>
+	<p>Moves this item above the specified item.</p>
+    
 	
+<ul class="member-list">
+	<h4>Parameters:</h4>
 	
-	<ul><b>Returns:</b>
-	
-		<li>
-<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the reduced item
+	<li>
+<tt>item:</tt> 
+<a href="../classes/Item.html"><tt>Item</tt></a>
+&mdash;&nbsp;the item above which it should be moved
+
 </li>
 	
+</ul>
+
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if it was moved, <tt>false</tt> otherwise
+</li>
+
+		
 	</ul>
+
+
+
+	
+	
+</div>
+</div>
+</div>
+
+	
+<div id="movebelow-item" class="member">
+<div class="member-link">
+<a name="movebelow-item" href="#movebelow-item"><tt><b>moveBelow</b>(item)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Moves the item below the specified item.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>item:</tt> 
+<a href="../classes/Item.html"><tt>Item</tt></a>
+&mdash;&nbsp;the item below which it should be moved
+
+</li>
+	
+</ul>
+
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if it was moved, <tt>false</tt> otherwise
+</li>
+
+		
+	</ul>
+
+
+
+	
+	
+</div>
+</div>
+</div>
+
+	
+<div id="addto-owner" class="member">
+<div class="member-link">
+<a name="addto-owner" href="#addto-owner"><tt><b>addTo</b>(owner)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Adds it to the specified owner, which can be either a <a href="../classes/Item.html"><tt>Item</tt></a> or a <a href="../classes/Project.html"><tt>Project</tt></a>.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>owner:</tt> 
+<a href="../classes/Project.html"><tt>Project</tt></a>⟋<a href="../classes/Layer.html"><tt>Layer</tt></a>⟋<a href="../classes/Group.html"><tt>Group</tt></a>⟋<a href="../classes/CompoundPath.html"><tt>CompoundPath</tt></a>
+&mdash;&nbsp;the item or project to add the item to
+
+</li>
+	
+</ul>
+
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the item itself, if it was successfully added
+</li>
+
+		
+	</ul>
+
+
+
+	
+	
+</div>
+</div>
+</div>
+
+	
+<div id="copyto-owner" class="member">
+<div class="member-link">
+<a name="copyto-owner" href="#copyto-owner"><tt><b>copyTo</b>(owner)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Clones the item and adds it to the specified owner, which can be either a <a href="../classes/Item.html"><tt>Item</tt></a> or a <a href="../classes/Project.html"><tt>Project</tt></a>.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>owner:</tt> 
+<a href="../classes/Project.html"><tt>Project</tt></a>⟋<a href="../classes/Layer.html"><tt>Layer</tt></a>⟋<a href="../classes/Group.html"><tt>Group</tt></a>⟋<a href="../classes/CompoundPath.html"><tt>CompoundPath</tt></a>
+&mdash;&nbsp;the item or project to copy the item to
+
+</li>
+	
+</ul>
+
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the new copy of the item, if it was successfully added
+</li>
+
+		
+	</ul>
+
+
+
+	
+	
+</div>
+</div>
+</div>
+
+	
+<div id="reduce-options" class="member">
+<div class="member-link">
+<a name="reduce-options" href="#reduce-options"><tt><b>reduce</b>(options)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>If this is a group, layer or compound-path with only one child-item, the child-item is moved outside and the parent is erased. Otherwise, the item itself is returned unmodified.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>options:</tt> 
+
+
+
+</li>
+	
+</ul>
+
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;the reduced item
+</li>
+
+		
+	</ul>
+
+
 
 	
 	
@@ -3246,17 +4306,62 @@ item itself is returned unmodified.</p>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Removes the item from the project. If the item has children, they are also
-removed.</p>
+	<p>Removes the item and all its children from the project. The item is not destroyed and can be inserted again after removal.</p>
+    
 	
 	
-	<ul><b>Returns:</b>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if the item was removed, <tt>false</tt> otherwise
+</li>
+
+		
+	</ul>
+
+
+
 	
-		<li>
-<tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> the item was removed, <tt>false</tt> otherwise
+	
+</div>
+</div>
+</div>
+
+	
+<div id="replacewith-item" class="member">
+<div class="member-link">
+<a name="replacewith-item" href="#replacewith-item"><tt><b>replaceWith</b>(item)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Replaces this item with the provided new item which will takes its place in the project hierarchy instead.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>item:</tt> 
+
+
+
 </li>
 	
+</ul>
+
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if the item was replaced, <tt>false</tt> otherwise
+</li>
+
+		
 	</ul>
+
+
 
 	
 	
@@ -3271,17 +4376,22 @@ removed.</p>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Removes all of the item's <a href="../classes/Item.html#children" onclick="return toggleMember('children', true);"><tt>children</tt></a> (if any).</p>
+	<p>Removes all of the item&rsquo;s <a href="../classes/Item.html#children"><tt>children</tt></a> (if any).</p>
+    
 	
 	
-	<ul><b>Returns:</b>
-	
-		<li>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
 <tt>Array of <a href="../classes/Item.html"><tt>Item</tt></a> objects</tt>&nbsp;&mdash;&nbsp;an array containing the removed items
 </li>
-	
+
+		
 	</ul>
 
+
+
 	
 	
 </div>
@@ -3289,41 +4399,46 @@ removed.</p>
 </div>
 
 	
-<div id="removechildren-from" class="member">
+<div id="removechildren-start" class="member">
 <div class="member-link">
-<a name="removechildren-from" href="#removechildren-from"><tt><b>removeChildren</b>(from[, to])</tt></a>
+<a name="removechildren-start" href="#removechildren-start"><tt><b>removeChildren</b>(start[, end])</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Removes the children from the specified <tt>from</tt> index to the
-<tt>to</tt> index from the parent's <a href="../classes/Item.html#children" onclick="return toggleMember('children', true);"><tt>children</tt></a> array.</p>
+	<p>Removes the children from the specified <code>start</code> index to and excluding the <code>end</code> index from the parent&rsquo;s <a href="../classes/Item.html#children"><tt>children</tt></a> array.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
-<tt>from:</tt> 
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>start:</tt> 
 <tt>Number</tt>
 &mdash;&nbsp;the beginning index, inclusive
 
 </li>
-
-<li>
-<tt>to:</tt> 
+	
+	<li>
+<tt>end:</tt> 
 <tt>Number</tt>
 &mdash;&nbsp;the ending index, exclusive
 &mdash;&nbsp;optional, default: <tt>children.length</tt>
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
 <tt>Array of <a href="../classes/Item.html"><tt>Item</tt></a> objects</tt>&nbsp;&mdash;&nbsp;an array containing the removed items
 </li>
-	
+
+		
 	</ul>
+
+
 
 	
 	
@@ -3338,9 +4453,12 @@ removed.</p>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Reverses the order of the item's children</p>
+	<p>Reverses the order of the item&rsquo;s children</p>
+    
 	
 	
+
+
 	
 	
 </div>
@@ -3356,19 +4474,110 @@ removed.</p>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Specifies whether the item has any content or not. The meaning of what
-content is differs from type to type. For example, a <a href="../classes/Group.html"><tt>Group</tt></a> with
-no children, a <a href="../classes/TextItem.html"><tt>TextItem</tt></a> with no text content and a <a href="../classes/Path.html"><tt>Path</tt></a>
-with no segments all are considered empty.</p>
+	<p>Specifies whether the item has any content or not. The meaning of what content is differs from type to type. For example, a <a href="../classes/Group.html"><tt>Group</tt></a> with no children, a <a href="../classes/TextItem.html"><tt>TextItem</tt></a> with no text content and a <a href="../classes/Path.html"><tt>Path</tt></a> with no segments all are considered empty.</p>
+    
 	
 	
-	<ul><b>Returns:</b>
-	
-		<li>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
 <tt></tt>&nbsp;&mdash;&nbsp;Boolean
 </li>
-	
+
+		
 	</ul>
+
+
+
+	
+	
+</div>
+</div>
+</div>
+
+	
+<h3>Style Tests</h3>
+
+<div id="hasfill" class="member">
+<div class="member-link">
+<a name="hasfill" href="#hasfill"><tt><b>hasFill</b>()</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Checks whether the item has a fill.</p>
+    
+	
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if the item has a fill, <tt>false</tt> otherwise
+</li>
+
+		
+	</ul>
+
+
+
+	
+	
+</div>
+</div>
+</div>
+
+	
+<div id="hasstroke" class="member">
+<div class="member-link">
+<a name="hasstroke" href="#hasstroke"><tt><b>hasStroke</b>()</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Checks whether the item has a stroke.</p>
+    
+	
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if the item has a stroke, <tt>false</tt> otherwise
+</li>
+
+		
+	</ul>
+
+
+
+	
+	
+</div>
+</div>
+</div>
+
+	
+<div id="hasshadow" class="member">
+<div class="member-link">
+<a name="hasshadow" href="#hasshadow"><tt><b>hasShadow</b>()</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Checks whether the item has a shadow.</p>
+    
+	
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if the item has a shadow, <tt>false</tt> otherwise
+</li>
+
+		
+	</ul>
+
+
 
 	
 	
@@ -3386,15 +4595,49 @@ with no segments all are considered empty.</p>
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Checks if the item contains any children items.</p>
+    
 	
 	
-	<ul><b>Returns:</b>
-	
-		<li>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
 <tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> it has one or more children, <tt>false</tt> otherwise
 </li>
-	
+
+		
 	</ul>
+
+
+
+	
+	
+</div>
+</div>
+</div>
+
+	
+<div id="isinserted" class="member">
+<div class="member-link">
+<a name="isinserted" href="#isinserted"><tt><b>isInserted</b>()</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Checks whether the item and all its parents are inserted into scene graph or not.</p>
+    
+	
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if the item is inserted into the scene graph, <tt>false</tt> otherwise
+</li>
+
+		
+	</ul>
+
+
 
 	
 	
@@ -3409,28 +4652,33 @@ with no segments all are considered empty.</p>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Checks if this item is above the specified item in the stacking order
-of the project.</p>
+	<p>Checks if this item is above the specified item in the stacking order of the project.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>item:</tt> 
 <a href="../classes/Item.html"><tt>Item</tt></a>
-&mdash;&nbsp;The item to check against
+&mdash;&nbsp;the item to check against
 
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
 <tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if it is above the specified item, <tt>false</tt> otherwise
 </li>
-	
+
+		
 	</ul>
+
+
 
 	
 	
@@ -3445,28 +4693,33 @@ of the project.</p>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Checks if the item is below the specified item in the stacking order of
-the project.</p>
+	<p>Checks if the item is below the specified item in the stacking order of the project.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>item:</tt> 
 <a href="../classes/Item.html"><tt>Item</tt></a>
-&mdash;&nbsp;The item to check against
+&mdash;&nbsp;the item to check against
 
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
 <tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if it is below the specified item, <tt>false</tt> otherwise
 </li>
-	
+
+		
 	</ul>
+
+
 
 	
 	
@@ -3482,26 +4735,32 @@ the project.</p>
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Checks whether the specified item is the parent of the item.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>item:</tt> 
 <a href="../classes/Item.html"><tt>Item</tt></a>
-&mdash;&nbsp;The item to check against
+&mdash;&nbsp;the item to check against
 
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
 <tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if it is the parent of the item, <tt>false</tt> otherwise
 </li>
-	
+
+		
 	</ul>
+
+
 
 	
 	
@@ -3517,26 +4776,32 @@ the project.</p>
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Checks whether the specified item is a child of the item.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>item:</tt> 
 <a href="../classes/Item.html"><tt>Item</tt></a>
-&mdash;&nbsp;The item to check against
+&mdash;&nbsp;the item to check against
 
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
 <tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> it is a child of the item, <tt>false</tt> otherwise
 </li>
-	
+
+		
 	</ul>
+
+
 
 	
 	
@@ -3552,26 +4817,32 @@ the project.</p>
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Checks if the item is contained within the specified item.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>item:</tt> 
 <a href="../classes/Item.html"><tt>Item</tt></a>
-&mdash;&nbsp;The item to check against
+&mdash;&nbsp;the item to check against
 
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
 <tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if it is inside the specified item, <tt>false</tt> otherwise
 </li>
-	
+
+		
 	</ul>
+
+
 
 	
 	
@@ -3587,27 +4858,73 @@ the project.</p>
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Checks if the item is an ancestor of the specified item.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>item:</tt> 
 <a href="../classes/Item.html"><tt>Item</tt></a>
 &mdash;&nbsp;the item to check against
 
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if the item is an ancestor of the specified item, <tt>false</tt> otherwise
+</li>
+
+		
+	</ul>
+
+
+
 	
-		<li>
-<tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if the item is an ancestor of the specified
-item, <tt>false</tt> otherwise
+	
+</div>
+</div>
+</div>
+
+	
+<div id="issibling-item" class="member">
+<div class="member-link">
+<a name="issibling-item" href="#issibling-item"><tt><b>isSibling</b>(item)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Checks if the item is an a sibling of the specified item.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>item:</tt> 
+<a href="../classes/Item.html"><tt>Item</tt></a>
+&mdash;&nbsp;the item to check against
+
 </li>
 	
+</ul>
+
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if the item is aa sibling of the specified item, <tt>false</tt> otherwise
+</li>
+
+		
 	</ul>
+
+
 
 	
 	
@@ -3623,26 +4940,32 @@ item, <tt>false</tt> otherwise
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Checks whether the item is grouped with the specified item.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>item:</tt> 
 <a href="../classes/Item.html"><tt>Item</tt></a>
 
 
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
 <tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if the items are grouped together, <tt>false</tt> otherwise
 </li>
-	
+
+		
 	</ul>
+
+
 
 	
 	
@@ -3653,38 +4976,170 @@ item, <tt>false</tt> otherwise
 	
 <h3>Transform Functions</h3>
 
+<div id="translate-delta" class="member">
+<div class="member-link">
+<a name="translate-delta" href="#translate-delta"><tt><b>translate</b>(delta)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Translates (moves) the item by the given offset views.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>delta:</tt> 
+<a href="../classes/Point.html"><tt>Point</tt></a>
+&mdash;&nbsp;the offset to translate the item by
+
+</li>
+	
+</ul>
+
+	
+
+
+	
+	
+</div>
+</div>
+</div>
+
+	
+<div id="rotate-angle" class="member">
+<div class="member-link">
+<a name="rotate-angle" href="#rotate-angle"><tt><b>rotate</b>(angle[, center])</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Rotates the item by a given angle around the given center point.</p>
+<p>Angles are oriented clockwise and measured in degrees.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>angle:</tt> 
+<tt>Number</tt>
+&mdash;&nbsp;the rotation angle
+
+</li>
+	
+	<li>
+<tt>center:</tt> 
+<a href="../classes/Point.html"><tt>Point</tt></a>
+
+&mdash;&nbsp;optional, default: <tt><a href="../classes/Item.html#position"><tt>item.position</tt></a></tt>
+</li>
+	
+</ul>
+
+	
+
+
+	
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/Matrix.html#rotate-angle"><tt>matrix.rotate(angle[, center])</tt></a></tt></li>
+		
+	</ul>
+
+	<h4>Example:<span class="description">Rotating an item:</span></h4>
+
+<div class="paperscript split">
+
+<div class="buttons">
+<div class="button run">Run</div>
+</div>
+
+<script type="text/paperscript" canvas="canvas-38">
+// Create a rectangle shaped path with its top left
+// point at {x: 80, y: 25} and a size of {width: 50, height: 50}:
+var path = new Path.Rectangle(new Point(80, 25), new Size(50, 50));
+path.fillColor = 'black';
+
+// Rotate the path by 30 degrees:
+path.rotate(30);
+</script>
+<div class="canvas"><canvas width="516" height="100" id="canvas-38"></canvas></div>
+</div>
+
+
+<h4>Example:<span class="description">Rotating an item around a specific point:</span></h4>
+
+<div class="paperscript split">
+
+<div class="buttons">
+<div class="button run">Run</div>
+</div>
+
+<script type="text/paperscript" canvas="canvas-39">
+// Create a rectangle shaped path with its top left
+// point at {x: 175, y: 50} and a size of {width: 100, height: 100}:
+var topLeft = new Point(175, 50);
+var size = new Size(100, 100);
+var path = new Path.Rectangle(topLeft, size);
+path.fillColor = 'black';
+
+// Draw a circle shaped path in the center of the view,
+// to show the rotation point:
+var circle = new Path.Circle({
+    center: view.center,
+    radius: 5,
+    fillColor: 'white'
+});
+
+// Each frame rotate the path 3 degrees around the center point
+// of the view:
+function onFrame(event) {
+    path.rotate(3, view.center);
+}
+</script>
+<div class="canvas"><canvas width="516" height="200" id="canvas-39"></canvas></div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+	
 <div id="scale-scale" class="member">
 <div class="member-link">
 <a name="scale-scale" href="#scale-scale"><tt><b>scale</b>(scale[, center])</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Scales the item by the given value from its center point, or optionally
-from a supplied point.</p>
+	<p>Scales the item by the given value from its center point, or optionally from a supplied point.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>scale:</tt> 
 <tt>Number</tt>
 &mdash;&nbsp;the scale factor
 
 </li>
-
-<li>
+	
+	<li>
 <tt>center:</tt> 
 <a href="../classes/Point.html"><tt>Point</tt></a>
 
 &mdash;&nbsp;optional, default: <tt><a href="../classes/Item.html#position"><tt>item.position</tt></a></tt>
 </li>
-
+	
 </ul>
 
 	
+
+
 	
-	<p>
-<b>Example</b> &mdash; Scaling an item from its center point:
-</p>
+	<h4>Example:<span class="description">Scaling an item from its center point:</span></h4>
 
 <div class="paperscript split">
 
@@ -3692,25 +5147,23 @@ from a supplied point.</p>
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-36">
+<script type="text/paperscript" canvas="canvas-40">
 // Create a circle shaped path at { x: 80, y: 50 }
 // with a radius of 20:
 var circle = new Path.Circle({
-	center: [80, 50],
-	radius: 20,
-	fillColor: 'red'
+    center: [80, 50],
+    radius: 20,
+    fillColor: 'red'
 });
 
 // Scale the path by 150% from its center point
 circle.scale(1.5);
 </script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-36"></canvas></div>
+<div class="canvas"><canvas width="516" height="100" id="canvas-40"></canvas></div>
 </div>
 
 
-<p>
-<b>Example</b> &mdash; Scaling an item from a specific point:
-</p>
+<h4>Example:<span class="description">Scaling an item from a specific point:</span></h4>
 
 <div class="paperscript split">
 
@@ -3718,19 +5171,19 @@ circle.scale(1.5);
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-37">
+<script type="text/paperscript" canvas="canvas-41">
 // Create a circle shaped path at { x: 80, y: 50 }
 // with a radius of 20:
 var circle = new Path.Circle({
-	center: [80, 50],
-	radius: 20,
-	fillColor: 'red'
+    center: [80, 50],
+    radius: 20,
+    fillColor: 'red'
 });
 
 // Scale the path 150% from its bottom left corner
 circle.scale(1.5, circle.bounds.bottomLeft);
 </script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-37"></canvas></div>
+<div class="canvas"><canvas width="516" height="100" id="canvas-41"></canvas></div>
 </div>
 
 
@@ -3745,39 +5198,40 @@ circle.scale(1.5, circle.bounds.bottomLeft);
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Scales the item by the given values from its center point, or optionally
-from a supplied point.</p>
+	<p>Scales the item by the given values from its center point, or optionally from a supplied point.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>hor:</tt> 
 <tt>Number</tt>
 &mdash;&nbsp;the horizontal scale factor
 
 </li>
-
-<li>
+	
+	<li>
 <tt>ver:</tt> 
 <tt>Number</tt>
 &mdash;&nbsp;the vertical scale factor
 
 </li>
-
-<li>
+	
+	<li>
 <tt>center:</tt> 
 <a href="../classes/Point.html"><tt>Point</tt></a>
 
 &mdash;&nbsp;optional, default: <tt><a href="../classes/Item.html#position"><tt>item.position</tt></a></tt>
 </li>
-
+	
 </ul>
 
 	
+
+
 	
-	<p>
-<b>Example</b> &mdash; Scaling an item horizontally by 300%:
-</p>
+	<h4>Example:<span class="description">Scaling an item horizontally by 300%:</span></h4>
 
 <div class="paperscript split">
 
@@ -3785,19 +5239,19 @@ from a supplied point.</p>
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-38">
+<script type="text/paperscript" canvas="canvas-42">
 // Create a circle shaped path at { x: 100, y: 50 }
 // with a radius of 20:
 var circle = new Path.Circle({
-	center: [100, 50],
-	radius: 20,
-	fillColor: 'red'
+    center: [100, 50],
+    radius: 20,
+    fillColor: 'red'
 });
 
 // Scale the path horizontally by 300%
 circle.scale(3, 1);
 </script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-38"></canvas></div>
+<div class="canvas"><canvas width="516" height="100" id="canvas-42"></canvas></div>
 </div>
 
 
@@ -3806,162 +5260,44 @@ circle.scale(3, 1);
 </div>
 
 	
-<div id="translate-delta" class="member">
+<div id="shear-shear" class="member">
 <div class="member-link">
-<a name="translate-delta" href="#translate-delta"><tt><b>translate</b>(delta)</tt></a>
+<a name="shear-shear" href="#shear-shear"><tt><b>shear</b>(shear[, center])</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Translates (moves) the item by the given offset point.</p>
+	<p>Shears the item by the given value from its center point, or optionally by a supplied point.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
-<tt>delta:</tt> 
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>shear:</tt> 
 <a href="../classes/Point.html"><tt>Point</tt></a>
-&mdash;&nbsp;the offset to translate the item by
+&mdash;&nbsp;the horziontal and vertical shear factors as a point
 
 </li>
-
-</ul>
-
 	
-	
-	
-</div>
-</div>
-</div>
-
-	
-<div id="rotate-angle" class="member">
-<div class="member-link">
-<a name="rotate-angle" href="#rotate-angle"><tt><b>rotate</b>(angle[, center])</tt></a>
-</div>
-<div class="member-description hidden">
-<div class="member-text">
-	<p>Rotates the item by a given angle around the given point.</p>
-<p>Angles are oriented clockwise and measured in degrees.</p>
-	
-<ul><b>Parameters:</b>
-
-<li>
-<tt>angle:</tt> 
-<tt>Number</tt>
-&mdash;&nbsp;the rotation angle
-
-</li>
-
-<li>
+	<li>
 <tt>center:</tt> 
 <a href="../classes/Point.html"><tt>Point</tt></a>
 
 &mdash;&nbsp;optional, default: <tt><a href="../classes/Item.html#position"><tt>item.position</tt></a></tt>
 </li>
-
+	
 </ul>
 
 	
-	
-	<p><b>See also:</b>
-	<tt><a href="../classes/Matrix.html#rotate"><tt>matrix.rotate</tt></a></tt>
-	</p>
 
-	<p>
-<b>Example</b> &mdash; Rotating an item:
-</p>
-
-<div class="paperscript split">
-
-<div class="buttons">
-<div class="button run">Run</div>
-</div>
-
-<script type="text/paperscript" canvas="canvas-39">
-// Create a rectangle shaped path with its top left
-// point at {x: 80, y: 25} and a size of {width: 50, height: 50}:
-var path = new Path.Rectangle(new Point(80, 25), new Size(50, 50));
-path.fillColor = 'black';
-
-// Rotate the path by 30 degrees:
-path.rotate(30);
-</script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-39"></canvas></div>
-</div>
-
-
-<p>
-<b>Example</b> &mdash; Rotating an item around a specific point:
-</p>
-
-<div class="paperscript split">
-
-<div class="buttons">
-<div class="button run">Run</div>
-</div>
-
-<script type="text/paperscript" canvas="canvas-40">
-// Create a rectangle shaped path with its top left
-// point at {x: 175, y: 50} and a size of {width: 100, height: 100}:
-var topLeft = new Point(175, 50);
-var size = new Size(100, 100);
-var path = new Path.Rectangle(topLeft, size);
-path.fillColor = 'black';
-
-// Draw a circle shaped path in the center of the view,
-// to show the rotation point:
-var circle = new Path.Circle({
-	center: view.center,
-	radius: 5,
-	fillColor: 'white'
-});
-
-// Each frame rotate the path 3 degrees around the center point
-// of the view:
-function onFrame(event) {
-	path.rotate(3, view.center);
-}
-</script>
-<div class="canvas"><canvas width="516" height="200" id="canvas-40"></canvas></div>
-</div>
-
-
-</div>
-</div>
-</div>
 
 	
-<div id="shear-point" class="member">
-<div class="member-link">
-<a name="shear-point" href="#shear-point"><tt><b>shear</b>(point[, center])</tt></a>
-</div>
-<div class="member-description hidden">
-<div class="member-text">
-	<p>Shears the item by the given value from its center point, or optionally
-by a supplied point.</p>
-	
-<ul><b>Parameters:</b>
-
-<li>
-<tt>point:</tt> 
-<a href="../classes/Point.html"><tt>Point</tt></a>
-
-
-</li>
-
-<li>
-<tt>center:</tt> 
-<a href="../classes/Point.html"><tt>Point</tt></a>
-
-&mdash;&nbsp;optional, default: <tt><a href="../classes/Item.html#position"><tt>item.position</tt></a></tt>
-</li>
-
-</ul>
-
-	
-	
-	<p><b>See also:</b>
-	<tt><a href="../classes/Matrix.html#shear"><tt>matrix.shear</tt></a></tt>
-	</p>
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/Matrix.html#shear-shear"><tt>matrix.shear(shear[, center])</tt></a></tt></li>
+		
+	</ul>
 
 	
 </div>
@@ -3975,39 +5311,142 @@ by a supplied point.</p>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Shears the item by the given values from its center point, or optionally
-by a supplied point.</p>
+	<p>Shears the item by the given values from its center point, or optionally by a supplied point.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>hor:</tt> 
 <tt>Number</tt>
-&mdash;&nbsp;the horizontal shear factor.
+&mdash;&nbsp;the horizontal shear factor
 
 </li>
-
-<li>
+	
+	<li>
 <tt>ver:</tt> 
 <tt>Number</tt>
-&mdash;&nbsp;the vertical shear factor.
+&mdash;&nbsp;the vertical shear factor
 
 </li>
-
-<li>
+	
+	<li>
 <tt>center:</tt> 
 <a href="../classes/Point.html"><tt>Point</tt></a>
 
 &mdash;&nbsp;optional, default: <tt><a href="../classes/Item.html#position"><tt>item.position</tt></a></tt>
 </li>
-
+	
 </ul>
 
 	
+
+
 	
-	<p><b>See also:</b>
-	<tt><a href="../classes/Matrix.html#shear"><tt>matrix.shear</tt></a></tt>
-	</p>
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/Matrix.html#shear-hor-ver"><tt>matrix.shear(hor, ver[, center])</tt></a></tt></li>
+		
+	</ul>
+
+	
+</div>
+</div>
+</div>
+
+	
+<div id="skew-skew" class="member">
+<div class="member-link">
+<a name="skew-skew" href="#skew-skew"><tt><b>skew</b>(skew[, center])</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Skews the item by the given angles from its center point, or optionally by a supplied point.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>skew:</tt> 
+<a href="../classes/Point.html"><tt>Point</tt></a>
+&mdash;&nbsp;the horziontal and vertical skew angles in degrees
+
+</li>
+	
+	<li>
+<tt>center:</tt> 
+<a href="../classes/Point.html"><tt>Point</tt></a>
+
+&mdash;&nbsp;optional, default: <tt><a href="../classes/Item.html#position"><tt>item.position</tt></a></tt>
+</li>
+	
+</ul>
+
+	
+
+
+	
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/Matrix.html#shear-skew"><tt>matrix.shear(skew[, center])</tt></a></tt></li>
+		
+	</ul>
+
+	
+</div>
+</div>
+</div>
+
+	
+<div id="skew-hor-ver" class="member">
+<div class="member-link">
+<a name="skew-hor-ver" href="#skew-hor-ver"><tt><b>skew</b>(hor, ver[, center])</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Skews the item by the given angles from its center point, or optionally by a supplied point.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>hor:</tt> 
+<tt>Number</tt>
+&mdash;&nbsp;the horizontal skew angle in degrees
+
+</li>
+	
+	<li>
+<tt>ver:</tt> 
+<tt>Number</tt>
+&mdash;&nbsp;the vertical sskew angle in degrees
+
+</li>
+	
+	<li>
+<tt>center:</tt> 
+<a href="../classes/Point.html"><tt>Point</tt></a>
+
+&mdash;&nbsp;optional, default: <tt><a href="../classes/Item.html#position"><tt>item.position</tt></a></tt>
+</li>
+	
+</ul>
+
+	
+
+
+	
+	<ul class="member-list">
+		<h4>See also:</h4>
+		
+			<li><tt><a href="../classes/Matrix.html#shear-hor-ver"><tt>matrix.shear(hor, ver[, center])</tt></a></tt></li>
+		
+	</ul>
 
 	
 </div>
@@ -4022,19 +5461,23 @@ by a supplied point.</p>
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Transform the item.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>matrix:</tt> 
 <a href="../classes/Matrix.html"><tt>Matrix</tt></a>
-&mdash;&nbsp;the matrix by which the item shall be transformed.
+&mdash;&nbsp;the matrix by which the item shall be transformed
 
 </li>
-
+	
 </ul>
 
 	
+
+
 	
 	
 </div>
@@ -4048,28 +5491,33 @@ by a supplied point.</p>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Converts the specified point from global project coordinates to local
-coordinates in relation to the the item's own coordinate space.</p>
+	<p>Converts the specified point from global project coordinate space to the item&rsquo;s own local coordinate space.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>point:</tt> 
 <a href="../classes/Point.html"><tt>Point</tt></a>
 &mdash;&nbsp;the point to be transformed
 
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
 <tt><a href="../classes/Point.html"><tt>Point</tt></a></tt>&nbsp;&mdash;&nbsp;the transformed point as a new instance
 </li>
-	
+
+		
 	</ul>
+
+
 
 	
 	
@@ -4084,28 +5532,115 @@ coordinates in relation to the the item's own coordinate space.</p>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Converts the specified point from local coordinates to global coordinates
-in relation to the the project coordinate space.</p>
+	<p>Converts the specified point from the item&rsquo;s own local coordinate space to the global project coordinate space.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>point:</tt> 
 <a href="../classes/Point.html"><tt>Point</tt></a>
 &mdash;&nbsp;the point to be transformed
 
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
 <tt><a href="../classes/Point.html"><tt>Point</tt></a></tt>&nbsp;&mdash;&nbsp;the transformed point as a new instance
 </li>
-	
+
+		
 	</ul>
+
+
+
+	
+	
+</div>
+</div>
+</div>
+
+	
+<div id="parenttolocal-point" class="member">
+<div class="member-link">
+<a name="parenttolocal-point" href="#parenttolocal-point"><tt><b>parentToLocal</b>(point)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Converts the specified point from the parent&rsquo;s coordinate space to item&rsquo;s own local coordinate space.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>point:</tt> 
+<a href="../classes/Point.html"><tt>Point</tt></a>
+&mdash;&nbsp;the point to be transformed
+
+</li>
+	
+</ul>
+
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Point.html"><tt>Point</tt></a></tt>&nbsp;&mdash;&nbsp;the transformed point as a new instance
+</li>
+
+		
+	</ul>
+
+
+
+	
+	
+</div>
+</div>
+</div>
+
+	
+<div id="localtoparent-point" class="member">
+<div class="member-link">
+<a name="localtoparent-point" href="#localtoparent-point"><tt><b>localToParent</b>(point)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Converts the specified point from the item&rsquo;s own local coordinate space to the parent&rsquo;s coordinate space.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>point:</tt> 
+<a href="../classes/Point.html"><tt>Point</tt></a>
+&mdash;&nbsp;the point to be transformed
+
+</li>
+	
+</ul>
+
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Point.html"><tt>Point</tt></a></tt>&nbsp;&mdash;&nbsp;the transformed point as a new instance
+</li>
+
+		
+	</ul>
+
+
 
 	
 	
@@ -4120,102 +5655,33 @@ in relation to the the project coordinate space.</p>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Transform the item so that its <a href="../classes/Item.html#bounds" onclick="return toggleMember('bounds', true);"><tt>bounds</tt></a> fit within the specified
-rectangle, without changing its aspect ratio.</p>
+	<p>Transform the item so that its <a href="../classes/Item.html#bounds"><tt>bounds</tt></a> fit within the specified rectangle, without changing its aspect ratio.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>rectangle:</tt> 
 <a href="../classes/Rectangle.html"><tt>Rectangle</tt></a>
 
 
 </li>
-
-<li>
+	
+	<li>
 <tt>fill:</tt> 
 <tt>Boolean</tt>
 
 &mdash;&nbsp;optional, default: <tt>false</tt>
 </li>
-
+	
 </ul>
 
 	
+
+
 	
-	<p>
-<b>Example</b> &mdash; Fitting an item to the bounding rectangle of another item's bounding rectangle:
-</p>
-
-<div class="paperscript split">
-
-<div class="buttons">
-<div class="button run">Run</div>
-</div>
-
-<script type="text/paperscript" canvas="canvas-41">
-// Create a rectangle shaped path with its top left corner
-// at {x: 80, y: 25} and a size of {width: 75, height: 50}:
-var path = new Path.Rectangle({
-	point: [80, 25],
-	size: [75, 50],
-	fillColor: 'black'
-});
-
-// Create a circle shaped path with its center at {x: 80, y: 50}
-// and a radius of 30.
-var circlePath = new Path.Circle({
-	center: [80, 50],
-	radius: 30,
-	fillColor: 'red'
-});
-
-// Fit the circlePath to the bounding rectangle of
-// the rectangular path:
-circlePath.fitBounds(path.bounds);
-</script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-41"></canvas></div>
-</div>
-
-
-<p>
-<b>Example</b> &mdash; Fitting an item to the bounding rectangle of another item's bounding rectangle with the fill parameter set to true:
-</p>
-
-<div class="paperscript split">
-
-<div class="buttons">
-<div class="button run">Run</div>
-</div>
-
-<script type="text/paperscript" canvas="canvas-42">
-// Create a rectangle shaped path with its top left corner
-// at {x: 80, y: 25} and a size of {width: 75, height: 50}:
-var path = new Path.Rectangle({
-	point: [80, 25],
-	size: [75, 50],
-	fillColor: 'black'
-});
-
-// Create a circle shaped path with its center at {x: 80, y: 50}
-// and a radius of 30.
-var circlePath = new Path.Circle({
-	center: [80, 50],
-	radius: 30,
-	fillColor: 'red'
-});
-
-// Fit the circlePath to the bounding rectangle of
-// the rectangular path:
-circlePath.fitBounds(path.bounds, true);
-</script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-42"></canvas></div>
-</div>
-
-
-<p>
-<b>Example</b> &mdash; Fitting an item to the bounding rectangle of the view
-</p>
+	<h4>Example:<span class="description">Fitting an item to the bounding rectangle of another item's bounding rectangle:</span></h4>
 
 <div class="paperscript split">
 
@@ -4224,16 +5690,82 @@ circlePath.fitBounds(path.bounds, true);
 </div>
 
 <script type="text/paperscript" canvas="canvas-43">
+// Create a rectangle shaped path with its top left corner
+// at {x: 80, y: 25} and a size of {width: 75, height: 50}:
+var path = new Path.Rectangle({
+    point: [80, 25],
+    size: [75, 50],
+    fillColor: 'black'
+});
+
+// Create a circle shaped path with its center at {x: 80, y: 50}
+// and a radius of 30.
+var circlePath = new Path.Circle({
+    center: [80, 50],
+    radius: 30,
+    fillColor: 'red'
+});
+
+// Fit the circlePath to the bounding rectangle of
+// the rectangular path:
+circlePath.fitBounds(path.bounds);
+</script>
+<div class="canvas"><canvas width="516" height="100" id="canvas-43"></canvas></div>
+</div>
+
+
+<h4>Example:<span class="description">Fitting an item to the bounding rectangle of another item's bounding rectangle with the fill parameter set to true:</span></h4>
+
+<div class="paperscript split">
+
+<div class="buttons">
+<div class="button run">Run</div>
+</div>
+
+<script type="text/paperscript" canvas="canvas-44">
+// Create a rectangle shaped path with its top left corner
+// at {x: 80, y: 25} and a size of {width: 75, height: 50}:
+var path = new Path.Rectangle({
+    point: [80, 25],
+    size: [75, 50],
+    fillColor: 'black'
+});
+
+// Create a circle shaped path with its center at {x: 80, y: 50}
+// and a radius of 30.
+var circlePath = new Path.Circle({
+    center: [80, 50],
+    radius: 30,
+    fillColor: 'red'
+});
+
+// Fit the circlePath to the bounding rectangle of
+// the rectangular path:
+circlePath.fitBounds(path.bounds, true);
+</script>
+<div class="canvas"><canvas width="516" height="100" id="canvas-44"></canvas></div>
+</div>
+
+
+<h4>Example:<span class="description">Fitting an item to the bounding rectangle of the view</span></h4>
+
+<div class="paperscript split">
+
+<div class="buttons">
+<div class="button run">Run</div>
+</div>
+
+<script type="text/paperscript" canvas="canvas-45">
 var path = new Path.Circle({
-	center: [80, 50],
-	radius: 30,
-	fillColor: 'red'
+    center: [80, 50],
+    radius: 30,
+    fillColor: 'red'
 });
 
 // Fit the path to the bounding rectangle of the view:
 path.fitBounds(view.bounds);
 </script>
-<div class="canvas"><canvas width="516" height="200" id="canvas-43"></canvas></div>
+<div class="canvas"><canvas width="516" height="200" id="canvas-45"></canvas></div>
 </div>
 
 
@@ -4244,131 +5776,49 @@ path.fitBounds(view.bounds);
 	
 <h3>Event Handling</h3>
 
-<div id="attach-type-function" class="member">
+<div id="on-type-function" class="member">
 <div class="member-link">
-<a name="attach-type-function" href="#attach-type-function"><tt><b>attach</b>(type, function)</tt></a>
+<a name="on-type-function" href="#on-type-function"><tt><b>on</b>(type, function)</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Attaches an event handler to the item.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>type:</tt> 
-<tt>String('mousedown'|'mouseup'|'mousedrag'|'click'|'doubleclick'|'mousemove'|'mouseenter'|'mouseleave')</tt>
-&mdash;&nbsp;the event
-type
+<tt>String</tt>
+&mdash;&nbsp;the type of event: <tt>&lsquo;frame&rsquo;</tt>, <tt>mousedown&rsquo;</tt>, <tt>&lsquo;mouseup&rsquo;</tt>, <tt>&lsquo;mousedrag&rsquo;</tt>, <tt>&lsquo;click&rsquo;</tt>, <tt>&lsquo;doubleclick&rsquo;</tt>, <tt>&lsquo;mousemove&rsquo;</tt>, <tt>&lsquo;mouseenter&rsquo;</tt>, <tt>&lsquo;mouseleave&rsquo;</tt>
 
 </li>
-
-<li>
+	
+	<li>
 <tt>function:</tt> 
 <tt>Function</tt>
-&mdash;&nbsp;The function to be called when the event
-occurs
+&mdash;&nbsp;the function to be called when the event  occurs, receiving a <a href="../classes/MouseEvent.html"><tt>MouseEvent</tt></a> or <a href="../classes/Event.html"><tt>Event</tt></a> object as its  sole argument
 
 </li>
-
+	
 </ul>
 
 	
-	
-	<p>
-<b>Example</b> &mdash; Change the fill color of the path to red when the mouse enters its shape and back to black again, when it leaves its shape.
-</p>
-
-<div class="paperscript split">
-
-<div class="buttons">
-<div class="button run">Run</div>
-</div>
-
-<script type="text/paperscript" canvas="canvas-44">
-// Create a circle shaped path at the center of the view:
-var path = new Path.Circle({
-	center: view.center,
-	radius: 25,
-	fillColor: 'black'
-});
-
-// When the mouse enters the item, set its fill color to red:
-path.on('mouseenter', function() {
-	this.fillColor = 'red';
-});
-
-// When the mouse leaves the item, set its fill color to black:
-path.on('mouseleave', function() {
-	this.fillColor = 'black';
-});
-</script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-44"></canvas></div>
-</div>
-
-
-</div>
-</div>
-</div>
-
-	
-<div id="attach-object" class="member">
-<div class="member-link">
-<a name="attach-object" href="#attach-object"><tt><b>attach</b>(object)</tt></a>
-</div>
-<div class="member-description hidden">
-<div class="member-text">
-	<p>Attaches one or more event handlers to the item.</p>
-	
-<ul><b>Parameters:</b>
-
-<li>
-<tt>object:</tt> 
-<tt>Object</tt>
-&mdash;&nbsp;an object literal containing one or more of the
-following properties: <tt>mousedown, mouseup, mousedrag, click,
-doubleclick, mousemove, mouseenter, mouseleave</tt>.
-
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;this item itself, so calls can be chained
 </li>
 
-</ul>
+		
+	</ul>
+
+
 
 	
-	
-	<p>
-<b>Example</b> &mdash; Change the fill color of the path to red when the mouse enters its shape and back to black again, when it leaves its shape.
-</p>
-
-<div class="paperscript split">
-
-<div class="buttons">
-<div class="button run">Run</div>
-</div>
-
-<script type="text/paperscript" canvas="canvas-45">
-// Create a circle shaped path at the center of the view:
-var path = new Path.Circle({
-	center: view.center,
-	radius: 25
-});
-path.fillColor = 'black';
-
-// When the mouse enters the item, set its fill color to red:
-path.on({
-	mouseenter: function(event) {
-		this.fillColor = 'red';
-	},
-	mouseleave: function(event) {
-		this.fillColor = 'black';
-	}
-});
-</script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-45"></canvas></div>
-</div>
-
-
-<p>
-<b>Example</b> &mdash; When you click the mouse, you create new circle shaped items. When you move the mouse over the item, its fill color is set to red. When you move the mouse outside again, its fill color is set black.
-</p>
+	<h4>Example:<span class="description">Change the fill color of the path to red when the mouse enters its shape and back to black again, when it leaves its shape.</span></h4>
 
 <div class="paperscript split">
 
@@ -4377,27 +5827,22 @@ path.on({
 </div>
 
 <script type="text/paperscript" canvas="canvas-46">
-var pathHandlers = {
-	mouseenter: function(event) {
-		this.fillColor = 'red';
-	},
-	mouseleave: function(event) {
-		this.fillColor = 'black';
-	}
-}
+// Create a circle shaped path at the center of the view:
+var path = new Path.Circle({
+    center: view.center,
+    radius: 25,
+    fillColor: 'black'
+});
 
-// When the mouse is pressed:
-function onMouseDown(event) {
-	// Create a circle shaped path at the position of the mouse:
-	var path = new Path.Circle({
-		center: event.point,
-		radius: 25,
-		fillColor: 'black'
-	});
+// When the mouse enters the item, set its fill color to red:
+path.on('mouseenter', function() {
+    this.fillColor = 'red';
+});
 
-	// Attach the handers inside the object literal to the path:
-	path.on(pathHandlers);
-}
+// When the mouse leaves the item, set its fill color to black:
+path.on('mouseleave', function() {
+    this.fillColor = 'black';
+});
 </script>
 <div class="canvas"><canvas width="516" height="100" id="canvas-46"></canvas></div>
 </div>
@@ -4408,34 +5853,152 @@ function onMouseDown(event) {
 </div>
 
 	
-<div id="detach-type-function" class="member">
+<div id="on-object" class="member">
 <div class="member-link">
-<a name="detach-type-function" href="#detach-type-function"><tt><b>detach</b>(type, function)</tt></a>
+<a name="on-object" href="#on-object"><tt><b>on</b>(object)</tt></a>
+</div>
+<div class="member-description hidden">
+<div class="member-text">
+	<p>Attaches one or more event handlers to the item.</p>
+    
+	
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>object:</tt> 
+<tt>Object</tt>
+&mdash;&nbsp;an object containing one or more of the following  properties: <tt>frame</tt>, <tt>mousedown</tt>, <tt>mouseup</tt>, <tt>mousedrag</tt>, <tt>click</tt>, <tt>doubleclick</tt>, <tt>mousemove</tt>, <tt>mouseenter</tt>, <tt>mouseleave</tt>
+
+</li>
+	
+</ul>
+
+	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;this item itself, so calls can be chained
+</li>
+
+		
+	</ul>
+
+
+
+	
+	<h4>Example:<span class="description">Change the fill color of the path to red when the mouse enters its shape and back to black again, when it leaves its shape.</span></h4>
+
+<div class="paperscript split">
+
+<div class="buttons">
+<div class="button run">Run</div>
+</div>
+
+<script type="text/paperscript" canvas="canvas-47">
+// Create a circle shaped path at the center of the view:
+var path = new Path.Circle({
+    center: view.center,
+    radius: 25
+});
+path.fillColor = 'black';
+
+// When the mouse enters the item, set its fill color to red:
+path.on({
+    mouseenter: function(event) {
+        this.fillColor = 'red';
+    },
+    mouseleave: function(event) {
+        this.fillColor = 'black';
+    }
+});
+</script>
+<div class="canvas"><canvas width="516" height="100" id="canvas-47"></canvas></div>
+</div>
+
+
+<h4>Example:<span class="description">When you click the mouse, you create new circle shaped items. When you move the mouse over the item, its fill color is set to red. When you move the mouse outside again, its fill color is set black.</span></h4>
+
+<div class="paperscript split">
+
+<div class="buttons">
+<div class="button run">Run</div>
+</div>
+
+<script type="text/paperscript" canvas="canvas-48">
+var pathHandlers = {
+    mouseenter: function(event) {
+        this.fillColor = 'red';
+    },
+    mouseleave: function(event) {
+        this.fillColor = 'black';
+    }
+}
+
+// When the mouse is pressed:
+function onMouseDown(event) {
+    // Create a circle shaped path at the position of the mouse:
+    var path = new Path.Circle({
+        center: event.point,
+        radius: 25,
+        fillColor: 'black'
+    });
+
+    // Attach the handers inside the object literal to the path:
+    path.on(pathHandlers);
+}
+</script>
+<div class="canvas"><canvas width="516" height="100" id="canvas-48"></canvas></div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+	
+<div id="off-type-function" class="member">
+<div class="member-link">
+<a name="off-type-function" href="#off-type-function"><tt><b>off</b>(type, function)</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Detach an event handler from the item.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>type:</tt> 
-<tt>String('mousedown'|'mouseup'|'mousedrag'|'click'|'doubleclick'|'mousemove'|'mouseenter'|'mouseleave')</tt>
-&mdash;&nbsp;the event
-type
+<tt>String</tt>
+&mdash;&nbsp;the type of event: <tt>&lsquo;frame&rsquo;</tt>, <tt>mousedown&rsquo;</tt>, <tt>&lsquo;mouseup&rsquo;</tt>, <tt>&lsquo;mousedrag&rsquo;</tt>, <tt>&lsquo;click&rsquo;</tt>, <tt>&lsquo;doubleclick&rsquo;</tt>, <tt>&lsquo;mousemove&rsquo;</tt>, <tt>&lsquo;mouseenter&rsquo;</tt>, <tt>&lsquo;mouseleave&rsquo;</tt>
 
 </li>
-
-<li>
+	
+	<li>
 <tt>function:</tt> 
 <tt>Function</tt>
-&mdash;&nbsp;The function to be detached
+&mdash;&nbsp;the function to be detached
 
 </li>
-
+	
 </ul>
 
 	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;this item itself, so calls can be chained
+</li>
+
+		
+	</ul>
+
+
+
 	
 	
 </div>
@@ -4443,28 +6006,40 @@ type
 </div>
 
 	
-<div id="detach-object" class="member">
+<div id="off-object" class="member">
 <div class="member-link">
-<a name="detach-object" href="#detach-object"><tt><b>detach</b>(object)</tt></a>
+<a name="off-object" href="#off-object"><tt><b>off</b>(object)</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Detach one or more event handlers to the item.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>object:</tt> 
 <tt>Object</tt>
-&mdash;&nbsp;an object literal containing one or more of the
-following properties: <tt>mousedown, mouseup, mousedrag, click,
-doubleclick, mousemove, mouseenter, mouseleave</tt>
+&mdash;&nbsp;an object containing one or more of the following  properties: <tt>frame</tt>, <tt>mousedown</tt>, <tt>mouseup</tt>, <tt>mousedrag</tt>, <tt>click</tt>, <tt>doubleclick</tt>, <tt>mousemove</tt>, <tt>mouseenter</tt>, <tt>mouseleave</tt>
 
 </li>
-
+	
 </ul>
 
 	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><a href="../classes/Item.html"><tt>Item</tt></a></tt>&nbsp;&mdash;&nbsp;this item itself, so calls can be chained
+</li>
+
+		
+	</ul>
+
+
+
 	
 	
 </div>
@@ -4472,35 +6047,47 @@ doubleclick, mousemove, mouseenter, mouseleave</tt>
 </div>
 
 	
-<div id="fire-type-event" class="member">
+<div id="emit-type-event" class="member">
 <div class="member-link">
-<a name="fire-type-event" href="#fire-type-event"><tt><b>fire</b>(type, event)</tt></a>
+<a name="emit-type-event" href="#emit-type-event"><tt><b>emit</b>(type, event)</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Fire an event on the item.</p>
+	<p>Emit an event on the item.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>type:</tt> 
-<tt>String('mousedown'|'mouseup'|'mousedrag'|'click'|'doubleclick'|'mousemove'|'mouseenter'|'mouseleave')</tt>
-&mdash;&nbsp;the event
-type
+<tt>String</tt>
+&mdash;&nbsp;the type of event: <tt>&lsquo;frame&rsquo;</tt>, <tt>mousedown&rsquo;</tt>, <tt>&lsquo;mouseup&rsquo;</tt>, <tt>&lsquo;mousedrag&rsquo;</tt>, <tt>&lsquo;click&rsquo;</tt>, <tt>&lsquo;doubleclick&rsquo;</tt>, <tt>&lsquo;mousemove&rsquo;</tt>, <tt>&lsquo;mouseenter&rsquo;</tt>, <tt>&lsquo;mouseleave&rsquo;</tt>
 
 </li>
-
-<li>
+	
+	<li>
 <tt>event:</tt> 
 <tt>Object</tt>
-&mdash;&nbsp;an object literal containing properties describing
-the event.
+&mdash;&nbsp;an object literal containing properties describing the event
 
 </li>
-
+	
 </ul>
 
 	
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if the event had listeners, <tt>false</tt> otherwise
+</li>
+
+		
+	</ul>
+
+
+
 	
 	
 </div>
@@ -4515,28 +6102,32 @@ the event.
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Check if the item has one or more event handlers of the specified type.</p>
+    
 	
-<ul><b>Parameters:</b>
-
-<li>
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
 <tt>type:</tt> 
-<tt>String('mousedown'|'mouseup'|'mousedrag'|'click'|'doubleclick'|'mousemove'|'mouseenter'|'mouseleave')</tt>
-&mdash;&nbsp;the event
-type
+<tt>String</tt>
+&mdash;&nbsp;the type of event: <tt>&lsquo;frame&rsquo;</tt>, <tt>mousedown&rsquo;</tt>, <tt>&lsquo;mouseup&rsquo;</tt>, <tt>&lsquo;mousedrag&rsquo;</tt>, <tt>&lsquo;click&rsquo;</tt>, <tt>&lsquo;doubleclick&rsquo;</tt>, <tt>&lsquo;mousemove&rsquo;</tt>, <tt>&lsquo;mouseenter&rsquo;</tt>, <tt>&lsquo;mouseleave&rsquo;</tt>
 
 </li>
-
+	
 </ul>
 
 	
-	<ul><b>Returns:</b>
-	
-		<li>
-<tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if the item has one or more event handlers of
-the specified type, <tt>false</tt> otherwise
+	<ul class="member-list">
+		<h4>Returns:</h4>
+		
+			<li>
+<tt><tt>Boolean</tt></tt>&nbsp;&mdash;&nbsp;<tt>true</tt> if the item has one or more event handlers of the specified type, <tt>false</tt> otherwise
 </li>
-	
+
+		
 	</ul>
+
+
 
 	
 	
@@ -4547,40 +6138,38 @@ the specified type, <tt>false</tt> otherwise
 	
 <h3>Remove On Event</h3>
 
-<div id="removeon-object" class="member">
+<div id="removeon-options" class="member">
 <div class="member-link">
-<a name="removeon-object" href="#removeon-object"><tt><b>removeOn</b>(object)</tt></a>
+<a name="removeon-options" href="#removeon-options"><tt><b>removeOn</b>(options)</tt></a>
 </div>
 <div class="member-description hidden">
 <div class="member-text">
-	<p>Removes the item when the events specified in the passed object literal
-occur.</p>
-<p>The object literal can contain the following values:</p>
-<p>Remove the item when the next <a href="../classes/Tool.html#onmousemove"><tt>tool.onMouseMove</tt></a> event is
-fired: <tt>object.move = true</tt></p>
-<p>Remove the item when the next <a href="../classes/Tool.html#onmousedrag"><tt>tool.onMouseDrag</tt></a> event is
-fired: <tt>object.drag = true</tt></p>
-<p>Remove the item when the next <a href="../classes/Tool.html#onmousedown"><tt>tool.onMouseDown</tt></a> event is
-fired: <tt>object.down = true</tt></p>
-<p>Remove the item when the next <a href="../classes/Tool.html#onmouseup"><tt>tool.onMouseUp</tt></a> event is
-fired: <tt>object.up = true</tt></p>
+	<p>Removes the item when the events specified in the passed options object occur.</p>
+    <ul class="member-list">
+<h4>Options:</h4>
+<li><tt>options.move: undefined</tt> &mdash; {Boolean) remove the item when the next <a href="../classes/Tool.html#onmousemove"><tt>tool.onMouseMove</tt></a> event is fired.</li>
+<li><tt>options.drag: undefined</tt> &mdash; {Boolena) remove the item when the next <a href="../classes/Tool.html#onmousedrag"><tt>tool.onMouseDrag</tt></a> event is fired.</li>
+<li><tt>options.down: undefined</tt> &mdash; {Boolean) remove the item when the next <a href="../classes/Tool.html#onmousedown"><tt>tool.onMouseDown</tt></a> event is fired.</li>
+<li><tt>options.up: undefined</tt> &mdash; {Boolean) remove the item when the next <a href="../classes/Tool.html#onmouseup"><tt>tool.onMouseUp</tt></a> event is fired.</li>
+</ul>
 	
-<ul><b>Parameters:</b>
-
-<li>
-<tt>object:</tt> 
+<ul class="member-list">
+	<h4>Parameters:</h4>
+	
+	<li>
+<tt>options:</tt> 
 <tt>Object</tt>
 
 
 </li>
-
+	
 </ul>
 
 	
+
+
 	
-	<p>
-<b>Example</b> &mdash; Click and drag below:
-</p>
+	<h4>Example:<span class="description">Click and drag below:</span></h4>
 
 <div class="paperscript split">
 
@@ -4588,24 +6177,24 @@ fired: <tt>object.up = true</tt></p>
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-47">
+<script type="text/paperscript" canvas="canvas-49">
 function onMouseDrag(event) {
-	// Create a circle shaped path at the mouse position,
-	// with a radius of 10:
-	var path = new Path.Circle({
-		center: event.point,
-		radius: 10,
-		fillColor: 'black'
-	});
+    // Create a circle shaped path at the mouse position,
+    // with a radius of 10:
+    var path = new Path.Circle({
+        center: event.point,
+        radius: 10,
+        fillColor: 'black'
+    });
 
-	// Remove the path on the next onMouseDrag or onMouseDown event:
-	path.removeOn({
-		drag: true,
-		down: true
-	});
+    // Remove the path on the next onMouseDrag or onMouseDown event:
+    path.removeOn({
+        drag: true,
+        down: true
+    });
 }
 </script>
-<div class="canvas"><canvas width="516" height="200" id="canvas-47"></canvas></div>
+<div class="canvas"><canvas width="516" height="200" id="canvas-49"></canvas></div>
 </div>
 
 
@@ -4621,12 +6210,13 @@ function onMouseDrag(event) {
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Removes the item when the next <a href="../classes/Tool.html#onmousemove"><tt>tool.onMouseMove</tt></a> event is fired.</p>
+    
 	
 	
+
+
 	
-	<p>
-<b>Example</b> &mdash; Move your mouse below:
-</p>
+	<h4>Example:<span class="description">Move your mouse below:</span></h4>
 
 <div class="paperscript split">
 
@@ -4634,21 +6224,21 @@ function onMouseDrag(event) {
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-48">
+<script type="text/paperscript" canvas="canvas-50">
 function onMouseMove(event) {
-	// Create a circle shaped path at the mouse position,
-	// with a radius of 10:
-	var path = new Path.Circle({
-		center: event.point,
-		radius: 10,
-		fillColor: 'black'
-	});
+    // Create a circle shaped path at the mouse position,
+    // with a radius of 10:
+    var path = new Path.Circle({
+        center: event.point,
+        radius: 10,
+        fillColor: 'black'
+    });
 
-	// On the next move event, automatically remove the path:
-	path.removeOnMove();
+    // On the next move event, automatically remove the path:
+    path.removeOnMove();
 }
 </script>
-<div class="canvas"><canvas width="516" height="200" id="canvas-48"></canvas></div>
+<div class="canvas"><canvas width="516" height="200" id="canvas-50"></canvas></div>
 </div>
 
 
@@ -4664,12 +6254,13 @@ function onMouseMove(event) {
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Removes the item when the next <a href="../classes/Tool.html#onmousedown"><tt>tool.onMouseDown</tt></a> event is fired.</p>
+    
 	
 	
+
+
 	
-	<p>
-<b>Example</b> &mdash; Click a few times below:
-</p>
+	<h4>Example:<span class="description">Click a few times below:</span></h4>
 
 <div class="paperscript split">
 
@@ -4677,21 +6268,21 @@ function onMouseMove(event) {
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-49">
+<script type="text/paperscript" canvas="canvas-51">
 function onMouseDown(event) {
-	// Create a circle shaped path at the mouse position,
-	// with a radius of 10:
-	var path = new Path.Circle({
-		center: event.point,
-		radius: 10,
-		fillColor: 'black'
-	});
+    // Create a circle shaped path at the mouse position,
+    // with a radius of 10:
+    var path = new Path.Circle({
+        center: event.point,
+        radius: 10,
+        fillColor: 'black'
+    });
 
-	// Remove the path, next time the mouse is pressed:
-	path.removeOnDown();
+    // Remove the path, next time the mouse is pressed:
+    path.removeOnDown();
 }
 </script>
-<div class="canvas"><canvas width="516" height="200" id="canvas-49"></canvas></div>
+<div class="canvas"><canvas width="516" height="200" id="canvas-51"></canvas></div>
 </div>
 
 
@@ -4707,12 +6298,13 @@ function onMouseDown(event) {
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Removes the item when the next <a href="../classes/Tool.html#onmousedrag"><tt>tool.onMouseDrag</tt></a> event is fired.</p>
+    
 	
 	
+
+
 	
-	<p>
-<b>Example</b> &mdash; Click and drag below:
-</p>
+	<h4>Example:<span class="description">Click and drag below:</span></h4>
 
 <div class="paperscript split">
 
@@ -4720,21 +6312,21 @@ function onMouseDown(event) {
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-50">
+<script type="text/paperscript" canvas="canvas-52">
 function onMouseDrag(event) {
-	// Create a circle shaped path at the mouse position,
-	// with a radius of 10:
-	var path = new Path.Circle({
-		center: event.point,
-		radius: 10,
-		fillColor: 'black'
-	});
+    // Create a circle shaped path at the mouse position,
+    // with a radius of 10:
+    var path = new Path.Circle({
+        center: event.point,
+        radius: 10,
+        fillColor: 'black'
+    });
 
-	// On the next drag event, automatically remove the path:
-	path.removeOnDrag();
+    // On the next drag event, automatically remove the path:
+    path.removeOnDrag();
 }
 </script>
-<div class="canvas"><canvas width="516" height="200" id="canvas-50"></canvas></div>
+<div class="canvas"><canvas width="516" height="200" id="canvas-52"></canvas></div>
 </div>
 
 
@@ -4750,12 +6342,13 @@ function onMouseDrag(event) {
 <div class="member-description hidden">
 <div class="member-text">
 	<p>Removes the item when the next <a href="../classes/Tool.html#onmouseup"><tt>tool.onMouseUp</tt></a> event is fired.</p>
+    
 	
 	
+
+
 	
-	<p>
-<b>Example</b> &mdash; Click a few times below:
-</p>
+	<h4>Example:<span class="description">Click a few times below:</span></h4>
 
 <div class="paperscript split">
 
@@ -4763,21 +6356,21 @@ function onMouseDrag(event) {
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-51">
+<script type="text/paperscript" canvas="canvas-53">
 function onMouseDown(event) {
-	// Create a circle shaped path at the mouse position,
-	// with a radius of 10:
-	var path = new Path.Circle({
-		center: event.point,
-		radius: 10,
-		fillColor: 'black'
-	});
+    // Create a circle shaped path at the mouse position,
+    // with a radius of 10:
+    var path = new Path.Circle({
+        center: event.point,
+        radius: 10,
+        fillColor: 'black'
+    });
 
-	// Remove the path, when the mouse is released:
-	path.removeOnUp();
+    // Remove the path, when the mouse is released:
+    path.removeOnUp();
 }
 </script>
-<div class="canvas"><canvas width="516" height="200" id="canvas-51"></canvas></div>
+<div class="canvas"><canvas width="516" height="200" id="canvas-53"></canvas></div>
 </div>
 
 
@@ -4800,20 +6393,19 @@ function onMouseDown(event) {
 <div class="member-description hidden">
 
 <div class="member-text">
-	<p>Specifies whether the group item is to be clipped.</p>
-<p>When setting to <tt>true</tt>, the first child in the group is
-automatically defined as the clipping mask.</p>
+	<p>Specifies whether the group item is to be clipped. When setting to <code>true</code>, the first child in the group is automatically defined as the clipping mask.</p>
 	
 	
-	<ul><b>Type:</b>
-	<li>
-		<tt>Boolean</tt>
-	</li>
+	
+	<ul class="member-list">
+		<h4>Type:</h4>
+		<li>
+			<tt>Boolean</tt>
+		</li>
 	</ul>
+    
 	
-	<p>
-<b>Example</b> 
-</p>
+	<h4>Example:</h4>
 
 <div class="paperscript split">
 
@@ -4821,19 +6413,19 @@ automatically defined as the clipping mask.</p>
 <div class="button run">Run</div>
 </div>
 
-<script type="text/paperscript" canvas="canvas-52">
+<script type="text/paperscript" canvas="canvas-54">
 var star = new Path.Star({
-	center: view.center,
-	points: 6,
-	radius1: 20,
-	radius2: 40,
-	fillColor: 'red'
+    center: view.center,
+    points: 6,
+    radius1: 20,
+    radius2: 40,
+    fillColor: 'red'
 });
 
 var circle = new Path.Circle({
-	center: view.center,
-	radius: 25,
-	strokeColor: 'black'
+    center: view.center,
+    radius: 25,
+    strokeColor: 'black'
 });
 
 // Create a group of the two items and clip it:
@@ -4842,11 +6434,11 @@ group.clipped = true;
 
 // Lets animate the circle:
 function onFrame(event) {
-	var offset = Math.sin(event.count / 30) * 30;
-	circle.position.x = view.center.x + offset;
+    var offset = Math.sin(event.count / 30) * 30;
+    circle.position.x = view.center.x + offset;
 }
 </script>
-<div class="canvas"><canvas width="516" height="100" id="canvas-52"></canvas></div>
+<div class="canvas"><canvas width="516" height="100" id="canvas-54"></canvas></div>
 </div>
 
 
@@ -4860,8 +6452,12 @@ function onFrame(event) {
 
 
 
-<!-- =========================== copyright notice ========================= -->
-<p class="footer">Copyright &#169; 2011 <a href="http://www.lehni.org" target="_blank">J&uuml;rg Lehni</a> &amp; <a href="http://www.jonathanpuckey.com" target="_blank">Jonathan Puckey</a>. All Rights Reserved.</p>
+<!-- =========================== copyright notice ========================== -->
+<p class="footer">
+Paper.js v0.11.4<br>
+Copyright &#169; 2011—2017 <a href="http://www.lehni.org" target="_blank">J&uuml;rg Lehni</a> &amp; <a href="http://www.jonathanpuckey.com" target="_blank">Jonathan Puckey</a>. All Rights Reserved.</p>
 <div class="content-end"></div>
 
+
+</article>
 </body>
